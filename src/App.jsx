@@ -1,7 +1,16 @@
 import "./index.css";
 
+// Components
+import Navbar from "./components/navbar/Navbar";
+import Singup from "./pages/Singup";
+
 function App() {
-  return <div className="bg-jade-600"> ehsan</div>;
+  return (
+    <div>
+      <Navbar />
+      <Singup />
+    </div>
+  );
 }
 
 export default App;
