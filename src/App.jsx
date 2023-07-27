@@ -7,7 +7,7 @@ import Singup from "./pages/Singup";
 function App() {
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <Singup />
     </div>
   );
