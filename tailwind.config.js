@@ -2,6 +2,10 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        english: "english",
+        kurdish: "kurdish",
+      },
       colors: {
         jade: {
           50: "#ebfef6",
