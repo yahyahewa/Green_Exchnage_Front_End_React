@@ -8,6 +8,8 @@ import Signup from "../Singup";
 import About from "../About";
 import Support from "../Support";
 import SingleItem from "../SingleItem";
+import Login from "../Login";
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 const Router = () => {
   return (
@@ -19,6 +21,7 @@ const Router = () => {
         <Route path="/support" element={<Support />} />
         <Route path="/about" element={<About />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </BrowserRouter>
