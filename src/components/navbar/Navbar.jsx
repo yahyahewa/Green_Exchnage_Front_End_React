@@ -3,6 +3,7 @@ import Menu from "../../assets/Icons/hamburger.png";
 import { Navlink } from "../../assets/Data";
 import { Link } from "react-router-dom";
 const Navbar = () => {
+  localStorage.setItem("isUser", "yahya");
   const [showMenu, setShowMenu] = useState(false);
 
   const handleToggleMenu = () => {
@@ -10,47 +11,60 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white fixed w-full z-20 top-0 left-0 font-sans">
-      <div className="max-w-screen-full flex items-center justify-between p-4">
-        <a href="#" className="flex items-center">
-          <span className="self-center text-jade-600 text-3xl font-bold">
-            G
-          </span>
-          <span className="text-black text-2xl pt-1">reen</span>
-          <span className="text-jade-600 text-3xl font-bold">E</span>
-          <span className="text-black text-2xl pt-1">xchange</span>
-        </a>
-        <div className="flex md:order-2 ">
-          <Link
-            to={"/login"}
-            className="text-white bg-jade-600 hover:bg-jade-700 focus:ring-2 focus:outline-none focus:ring-jade-300 font-bold rounded md:text-xl md:px-4 md:py-3 sm:px-1 sm:mr-4 text-center mr-0 sm:text-sm sm:p-0"
-          >
-            Get started
-          </Link>
-          <button
-            onClick={handleToggleMenu}
-            type="button"
-            className="inline-flex items-center p-0 w-8 h-8 justify-center text-sm rounded md:hidden hover:bg-jade-100  "
-          >
-            <img className="" src={Menu} alt="Menu" />
-          </button>
-        </div>
-        <div
-          className={`${
-            showMenu ? "block" : "hidden"
-          } items-center justify-between  sm:flex   bg-gray-100 `}
+    <nav className="flex justify-between items-center py-1 px-2 relative">
+      <Link to="/" className="flex sm:flex-row items-start justify-center">
+        <span className="self-center text-jade-600 text-3xl font-bold">G</span>
+        <span className="text-black text-2xl pt-1 hidden sm:block">reen</span>
+        <span className="text-jade-600 text-3xl font-bold">E</span>
+        <span className="text-black text-2xl pt-1 hidden sm:block">
+          xchange
+        </span>
+      </Link>
+      {/* ------ humbergr menu , get start image account  ----------------- */}
+      <article
+        className={`flex flex-col absolute top-0 md:top-auto md:relative md:left-auto
+         md:flex-row md:justify-between items-center p-1 gap-3 bg-jade-600
+          md:bg-white h-[100vh] md:h-auto w-1/2 md:w-auto text-gray-100 md:text-gray-600 transition-all
+          ${showMenu ? "-left-0" : "-left-[100%]"}`}
+      >
+        {Navlink.map((value) => {
+          return (
+            <Link
+              onClick={() => {
+                setShowMenu(false);
+              }}
+              to={value.Link}
+              key={value.id}
+              className="text-lg font-bold"
+            >
+              {value.Title}
+            </Link>
+          );
+        })}
+      </article>
+      {/* ------ humbergr menu , get start image account----------------- */}
+      <article className="box-border flex justify-center items-center gap-2 pt-1">
+        <Link
+          to="/"
+          className={`bg-jade-600 text-gray-100 p-2 py-[6px] rounded font-bold`}
         >
-          <ul className="tracking-wide text-xl font-bold flex flex-col  md:p-0 mt-0 md:flex-row md:space-x-16 md:mt-0 md:border-0 md:bg-white">
-            {Navlink.map((value) => {
-              return (
-                <Link to={value.Link} key={value.id} className={value.Style}>
-                  {value.Title}
-                </Link>
-              );
-            })}
-          </ul>
-        </div>
-      </div>
+          {localStorage.getItem("isUser") ? "New Donate +" : "Get Start"}
+        </Link>
+        {localStorage.getItem("isUser") && (
+          <img
+            src="https://img.freepik.com/free-icon/user_318-804790.jpg"
+            className="w-8 rounded-full"
+          />
+        )}
+        <article
+          className={`md:hidden flex flex-col justify-evenly gap-1`}
+          onClick={handleToggleMenu}
+        >
+          <div className="w-[30px] h-1 bg-slate-500 rounded"></div>
+          <div className="w-[30px] h-1 bg-slate-500 rounded"></div>
+          <div className="w-[30px] h-1 bg-slate-500 rounded"></div>
+        </article>
+      </article>
     </nav>
   );
 };
