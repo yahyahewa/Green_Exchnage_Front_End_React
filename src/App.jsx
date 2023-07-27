@@ -1,14 +1,11 @@
 import "./index.css";
 
 // Components
-import Navbar from "./components/navbar/Navbar";
-import Singup from "./pages/Singup";
-
+import Router from "./pages/Router/Router";
 function App() {
   return (
     <div>
-      <Navbar />
-      <Singup />
+      <Router />
     </div>
   );
 }
