@@ -1,15 +1,18 @@
 import "./index.css";
-
+import { BrowserRouter } from "react-router-dom";
+import Router from "./Routes/Router";
 // Components
 import Navbar from "./components/navbar/Navbar";
-import Singup from "./pages/Singup";
-
+import Footer from "./components/Fotter/Fotter";
 function App() {
   return (
-    <div>
-      <Navbar />
-      <Singup />
-    </div>
+    <>
+      <BrowserRouter>
+        <Navbar />
+        <Router />
+        <Footer />
+      </BrowserRouter>
+    </>
   );
 }
 

@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import PasswordStrengthBar from "react-password-strength-bar";
 
-const Singup = () => {
+const Signup = () => {
   const [errors, setErrors] = useState([]);
   const [user, setUser] = useState({
     name: "",
@@ -22,7 +22,7 @@ const Singup = () => {
         <div className="flex items-center w-full max-w-3xl  mx-auto ">
           <div className="w-full">
             <p className=" text-center text-2xl pt-16  md:font-bold ">
-              Sing Up
+              Sign Up
             </p>
             {/* {auth.registerStatus === "rejected" ? (
               <p className="text-red-900 text-2xl pt-4">{auth.registerError}</p>
@@ -43,7 +43,7 @@ const Singup = () => {
                   onChange={(e) => setUser({ ...user, name: e.target.value })}
                   type="text"
                   placeholder="John"
-                  className="w-full py-2 px-3 border-2 text-xl border-jade-500 rounded shadow-sm focus:outline-none focus:border-jade-50-500"
+                  className="w-full py-2 px-3 border-2 text-xl border-gray-500 rounded shadow-sm focus:outline-none focus:border-jade-600"
                 />
               </div>
               <div>
@@ -54,7 +54,7 @@ const Singup = () => {
                   onChange={(e) => setUser({ ...user, Phone: e.target.value })}
                   type="text"
                   placeholder="07xxxxxxxx"
-                  className="w-full py-2 px-3 border-2 text-xl border-jade-500 rounded shadow-sm focus:outline-none focus:border-jade-50-500"
+                  className="w-full py-2 px-3 border-2 text-xl border-gray-500 rounded shadow-sm focus:outline-none focus:border-jade-600"
                 />
               </div>
               <div>
@@ -67,7 +67,7 @@ const Singup = () => {
                   }
                   type="text"
                   placeholder="Sulaymaniyah"
-                  className="w-full py-2 px-3 border-2 text-xl border-jade-500 rounded shadow-sm focus:outline-none focus:border-jade-50-500"
+                  className="w-full py-2 px-3 border-2 text-xl border-gray-500 rounded shadow-sm focus:outline-none focus:border-jade-600"
                 />
               </div>
               <div>
@@ -78,7 +78,7 @@ const Singup = () => {
                   onChange={(e) => setUser({ ...user, email: e.target.value })}
                   type="email"
                   placeholder="********@example.com"
-                  className="w-full py-2 px-3 border-2 text-xl border-jade-500 rounded shadow-sm focus:outline-none focus:border-jade-400"
+                  className="w-full py-2 px-3 border-2 text-xl border-gray-500 rounded shadow-sm focus:outline-none focus:border-jade-600"
                 />
               </div>
               <div className="p-0">
@@ -92,7 +92,7 @@ const Singup = () => {
                   }
                   type="password"
                   placeholder="Enter your password"
-                  className="w-full py-2 px-3 border-2 text-xl border-jade-500 rounded shadow-sm focus:outline-none focus:border-jade-400"
+                  className="w-full py-2 px-3 border-2 text-xl border-gray-500 rounded shadow-sm focus:outline-none focus:border-jade-600"
                 />
                 <PasswordStrengthBar
                   password={user.password}
@@ -101,7 +101,7 @@ const Singup = () => {
               </div>
 
               <div className="flex justify-center ">
-                <button className="flex  text-xl mb-8  px-8 py-3  tracking-wide text-white capitalize transition-colors duration-300 transform bg-jade-600 rounded hover:bg-jade-400 focus:outline-none focus:ring focus:ring-jade-300 focus:ring-opacity-50">
+                <button className="flex  text-xl mb-8  px-24 py-3  tracking-wide text-white capitalize transition-colors duration-300 transform bg-jade-600 rounded hover:bg-jade-400 focus:outline-none focus:ring focus:ring-jade-300 focus:ring-opacity-50">
                   Sign Up
                 </button>
               </div>
@@ -121,4 +121,4 @@ const Singup = () => {
   );
 };
 
-export default Singup;
+export default Signup;
