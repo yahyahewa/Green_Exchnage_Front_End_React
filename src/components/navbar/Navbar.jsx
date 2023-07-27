@@ -1,9 +1,8 @@
 import { useState } from "react";
-import Menu from "../../assets/Icons/hamburger.png";
 import { Navlink } from "../../assets/Data";
 import { Link } from "react-router-dom";
 const Navbar = () => {
-  localStorage.setItem("isUser", "yahya");
+  localStorage.clear("isUser", "yahya");
   const [showMenu, setShowMenu] = useState(false);
 
   const handleToggleMenu = () => {
