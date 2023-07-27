@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Menu from "../../assets/Icons/hamburger.png";
 import { Navlink } from "../../assets/Data";
-
+import { Link } from "react-router-dom";
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
 
@@ -21,12 +21,12 @@ const Navbar = () => {
           <span className="text-black text-2xl pt-1">xchange</span>
         </a>
         <div className="flex md:order-2 ">
-          <button
-            type="button"
+          <Link
+            to={"/login"}
             className="text-white bg-jade-600 hover:bg-jade-700 focus:ring-2 focus:outline-none focus:ring-jade-300 font-bold rounded md:text-xl md:px-4 md:py-3 sm:px-1 sm:mr-4 text-center mr-0 sm:text-sm sm:p-0"
           >
             Get started
-          </button>
+          </Link>
           <button
             onClick={handleToggleMenu}
             type="button"
@@ -41,14 +41,11 @@ const Navbar = () => {
           } items-center justify-between  sm:flex   bg-gray-100 `}
         >
           <ul className="tracking-wide text-xl font-bold flex flex-col  md:p-0 mt-0 md:flex-row md:space-x-16 md:mt-0 md:border-0 md:bg-white">
-            {Navlink.map((link) => {
-              const { Title, Link, Style, id } = link;
+            {Navlink.map((value) => {
               return (
-                <li key={id}>
-                  <a href={Link} className={Style}>
-                    {Title}
-                  </a>
-                </li>
+                <Link to={value.Link} key={value.id} className={value.Style}>
+                  {value.Title}
+                </Link>
               );
             })}
           </ul>
