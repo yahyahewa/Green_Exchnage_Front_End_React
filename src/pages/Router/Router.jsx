@@ -9,11 +9,14 @@ import About from "../About";
 import Support from "../Support";
 import SingleItem from "../SingleItem";
 import Login from "../Login";
+import Navbar from "../../components/navbar/Navbar";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 const Router = () => {
   return (
     <BrowserRouter>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/items" element={<Items />} />
