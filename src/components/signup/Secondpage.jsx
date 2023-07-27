@@ -7,7 +7,7 @@ function Secondpage({ formData, setFormData }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex-col justify-center items-center w-[45%] font-english"
+      className="flex flex-col justify-center items-center w-full sm:w-2/3 md:w-1/2"
     >
       <div className="flex flex-col w-[90%] my-2">
         <label className="mx-1 text-lg text-gray-600">Upload Image</label>
