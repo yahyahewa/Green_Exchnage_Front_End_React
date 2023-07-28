@@ -40,7 +40,7 @@ const Navbar = () => {
               }}
               to={value.Link}
               key={value.id}
-              className="text-lg font-bold"
+              className={value.Style}
             >
               {value.Title}
             </Link>
