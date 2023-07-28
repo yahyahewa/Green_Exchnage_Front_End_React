@@ -49,7 +49,7 @@ const Navbar = () => {
       {/* ------ humbergr menu , get start image account----------------- */}
       <article className="box-border flex justify-center items-center gap-2 pt-1">
         <Link
-          to="/"
+          to={localStorage.getItem("isUser") ? "/donate" : "signup"}
           className={`bg-jade-600 text-gray-100 p-2 py-[6px] rounded font-bold`}
         >
           {localStorage.getItem("isUser") ? "New Donate +" : "Get Start"}
