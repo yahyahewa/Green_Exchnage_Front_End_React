@@ -2,11 +2,17 @@ import { useState } from "react";
 import { Navlink } from "../../assets/Data";
 import { Link } from "react-router-dom";
 const Navbar = () => {
-  localStorage.clear("isUser", "yahya");
   const [showMenu, setShowMenu] = useState(false);
 
   const handleToggleMenu = () => {
     setShowMenu((prevShowMenu) => !prevShowMenu);
+    if (!localStorage.getItem("isUser")) {
+      console.log("ddd");
+      localStorage.setItem("isUser", "yahya");
+    } else {
+      localStorage.clear("isUser", "yahya");
+      console.log("sss");
+    }
   };
 
   return (
@@ -49,7 +55,7 @@ const Navbar = () => {
       {/* ------ humbergr menu , get start image account----------------- */}
       <article className="box-border flex justify-center items-center gap-2 pt-1">
         <Link
-          to={localStorage.getItem("isUser") ? "/donate" : "signup"}
+          to={localStorage.getItem("isUser") ? "/donate" : "/signup"}
           className={`bg-jade-600 text-gray-100 p-2 py-[6px] rounded font-bold`}
         >
           {localStorage.getItem("isUser") ? "New Donate +" : "Get Start"}
