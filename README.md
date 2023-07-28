@@ -1,8 +1,2 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Green-Exchange
+Welcome to GreenExchange, an innovative online platform dedicated to promoting resource conservation and sustainable living. Our website aims to create a culture of environmental responsibility by providing individuals with a convenient platform to post their unwanted items, enabling others who are in need to acquire them. Through the facilitation of material reuse, we strive to minimize waste and promote a more eco-friendly way of living.
