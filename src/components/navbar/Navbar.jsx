@@ -1,8 +1,9 @@
 import { useState } from "react";
+import Menu from "../../assets/Icons/hamburger.png";
 import { Navlink } from "../../assets/Data";
 import { Link } from "react-router-dom";
 const Navbar = () => {
-  localStorage.clear("isUser", "yahya");
+  localStorage.setItem("isUser", "yahya");
   const [showMenu, setShowMenu] = useState(false);
 
   const handleToggleMenu = () => {
@@ -34,7 +35,7 @@ const Navbar = () => {
               }}
               to={value.Link}
               key={value.id}
-              className="text-lg font-bold"
+              className={value.Style}
             >
               {value.Title}
             </Link>
