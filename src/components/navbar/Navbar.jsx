@@ -40,6 +40,11 @@ const Navbar = () => {
             </Link>
           );
         })}
+        <select className="outline-none font-bold font-kurdish pt-1">
+          <option value="k">کوردی</option>
+          <option value="a">عربي</option>
+          <option value="e">English</option>
+        </select>
       </article>
       {/* ------ humbergr menu , get start image account----------------- */}
       <article className="box-border flex justify-center items-center gap-2 pt-1">
