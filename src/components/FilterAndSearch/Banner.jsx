@@ -5,7 +5,7 @@ import Filter from "./Filter/Filter";
 const Banner = () => {
   return (
     <>
-      <div className="md:w-full flex pt-4 items-center justify-center px-2">
+      <div className="flex flex-wrap">
         <Search />
         <Filter />
       </div>
