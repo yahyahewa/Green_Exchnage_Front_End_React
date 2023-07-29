@@ -1,6 +1,6 @@
 const Search = () => {
   return (
-    <div className="w-1/3 mr-auto bg-gray-400 h-12">
+    <div className="relative  flex ">
       <div className="absolute flex ml-2 items-center justify-start h-full">
         <img
           className="w-4 h-4 fill-current "
