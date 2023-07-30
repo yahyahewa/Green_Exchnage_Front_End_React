@@ -4,7 +4,7 @@ export const Navlink = [
     Title: "Home",
     Style:
       "block px-3 py-2 text-xl rounded active:text-jade-200 font-bold hover:text-jade-400 hover:text-jade-900 focus:outline-none focus:text-jade-600 focus:font-semibold",
-    Link: "home",
+    Link: "/",
   },
   {
     id: 2,

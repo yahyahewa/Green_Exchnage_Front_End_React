@@ -1,7 +1,7 @@
-import React from "react";
-import Navbar from "../components/navbar/Navbar";
+import Banner from "../components/FilterAndSearch/Banner";
+
 function Home() {
-  return <div></div>;
+  return <Banner />;
 }
 
 export default Home;
