@@ -1,14 +1,34 @@
 import React from "react";
-
+import {useSignupMutation} from "../../app/api/auth"
+import { Navigate } from "react-router-dom";
+import { useEffect } from "react";
+import { data } from "autoprefixer";
 function Secondpage({ formData, setFormData }) {
+  
+  const[signUp,{data:userData,isErro,isLoading}]=useSignupMutation();
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    signUp(formData);
   };
+  
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  useEffect(()=>{
+    if(!isErro && !isLoading && userData){
+      localStorage.setItem("userData",JSON.stringify(userData?.data?.data));
+    }
+    },[userData])
+
+      if (userData)return <Navigate to={"/profile"} replace />;
   return (
     <form
       onSubmit={handleSubmit}
       className="flex flex-col justify-center items-center w-full sm:w-2/3 md:w-1/2"
     >
+    {/* ------------- image feild ----------------- */}
       <div className="flex flex-col w-[90%] my-2">
         <label className="mx-1 text-lg text-gray-600">Upload Image</label>
         <div className="m-1 border-2 border-jade-400 hover:border-jade-500 rounded-md transition-all">
@@ -16,7 +36,7 @@ function Secondpage({ formData, setFormData }) {
             onChange={(e) =>
               setFormData({ ...formData, [e.target.name]: e.target.files[0] })
             }
-            required={true}
+            // required={true}
             type="file"
             name="image"
             accept="image/*"
@@ -24,14 +44,13 @@ function Secondpage({ formData, setFormData }) {
           />
         </div>
       </div>
+      {/* ------------- country feild ----------------- */}
       <div className="flex flex-col w-[90%] my-2">
         <label className="mx-1 text-lg text-gray-600">Country</label>
         <div className="m-1 border-2 border-jade-400 hover:border-jade-500 rounded-md transition-all">
           <select
             disabled
-            onChange={(e) =>
-              setFormData({ ...formData, [e.target.name]: e.target.value })
-            }
+            onChange={handleInputChange}
             required={true}
             name="country"
             className="h-9 ml-1 outline-none px-2 py-2 w-[95%]"
@@ -40,13 +59,12 @@ function Secondpage({ formData, setFormData }) {
           </select>
         </div>
       </div>
+      {/* ------------- city feild ----------------- */}
       <div className="flex flex-col w-[90%] my-2">
         <label className="mx-1 text-lg text-gray-600">City</label>
         <div className="m-1 border-2 border-jade-400 hover:border-jade-500 rounded-md transition-all">
           <select
-            onChange={(e) =>
-              setFormData({ ...formData, [e.target.name]: e.target.value })
-            }
+            onChange={handleInputChange}
             required={true}
             name="city"
             className="h-9 ml-1 outline-none px-2 py-2 w-[95%]"
@@ -58,13 +76,12 @@ function Secondpage({ formData, setFormData }) {
           </select>
         </div>
       </div>
+      {/* ------------- city feild ----------------- */}
       <div className="flex flex-col w-[90%] my-2">
         <label className="mx-1 text-lg text-gray-600">Neighborhood</label>
         <div className="m-1 border-2 border-jade-400 hover:border-jade-500 rounded-md transition-all">
           <input
-            onChange={(e) =>
-              setFormData({ ...formData, [e.target.name]: e.target.value })
-            }
+            onChange={handleInputChange}
             required={true}
             type="text"
             name="neighborhood"
@@ -72,13 +89,12 @@ function Secondpage({ formData, setFormData }) {
           />
         </div>
       </div>
+      {/* ------------- city feild ----------------- */}
       <div className="flex flex-col w-[90%] my-2">
         <label className="mx-1 text-lg text-gray-600">Street Number</label>
         <div className="m-1 border-2 border-jade-400 hover:border-jade-500 rounded-md transition-all">
           <input
-            onChange={(e) =>
-              setFormData({ ...formData, [e.target.name]: e.target.value })
-            }
+            onChange={handleInputChange}
             required={true}
             type="number"
             name="streetNumber"
@@ -86,13 +102,12 @@ function Secondpage({ formData, setFormData }) {
           />
         </div>
       </div>
+      {/* ------------- city feild ----------------- */}
       <div className="flex flex-col w-[90%] my-2">
         <label className="mx-1 text-lg text-gray-600">House Number</label>
         <div className="m-1 border-2 border-jade-400 hover:border-jade-500 rounded-md transition-all">
           <input
-            onChange={(e) =>
-              setFormData({ ...formData, [e.target.name]: e.target.value })
-            }
+            onChange={handleInputChange}
             required={true}
             type="text"
             name="houseNumber"
@@ -103,8 +118,8 @@ function Secondpage({ formData, setFormData }) {
       {/* -------------------- submit button --------------------------------- */}
       <div className="flex justify-center w-[90%] my-4">
         <button
-          //   onClick={handleSubmit}
-          className="px-4 py-2 bg-jade-500 hover:bg-jade-600 text-white rounded-md transition-all w-full"
+        disabled={isErro ? true:isLoading?true:false}
+          className={`px-4 py-2 ${isErro ? 'bg-jade-200':isLoading?' bg-jade-200':' bg-jade-500 hover:bg-jade-600 '} text-white rounded-md transition-all w-full`}
         >
           Submit
         </button>
@@ -112,5 +127,4 @@ function Secondpage({ formData, setFormData }) {
     </form>
   );
 }
-
 export default Secondpage;
