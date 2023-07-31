@@ -1,20 +1,21 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { Navlink } from "../../assets/Data";
 import { Link } from "react-router-dom";
+import { useSignupMutation } from "../../app/api/auth";
 const Navbar = () => {
+  const[data]=useSignupMutation();
   const [showMenu, setShowMenu] = useState(false);
+  const [isUser, setIsUser] = useState(false);
 
+  useEffect(() => {
+    if(JSON.parse(localStorage.getItem("userData")))
+    {
+      setIsUser(true);
+    }
+  }, []);
   const handleToggleMenu = () => {
     setShowMenu((prevShowMenu) => !prevShowMenu);
-    if (!localStorage.getItem("isUser")) {
-      console.log("ddd");
-      localStorage.setItem("isUser", "yahya");
-    } else {
-      localStorage.clear("isUser", "yahya");
-      console.log("sss");
-    }
   };
-
   return (
     <nav className="flex justify-between  items-center py-1 px-2 relative">
       <Link to="/" className="flex sm:flex-row items-start justify-center ">
@@ -55,16 +56,16 @@ const Navbar = () => {
       {/* ------ humbergr menu , get start image account----------------- */}
       <article className="box-border flex  justify-center items-center gap-2 pt-1">
         <Link
-          to={localStorage.getItem("isUser") ? "/donate" : "/signup"}
+          to={isUser ? "/donate" : "/signup"}
           className={`bg-jade-600 text-gray-100 p-2 py-[6px] rounded font-bold`}
         >
-          {localStorage.getItem("isUser") ? "New Donate +" : "Get Start"}
+          {isUser ? "New Donate +" : "Get Start"}
         </Link>
-        {localStorage.getItem("isUser") && (
-          <img
-            src="https://img.freepik.com/free-icon/user_318-804790.jpg"
-            className="w-8 rounded-full"
-          />
+        {isUser && (
+          <Link to="/profile"><img
+          src="https://img.freepik.com/free-icon/user_318-804790.jpg"
+          className="w-8 rounded-full"
+        /></Link>
         )}
         <article
           className={`md:hidden flex flex-col justify-evenly gap-1`}
