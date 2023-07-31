@@ -5,5 +5,5 @@ export  default configureStore({
     reducer:{
         [api.reducerPath]:api.reducer
     }
-    ,middleware:(gdmw)=>gdmw.concat(api.middleware)
+    ,middleware:(gdmw)=>gdmw().concat(api.middleware)
 })
