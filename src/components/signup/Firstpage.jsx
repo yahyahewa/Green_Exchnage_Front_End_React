@@ -10,6 +10,10 @@ function Firstpage({ formData, setFormData, setWichPage }) {
     e.preventDefault();
     setWichPage("second");
   };
+  
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
   return (
     <form
       className="flex flex-col justify-center items-center w-full sm:w-2/3 md:w-1/2 "
@@ -20,12 +24,10 @@ function Firstpage({ formData, setFormData, setWichPage }) {
         <label className=" mx-1 text-lg text-gray-600">Full Name</label>
         <div className="m-1 border-2 border-jade-400 hover:border-jade-500 rounded-md transition-all">
           <input
+          onChange={handleInputChange}
             required={true}
             type="text"
             name="fullname"
-            onChange={(e) =>
-              setFormData({ ...formData, [e.target.name]: e.target.value })
-            }
             className=" h-9 ml-1 outline-none px-2 py-2 w-[95%]"
           />
         </div>
@@ -35,9 +37,7 @@ function Firstpage({ formData, setFormData, setWichPage }) {
         <label className=" mx-1 text-lg text-gray-600">Email</label>
         <div className="m-1 border-2 border-jade-400 hover:border-jade-500 rounded-md transition-all">
           <input
-            onChange={(e) =>
-              setFormData({ ...formData, [e.target.name]: e.target.value })
-            }
+            onChange={handleInputChange}
             required={true}
             type="email"
             name="email"
@@ -50,9 +50,7 @@ function Firstpage({ formData, setFormData, setWichPage }) {
         <label className=" mx-1 text-lg text-gray-600">Phone</label>
         <div className="m-1 border-2 border-jade-400 hover:border-jade-500 rounded-md transition-all">
           <input
-            onChange={(e) =>
-              setFormData({ ...formData, [e.target.name]: e.target.value })
-            }
+            onChange={handleInputChange}
             required={true}
             type="tel"
             name="phone"
@@ -65,9 +63,7 @@ function Firstpage({ formData, setFormData, setWichPage }) {
         <label className="mx-1 text-lg text-gray-600">Password</label>
         <div className="flex items-center m-1 border-2 border-jade-400 hover:border-jade-500 rounded-md transition-all">
           <input
-            onChange={(e) =>
-              setFormData({ ...formData, [e.target.name]: e.target.value })
-            }
+            onChange={handleInputChange}
             required={true}
             type={showPassword ? "text" : "password"}
             name="password"
@@ -90,11 +86,7 @@ function Firstpage({ formData, setFormData, setWichPage }) {
         <label className="mx-1 text-lg text-gray-600">Gender</label>
         <div className="m-1 border-2 border-jade-400 hover:border-jade-500 rounded-md transition-all">
           <select
-            onChange={(e) => {
-              if (e.target.value != "") {
-                setFormData({ ...formData, [e.target.name]: e.target.value });
-              }
-            }}
+          onChange={handleInputChange}
             required={true}
             name="gender"
             className="h-9 ml-1 outline-none px-2 py-2 w-[97%]"
@@ -111,9 +103,7 @@ function Firstpage({ formData, setFormData, setWichPage }) {
         <label className="mx-1 text-lg text-gray-600">Birthday</label>
         <div className="m-1 border-2 border-jade-400 hover:border-jade-500 rounded-md transition-all">
           <input
-            onChange={(e) =>
-              setFormData({ ...formData, [e.target.name]: e.target.value })
-            }
+            onChange={handleInputChange}
             required={true}
             type="date"
             name="birthday"
