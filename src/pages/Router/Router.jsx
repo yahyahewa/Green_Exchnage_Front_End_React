@@ -9,14 +9,14 @@ import About from "../About";
 import Support from "../Support";
 import SingleItem from "../SingleItem";
 import Login from "../Login";
-import Navbar from "../../components/navbar/Navbar";
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {  Routes, Route } from "react-router-dom";
+import Protect from "../../components/protect/Protect";
+import Profile from "../Profile";
+import NotAuthorized from "../../components/protect/NotAuthorized";
 
 const Router = () => {
   return (
-    <BrowserRouter>
-      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/items" element={<Items />} />
@@ -25,9 +25,12 @@ const Router = () => {
         <Route path="/about" element={<About />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/403" element={<NotAuthorized/>}/>
+        <Route element={<Protect/>}>
+          <Route path="/profile" element={<Profile/>}/>
+        </Route>
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
-    </BrowserRouter>
   );
 };
 
