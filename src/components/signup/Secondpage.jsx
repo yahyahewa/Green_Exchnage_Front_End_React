@@ -2,7 +2,6 @@ import React from "react";
 import {useSignupMutation} from "../../app/api/auth"
 import { Navigate } from "react-router-dom";
 import { useEffect } from "react";
-import { data } from "autoprefixer";
 function Secondpage({ formData, setFormData }) {
   
   const[signUp,{data:userData,isErro,isLoading}]=useSignupMutation();
@@ -18,7 +17,7 @@ function Secondpage({ formData, setFormData }) {
 
   useEffect(()=>{
     if(!isErro && !isLoading && userData){
-      localStorage.setItem("userData",JSON.stringify(userData?.data?.data));
+      localStorage.setItem("userData",JSON.stringify(userData?.data));
     }
     },[userData])
 
