@@ -11,20 +11,13 @@ function SignInPage() {
     e.preventDefault();
     login(formData);
     }
-
-    
-  // useEffect(()=>{
-  //   if(!isErro && !isLoading && userData){
-  //     localStorage.setItem("userData",JSON.stringify(userData?.data));
-  //   }
-  //   },[userData])
-
     useEffect(()=>{
         if(!isErro && !isLoading && data){
          JSON.stringify(localStorage.setItem("userData",JSON.stringify(data?.data)));
         }
     },[data])
-    if (data)return <Navigate to={"/profile"} replace />;
+    
+    if (data && data?.data?.token)return <Navigate to={"/profile"} replace />;
   return (
     <div>
       <section className="bg-gray-50 dark:bg-gray-900">
@@ -89,8 +82,10 @@ function SignInPage() {
                   </Link>
                 </div>
                 <button
+                disabled={isErro?true:isLoading?true:false}
                   type="submit"
-                  className="w-full text-white bg-[#00AA7A] hover:bg-[#00674a] focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  className={`w-full text-white  ${isErro ? 'bg-jade-200':isLoading?' bg-jade-200':' bg-jade-500 hover:bg-jade-600 '} focus:ring-4 focus:outline-none focus:ring-primary-300
+                   font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800`}
                 >
                   Sign in
                 </button>
