@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import React ,{ useState,useEffect } from "react";
 import { Navlink } from "../../assets/Data";
 import { Link } from "react-router-dom";
 import { useSignupMutation } from "../../app/api/auth";
