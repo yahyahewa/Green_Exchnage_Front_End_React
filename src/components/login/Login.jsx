@@ -90,7 +90,7 @@ function SignInPage() {
                   Sign in
                 </button>
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                  Don’t have an account yet?{' '}
+                  Don’t have an account yet?
                   <Link to="/signup" className="font-medium text-[#00AA7A] hover:underline dark:text-[#00674a]">
                     Sign up
                   </Link>
