@@ -14,14 +14,13 @@ function Secondpage({ formData, setFormData }) {
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
   useEffect(()=>{
     if(!isErro && !isLoading && userData){
       localStorage.setItem("userData",JSON.stringify(userData?.data));
     }
     },[userData])
 
-      if (userData)return <Navigate to={"/profile"} replace />;
+      if (userData && userData?.data?.token)return <Navigate to={"/profile"} replace />;
   return (
     <form
       onSubmit={handleSubmit}
