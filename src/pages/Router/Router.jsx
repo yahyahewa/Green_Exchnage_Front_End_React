@@ -14,6 +14,7 @@ import {  Routes, Route } from "react-router-dom";
 import Protect from "../../components/protect/Protect";
 import Profile from "../Profile";
 import NotAuthorized from "../../components/protect/NotAuthorized";
+import NotFound from "../../components/NotFound";
 
 const Router = () => {
   return (
@@ -29,7 +30,7 @@ const Router = () => {
         <Route element={<Protect/>}>
           <Route path="/profile" element={<Profile/>}/>
         </Route>
-        {/* <Route path="*" element={<NotFound />} /> */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
   );
 };
