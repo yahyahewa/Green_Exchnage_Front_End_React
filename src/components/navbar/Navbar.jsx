@@ -6,7 +6,6 @@ const Navbar = () => {
   const[data]=useSignupMutation();
   const [showMenu, setShowMenu] = useState(false);
   const [isUser, setIsUser] = useState(false);
-
   useEffect(() => {
     if(JSON.parse(localStorage.getItem("userData")))
     {
@@ -29,7 +28,7 @@ const Navbar = () => {
       {/* ------ humbergr menu , get start image account  ----------------- */}
       <article
         className={`flex flex-col absolute top-0 md:top-auto md:relative md:left-auto 
-         md:flex-row md:justify-between items-center p-1 gap-3 bg-jade-600
+         md:flex-row md:justify-between items-center p-1 gap-3 bg-jade-600 z-10
           md:bg-white h-[100vh] md:h-auto w-1/2 md:w-auto text-gray-100 md:text-gray-600 transition-all
           ${showMenu ? "-left-0" : "-left-[100%]"}`}
       >
@@ -47,7 +46,7 @@ const Navbar = () => {
             </Link>
           );
         })}
-        <select className="outline-none font-bold font-kurdish pt-1">
+        <select className="outline-none font-bold font-kurdish pt-1 bg-jade-600 text-gray-100 md:bg-white md:text-gray-800">
           <option value="k">کوردی</option>
           <option value="a">عربي</option>
           <option value="e">English</option>
@@ -63,7 +62,7 @@ const Navbar = () => {
         </Link>
         {isUser && (
           <Link to="/profile"><img
-          src="https://img.freepik.com/free-icon/user_318-804790.jpg"
+          src={JSON.parse(localStorage.getItem("userData"))?.data?.image?`${import.meta.env.VITE_BACK_END}uploads/users/${JSON.parse(localStorage.getItem("userData"))?.data?.image}`:`${import.meta.env.VITE_BACK_END}uploads/users/defaultuser.png`}
           className="w-8 rounded-full"
         /></Link>
         )}
