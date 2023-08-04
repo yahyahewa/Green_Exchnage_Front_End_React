@@ -9,7 +9,7 @@ function Profile() {
     <>
       <Navbar />
       <main
-        className={`w-full flex justify-start items-start p-2 mt-10 h-screen`}
+        className={`w-full flex justify-start items-start p-2 mt-10 h-screen max-w-[2000px] dark:text-white`}
       >
         <Sidebar component={components} setComponent={setComponents} />
         {components}
