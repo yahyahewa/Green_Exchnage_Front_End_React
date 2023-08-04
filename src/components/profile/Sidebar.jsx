@@ -8,7 +8,7 @@ function Sidebar({ setComponent }) {
   return (
     <aside
       className={`w-8 sm:w-36 flex flex-col justify-between items-start
-        font-kurdish rounded-md overflow-hidden h-[60%]`}
+        font-kurdish rounded-md overflow-hidden h-[60%] dark:text-white lg:absolute`}
     >
       <section
         className={`flex flex-col justify-center items-center gap-y-[10px] py-2 w-full`}
