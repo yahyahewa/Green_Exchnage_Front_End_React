@@ -7,7 +7,10 @@ const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [isUser, setIsUser] = useState(false);
   useEffect(() => {
-    if (JSON.parse(localStorage.getItem("userData"))) {
+    if (
+      localStorage.getItem("userData") != "undefined" &&
+      JSON.parse(localStorage.getItem("userData"))
+    ) {
       setIsUser(true);
     }
   }, []);
@@ -28,7 +31,7 @@ const Navbar = () => {
       <article
         className={`flex flex-col absolute top-0 lg:top-auto lg:relative lg:left-auto 
          lg:flex-row lg:justify-between items-center p-1 gap-3 bg-jade-600 z-10
-          lg:bg-white h-[100vh] lg:h-auto w-1/2 lg:w-auto text-gray-100 lg:text-gray-600 transition-all
+          lg:bg-white lg:dark:bg-gray-900 h-[100vh] lg:h-auto w-1/2 lg:w-auto text-gray-100 lg:text-gray-600 transition-all
           ${showMenu ? "-left-0" : "-left-[100%]"}`}
       >
         {Navlink.map((value) => {
