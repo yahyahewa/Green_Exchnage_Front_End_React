@@ -1,14 +1,21 @@
-import React from 'react'
-import Navbar from '../components/navbar/Navbar'
-import { Link } from 'react-router-dom'
+import { useState } from "react";
+import Navbar from "../components/navbar/Navbar";
+import { Link } from "react-router-dom";
+import Sidebar from "../components/profile/Sidebar";
+import AddProduct from "../components/profile/AddProduct";
 function Profile() {
+  const [components, setComponents] = useState(<AddProduct />);
   return (
     <>
-    <Navbar/>
-    <Link to="/" className='text-white bg-jade-500 px-2 p-1 rounded' onClick={()=>{
-      localStorage.removeItem("userData");
-    }}>Logout</Link> </>
-  )
+      <Navbar />
+      <main
+        className={`w-full flex justify-start items-start p-2 mt-10 h-screen`}
+      >
+        <Sidebar component={components} setComponent={setComponents} />
+        {components}
+      </main>
+    </>
+  );
 }
 
-export default Profile
+export default Profile;
