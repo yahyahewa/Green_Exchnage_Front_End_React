@@ -1,23 +1,25 @@
-import { Link,Navigate } from 'react-router-dom';
-import { useLoginMutation } from '../../app/api/auth';
-import { useEffect, useState } from 'react';
+import { Link, Navigate } from "react-router-dom";
+import { useLoginMutation } from "../../app/api/auth";
+import { useEffect, useState } from "react";
 function SignInPage() {
-    const [formData,setFormData]=useState({});
-    const [login,{data,isErro,isLoading}]=useLoginMutation();
-    const handleInputChange = (e) => {
-      setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-    const handleSubmite=(e)=>{
+  const [formData, setFormData] = useState({});
+  const [login, { data, isErro, isLoading }] = useLoginMutation();
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const handleSubmite = (e) => {
     e.preventDefault();
     login(formData);
+  };
+  useEffect(() => {
+    if (!isErro && !isLoading && data) {
+      JSON.stringify(
+        localStorage.setItem("userData", JSON.stringify(data?.data))
+      );
     }
-    useEffect(()=>{
-        if(!isErro && !isLoading && data){
-         JSON.stringify(localStorage.setItem("userData",JSON.stringify(data?.data)));
-        }
-    },[data])
-    
-    if (data && data?.data?.token)return <Navigate to={"/profile"} replace />;
+  }, [data]);
+
+  if (data && data?.data?.token) return <Navigate to={"/profile"} replace />;
   return (
     <div>
       <section className="bg-gray-50 dark:bg-gray-900">
@@ -30,14 +32,21 @@ function SignInPage() {
               <p className="text-gray-600 dark:text-gray-400">
                 Welcome back. Enter your credentials to access your account
               </p>
-              <form onSubmit={handleSubmite} className="space-y-4 md:space-y-6" action="#">
+              <form
+                onSubmit={handleSubmite}
+                className="space-y-4 md:space-y-6"
+                action="#"
+              >
                 <div>
-                    {/* ------------------- email feild ---------------------------- */}
-                  <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                  {/* ------------------- email feild ---------------------------- */}
+                  <label
+                    htmlFor="email"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
                     Your email
                   </label>
                   <input
-                  onChange={handleInputChange}
+                    onChange={handleInputChange}
                     type="email"
                     name="email"
                     id="email"
@@ -47,12 +56,15 @@ function SignInPage() {
                   />
                 </div>
                 <div>
-                    {/* ------------------- password feild ---------------------------- */}
-                  <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                  {/* ------------------- password feild ---------------------------- */}
+                  <label
+                    htmlFor="password"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
                     Password
                   </label>
                   <input
-                  onChange={handleInputChange}
+                    onChange={handleInputChange}
                     type="password"
                     name="password"
                     placeholder="••••••••"
@@ -72,26 +84,51 @@ function SignInPage() {
                       />
                     </div>
                     <div className="ml-3 text-sm">
-                      <label htmlFor="remember" className="text-gray-500 dark:text-gray-300">
+                      <label
+                        htmlFor="remember"
+                        className="text-gray-500 dark:text-gray-300"
+                      >
                         Keep me signed in
                       </label>
                     </div>
                   </div>
-                  <Link to="/forgot-password" className="text-sm font-medium text-[#00AA7A] hover:underline dark:text-[#00674a]">
+                  <Link
+                    to="/forgot-password"
+                    className="text-sm font-medium text-[#00AA7A] hover:underline dark:text-[#00674a]"
+                  >
                     Forgot password?
                   </Link>
                 </div>
                 <button
-                disabled={isErro?true:isLoading?true:false}
+                  disabled={isErro ? true : isLoading ? true : false}
                   type="submit"
-                  className={`w-full text-white  ${isErro ? 'bg-jade-200':isLoading?' bg-jade-200':' bg-jade-500 hover:bg-jade-600 '} focus:ring-4 focus:outline-none focus:ring-primary-300
+                  className={`w-full text-white  ${
+                    isErro
+                      ? "bg-jade-200"
+                      : isLoading
+                      ? " bg-jade-200"
+                      : " bg-jade-500 hover:bg-jade-600 "
+                  } focus:ring-4 focus:outline-none focus:ring-primary-300
                    font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800`}
                 >
-                  Sign in
+                  {isErro ? (
+                    <div className="flex items-center justify-center">
+                      <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-jade-700 border-solid"></div>
+                    </div>
+                  ) : isLoading ? (
+                    <div className="flex items-center justify-center">
+                      <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-jade-700 border-solid"></div>
+                    </div>
+                  ) : (
+                    "Sign in"
+                  )}
                 </button>
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Don’t have an account yet?
-                  <Link to="/signup" className="font-medium text-[#00AA7A] hover:underline dark:text-[#00674a]">
+                  <Link
+                    to="/signup"
+                    className="font-medium text-[#00AA7A] hover:underline dark:text-[#00674a]"
+                  >
                     Sign up
                   </Link>
                 </p>
