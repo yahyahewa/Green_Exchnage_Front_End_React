@@ -35,7 +35,7 @@ function Sidebar({ setComponent }) {
         </article>
         {/* ------------------- New Donate ------------------- */}
         <article
-          className={`flex justify-center text-gray-600 font-bold sm:justify-start items-center gap-x-2 p-1 
+          className={`flex justify-center text-gray-600 sm:justify-start items-center gap-x-2 p-1 
           rounded-md cursor-pointer w-full ${
             btnBg == 1 && `bg-jade-200 text-jade-700 transition-all`
           }`}
@@ -62,7 +62,7 @@ function Sidebar({ setComponent }) {
         </article>
         {/* ------------------- My Donate ------------------- */}
         <article
-          className={`flex justify-center text-gray-600 font-bold sm:justify-start items-center gap-x-2 p-1 
+          className={`flex justify-center text-gray-600 sm:justify-start items-center gap-x-2 p-1 
           rounded-md cursor-pointer w-full ${
             btnBg == 2 && `bg-jade-200 text-jade-700 transition-all`
           }`}
@@ -90,7 +90,7 @@ function Sidebar({ setComponent }) {
         </article>
         {/* ------------------- My Donate ------------------- */}
         <article
-          className={`flex justify-center text-gray-600 font-bold sm:justify-start items-center gap-x-2 p-1 
+          className={`flex justify-center text-gray-600 sm:justify-start items-center gap-x-2 p-1 
           rounded-md cursor-pointer w-full ${
             btnBg == 3 && `bg-jade-200 text-jade-700 transition-all`
           }`}
