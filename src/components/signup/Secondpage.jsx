@@ -1,32 +1,32 @@
 import React from "react";
-import {useSignupMutation} from "../../app/api/auth"
+import { useSignupMutation } from "../../app/api/auth";
 import { Navigate } from "react-router-dom";
 import { useEffect } from "react";
 function Secondpage({ formData, setFormData }) {
-  
-  const[signUp,{data:userData,isErro,isLoading}]=useSignupMutation();
+  const [signUp, { data: userData, isErro, isLoading }] = useSignupMutation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     signUp(formData);
   };
-  
+
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  useEffect(()=>{
-    if(!isErro && !isLoading && userData){
-      localStorage.setItem("userData",JSON.stringify(userData?.data));
+  useEffect(() => {
+    if (!isErro && !isLoading && userData) {
+      localStorage.setItem("userData", JSON.stringify(userData?.data));
     }
-    },[userData])
+  }, [userData]);
 
-      if (userData && userData?.data?.token)return <Navigate to={"/profile"} replace />;
+  if (userData && userData?.data?.token)
+    return <Navigate to={"/profile"} replace />;
   return (
     <form
       onSubmit={handleSubmit}
       className="flex flex-col justify-center items-center w-full sm:w-2/3 md:w-1/2"
     >
-    {/* ------------- image feild ----------------- */}
+      {/* ------------- image feild ----------------- */}
       <div className="flex flex-col w-[90%] my-2">
         <label className="mx-1 text-lg text-gray-600">Upload Image</label>
         <div className="m-1 border-2 border-jade-400 hover:border-jade-500 rounded-md transition-all">
@@ -116,10 +116,21 @@ function Secondpage({ formData, setFormData }) {
       {/* -------------------- submit button --------------------------------- */}
       <div className="flex justify-center w-[90%] my-4">
         <button
-        disabled={isErro ? true:isLoading?true:false}
-          className={`px-4 py-2 ${isErro ? 'bg-jade-200':isLoading?' bg-jade-200':' bg-jade-500 hover:bg-jade-600 '} text-white rounded-md transition-all w-full`}
+          disabled={isErro ? true : isLoading ? true : false}
+          className={`px-4 py-2 ${
+            isErro
+              ? "bg-jade-200"
+              : isLoading
+              ? " bg-jade-200"
+              : " bg-jade-500 hover:bg-jade-600 "
+          } text-white rounded-md transition-all w-full`}
         >
-          Submit
+          {!isErro && !isLoading && <span>Submit</span>}
+          {loading && (
+            <div className="flex items-center justify-center">
+              <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-jade-700 border-solid"></div>
+            </div>
+          )}
         </button>
       </div>
     </form>
