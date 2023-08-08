@@ -8,10 +8,12 @@ import Signup from "../pages/Signup";
 import About from "../pages/About";
 import Support from "../pages/Support";
 import SingleItem from "../pages/SingleItem";
-
+import Navbar from "../components/navbar/Navbar";
+import Fotter from "../components/Fotter/Fotter";
 const Router = () => {
   return (
     <>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/items" element={<Items />} />
@@ -21,6 +23,7 @@ const Router = () => {
         <Route path="/signup" element={<Signup />} />
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
+      <Fotter />
     </>
   );
 };
