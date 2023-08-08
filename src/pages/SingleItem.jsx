@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 function SingleItem() {
-  const [islogin, setIsLoggedIn] = useState(false);
+  const [islogin, setIsLoggedIn] = useState(true);
   return (
     <>
       {/* component */}
