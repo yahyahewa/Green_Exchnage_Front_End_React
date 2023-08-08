@@ -1,7 +1,12 @@
 import React from "react";
+import SingleCard from "./SingleCard";
 
 const Card = () => {
-  return <div>Card</div>;
+  return (
+    <>
+      <SingleCard />
+    </>
+  );
 };
 
 export default Card;
