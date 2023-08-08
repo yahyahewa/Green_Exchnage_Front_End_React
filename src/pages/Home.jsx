@@ -7,6 +7,7 @@ function Home() {
       <Navbar />
       <Banner />
       <Card />
+      <SingleI
     </>
   );
 }
