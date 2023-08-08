@@ -1,5 +1,15 @@
 import React, { useState } from "react";
+import { useUploadsMutation } from "../../app/api/profile";
+import { useEffect } from "react";
 
+
+function AddProduct() {
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({ image: [] });
+  const [images,setImages]=useState([])
+  const [upload,{data:imagesData}]=useUploadsMutation();
+
+////////////////////////////////////////////////////////////////
 const categories = [
   "category1",
   "category2",
@@ -8,34 +18,31 @@ const categories = [
   "category5",
 ];
 
-function AddProduct() {
-  const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({ image: [] });
-
+////////////////////////////////////////////////////////////////
+  // upload iamges 
+  useEffect(()=>{
+    // console.log(imagesData?.data);
+  },[imagesData])
+  
+  ////////////////////////////////////////////////////////////////
   const handleImageUpload = (e) => {
+    setImages([]);
     const files = e.target.files;
-
     for (let i = 0; i < files.length; i++) {
       const reader = new FileReader();
 
       reader.onload = (e) => {
-        const imageSrc = e.target.result;
-
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          image: [...prevFormData.image, imageSrc],
-        }));
+        setImages((prev)=>([...prev,e.target.result]))
       };
-
       reader.readAsDataURL(files[i]);
     }
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
   };
 
+  ////////////////////////////////////////////////////////////////
   const handleFormData = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -131,7 +138,7 @@ function AddProduct() {
                 Images
               </label>
               <div className="w-full border rounded-md outline-none p-1 flex flex-wrap justify-start gap-1">
-                {formData.image.map((image, index) => (
+                {images.map((image, index) => (
                   <img
                     key={index}
                     src={image}

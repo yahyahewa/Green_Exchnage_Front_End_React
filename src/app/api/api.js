@@ -6,8 +6,8 @@ export const api = createApi({
     baseUrl: import.meta.env.VITE_BACK_END,
     tagTypes: ["userData"],
     prepareHeaders: (headers) => {
-      const token = localStorage.getItem("access_token");
-
+      const data=JSON.parse(localStorage.getItem("userData"));
+      const token=data?.token
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
       }
