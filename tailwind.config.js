@@ -7,7 +7,9 @@ export default {
         kurdish: "kurdish",
       },
       colors: {
+        "green":"#1d9051",
         jade: {
+          
           50: "#ebfef6",
           100: "#d0fbe6",
           200: "#a4f6d2",
@@ -25,3 +27,12 @@ export default {
   },
   plugins: [],
 };
+// 1. bo hamu gap :5 dabne
+// 2. tagy br u a bakar mahene, a refresh abetawa la reacta nabet refreshman habet
+// 3. botexta rashakan text - gray - 800 bakar bhena
+// 4. div zyada bakar mahena biansrawa bash nia
+// 5. ba nav baraka baw shewaya bet agra dway keshay bo drus krdn chaki akain
+// 6. responsive krdny designaka bo kata step bet
+// 7. lg:mx-36 , my-10  bo hamu pagekan dabne bas pagekan  ,bo am pagenam danawa bas agar page trman zyad krd
+//8.
+

@@ -3,9 +3,9 @@ import React from "react";
 
 // pages and components
 import Home from "../Home";
-import Items from "../Items";
+// import Items from "../Items";
 import Signup from "../Singup";
-import About from "../About";
+// import About from "../Contact";
 import Support from "../Support";
 import SingleItem from "../SingleItem";
 import Login from "../Login";
@@ -15,15 +15,21 @@ import Protect from "../../components/protect/Protect";
 import Profile from "../Profile";
 import NotAuthorized from "../../components/protect/NotAuthorized";
 import NotFound from "../../components/NotFound";
+import Navbar from "../../components/navbar/Navbar";
+import Fotter from "../../components/Fotter/Fotter";
+import Products from "../Products";
+import Contact from "../Contact";
 
 const Router = () => {
   return (
+    <div >
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/items" element={<Items />} />
-        <Route path="/items/:id" element={<SingleItem />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/products/:id" element={<SingleItem />} />
         <Route path="/support" element={<Support />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/about" element={<Contact />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/403" element={<NotAuthorized/>}/>
@@ -32,6 +38,9 @@ const Router = () => {
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <Fotter/>
+    </div>
+      
   );
 };
 

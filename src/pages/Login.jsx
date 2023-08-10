@@ -5,7 +5,7 @@ import Sigin from "../components/login/Login"
 function
  Login() {
   return (<>
-  <Navbar/>
+  {/* <Navbar/> */}
   <Sigin/>
   </>);
 }

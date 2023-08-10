@@ -4,12 +4,12 @@ import Navbar from "../components/navbar/Navbar";
 import Fotter from "../components/Fotter/Fotter"
 function Home() {
   return (
-    <>
-      <Navbar />
-      <Banner />
-      <Card />
-      <Fotter/>
-    </>
+    <div className="lg:mx-36 my-10" >
+     
+      {/* <Banner /> */}
+      {/* <Card /> */}
+     home page 
+    </div>
   );
 }
 
