@@ -7,7 +7,7 @@ function Profile() {
   const [components, setComponents] = useState(<AddProduct />);
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <main
         className={`w-full flex justify-start items-start p-2 mt-10 h-screen max-w-[2000px] dark:text-white`}
       >

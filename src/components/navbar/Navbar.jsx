@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Navlink } from "../../assets/Data";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useSignupMutation } from "../../app/api/auth";
 const Navbar = () => {
   const [data] = useSignupMutation();
@@ -18,11 +18,11 @@ const Navbar = () => {
     setShowMenu((prevShowMenu) => !prevShowMenu);
   };
   return (
-    <nav className="flex justify-between  items-center py-1 px-2 relative">
+    <nav className="lg:mx-36 flex justify-between  items-center relative py-4">
       <Link to="/" className="flex sm:flex-row items-start justify-center ">
-        <span className="self-center text-jade-600 text-3xl font-bold">G</span>
+        <span className="self-center text-green text-3xl font-bold">G</span>
         <span className="text-black text-2xl pt-1 hidden sm:block">reen</span>
-        <span className="text-jade-600 text-3xl font-bold">E</span>
+        <span className="text-green text-3xl font-bold">E</span>
         <span className="text-black text-2xl pt-1 hidden sm:block">
           xchange
         </span>
@@ -36,16 +36,19 @@ const Navbar = () => {
       >
         {Navlink.map((value) => {
           return (
-            <Link
+            <NavLink
               onClick={() => {
                 setShowMenu(false);
               }}
               to={value.Link}
               key={value.id}
-              className={value.Style}
+                 className={({ isActive }) =>
+                (isActive ? "text-green focus:outline-none focus:text-green" : "text-gray-800") +
+                "px-3 py-2 text-xl font-semibold hover:text-green "
+              }
             >
               {value.Title}
-            </Link>
+            </NavLink>
           );
         })}
         <select className="outline-none font-bold font-kurdish pt-1 bg-jade-600 text-gray-100 lg:bg-white lg:text-gray-800">
@@ -58,7 +61,7 @@ const Navbar = () => {
       <article className="box-border flex  justify-center items-center gap-2 pt-1">
         <Link
           to={isUser ? "/donate" : "/signup"}
-          className={`bg-jade-600 text-gray-100 p-2 py-[6px] rounded font-bold`}
+          className={`bg-green text-white p-2 py-[6px] rounded font-bold`}
         >
           {isUser ? "New Donate +" : "Get Start"}
         </Link>

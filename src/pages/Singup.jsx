@@ -8,7 +8,8 @@ const Singup = () => {
   const [page, setPage] = useState("first");
   return (
     <>
-    <Navbar/>  <section className="flex flex-col justify-center items-center w-full min-h-[95vh] font-kurdish">
+      {/* <Navbar /> */}
+      <section className="flex flex-col justify-center items-center w-full min-h-[95vh] font-kurdish">
     <h1 className="text-3xl mt-3 font-kurdish bg-jade-200 rounded-full p-2 text-gray-600">
       Signup
     </h1>
