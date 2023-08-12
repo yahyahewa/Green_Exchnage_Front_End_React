@@ -8,7 +8,6 @@ function Home() {
       <Navbar />
       <Banner />
       <Card />
-      <SingleItem />
     </>
   );
 }
