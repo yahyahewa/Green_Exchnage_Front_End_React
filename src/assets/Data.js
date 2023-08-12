@@ -16,8 +16,7 @@ export const Navlink = [
   {
     id: 3,
     Title: "Contact",
-  
-    
+
     Link: "/about",
   },
   {
@@ -94,5 +93,29 @@ export const Cards = [
     Img: "https://plus.unsplash.com/premium_photo-1668046107997-be21eb95fbce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1332&q=80",
     Title: "Tv",
     Desc: "Check website for latest pricing and availability. Images may be subject ",
+  },
+];
+
+export const BlogsCard = [
+  {
+    id: 1,
+    title: "Online Platforms",
+    image:
+      "https://i0.wp.com/movingtips.wpengine.com/wp-content/uploads/2021/01/donation.jpg?fit=1200%2C800&ssl=1",
+    Desc: " Consider using online platforms to give away or sell items you no longer need.",
+  },
+  {
+    id: 2,
+    title: " Electronics Recycling",
+    image:
+      "https://assets.ey.com/content/dam/ey-sites/ey-com/en_us/topics/climate-change/ey-waste-bin-full-of-e-waste.jpg",
+    Desc: " For electronics you no longer need, consider recycling them responsibly.",
+  },
+  {
+    id: 3,
+    title: "Organize Donation Drives",
+    image:
+      "https://us.123rf.com/450wm/zinkevych/zinkevych2201/zinkevych220100693/180330172-happy-lady-packing-her-clothes-for-donation.jpg?ver=6",
+    Desc: " Consider organizing donation drives within your community, workplace, or social groups.",
   },
 ];
