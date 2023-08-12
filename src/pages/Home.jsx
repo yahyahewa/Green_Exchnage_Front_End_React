@@ -4,7 +4,7 @@ import Slideer from "../components/Home/Slideer";
 const Home = () => {
   return (
     <div className="flex flex-col justify-center items-center ">
-      <Hero />;
+      <Hero />
       <Slideer />
     </div>
   );
