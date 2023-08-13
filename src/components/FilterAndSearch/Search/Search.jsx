@@ -11,7 +11,7 @@ const Search = () => {
       <input
         type="text"
         placeholder="Search "
-        className="placeholder:px-1 p-8 placeholder:italic  placeholder:text-gray-400 block bg-white   border-2 border-gray-400 rounded-md py-2 w-80  pr-2  shadow-sm   focus:outline-none focus:border-green focus:ring-green 0 text-sm"
+        className="placeholder:px-1 p-8 placeholder:italic  placeholder:text-gray-400 block bg-white border-2 border-gray-400 rounded  w-80  pr-2  shadow-sm  py-2 focus:outline-none focus:border-green focus:ring-green 0 text-sm hover:border-gray-600"
       />
     </div>
   );

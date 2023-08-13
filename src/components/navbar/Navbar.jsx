@@ -60,7 +60,7 @@ const Navbar = () => {
       {/* ------ humbergr menu , get start image account----------------- */}
       <article className="box-border flex  justify-center items-center gap-2 pt-1">
         <Link
-          to={isUser ? "/donate" : "/signup"}
+          to={isUser ? "/donate" : "/login"}
           className={`bg-green text-white p-2 py-[6px] rounded font-bold`}
         >
           {isUser ? "New Donate +" : "Get Start"}
