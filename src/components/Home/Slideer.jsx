@@ -14,7 +14,7 @@ const Slideer = () => {
       </span>
       <img
         className="px-5 sm:max-w-md mt-6 pb-6"
-        src="https://www.pngkey.com/png/full/12-126278_chair-png-bench.png"
+        src="https://freepngimg.com/save/9637-armchair-png-image/1126x1188"
       />
     </div>
   );

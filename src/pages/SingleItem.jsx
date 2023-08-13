@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { Link } from "react-router-dom";
 function SingleItem() {
   const [islogin, setIsLoggedIn] = useState(true);
   return (
@@ -80,19 +80,19 @@ function SingleItem() {
           </div>
           <section className="  container mx-auto py-8 flex justify-end ">
             {islogin ? (
-              <button
-                onClick={""}
+              <Link
+                to=""
                 className="px-10 bg-jade-600  text-white py-3 rounded-lg"
               >
                 Order
-              </button>
+              </Link>
             ) : (
-              <button
-                onClick={""}
+              <Link
+                to=""
                 className="px-10 bg-gray-300  text-gray-600 py-3 rounded-lg"
               >
                 Please Login to Order
-              </button>
+              </Link>
             )}
           </section>
         </div>
