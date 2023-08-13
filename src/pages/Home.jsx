@@ -1,16 +1,17 @@
-import Banner from "../components/FilterAndSearch/Banner";
-import Card from "../components/card/Card";
-import Navbar from "../components/navbar/Navbar";
-import Fotter from "../components/Fotter/Fotter"
-function Home() {
+import React from "react";
+import Hero from "../components/Home/Hero";
+import Slideer from "../components/Home/Slideer";
+import Blogs from "../components/Home/Blogs";
+import GetStart from "../components/Home/GetStart";
+const Home = () => {
   return (
-    <div className="lg:mx-36 my-10" >
-     
-      {/* <Banner /> */}
-      {/* <Card /> */}
-     home page 
+    <div className="flex flex-col justify-center items-center ">
+      <Hero />
+      <Slideer />
+      <GetStart />
+      <Blogs />
     </div>
   );
-}
+};
 
 export default Home;
