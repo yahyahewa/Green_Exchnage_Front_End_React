@@ -17,15 +17,8 @@ export const Navlink = [
     id: 3,
     Title: "Contact",
 
-    Link: "/about",
-  },
-  {
-    id: 4,
-    Title: "Support",
-    Style:
-      "block px-3 py-2 text-xl rounded active:text-jade-200 font-bold  hover:text-jade-400 hover:text-jade-900 focus:outline-none focus:text-jade-600  focus:font-semibold",
-    Link: "/support",
-  },
+    Link: "/contact",
+  }
 ];
 
 export const Cards = [

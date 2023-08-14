@@ -6,14 +6,17 @@ import { Formik, Form, useFormik } from "formik";
 import InputField from "../InputField/InputField";
 
 function LoginForm() {
+  const [login, { data, isErro, isLoading }] = useLoginMutation()
+  console.log(data)
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
-    onSubmit: (values) => {
-      console.log(values)
-      // login(values);
+    onSubmit: (values, { resetForm }) => {
+      // console.log(values)
+      login(values)
+      resetForm({ values: "" });
     },
     validationSchema: Yup.object({
       email: Yup.string().email().required(),
@@ -29,15 +32,15 @@ function LoginForm() {
   //   e.preventDefault();
   //   login(formData);
   // };
-  // useEffect(() => {
-  //   if (!isErro && !isLoading && data) {
-  //     JSON.stringify(
-  //       localStorage.setItem("userData", JSON.stringify(data?.data))
-  //     );
-  //   }
-  // }, [data]);
+  useEffect(() => {
+    if (!isErro && !isLoading && data) {
+      JSON.stringify(
+        localStorage.setItem("userData", JSON.stringify(data?.data))
+      );
+    }
+  }, [data]);
 
-  // if (data && data?.data?.token) return <Navigate to={"/profile"} replace />;
+  if (data && data?.data?.token) return <Navigate to={"/"} replace />;
   return (
         <Formik >
         <div className="w-full flex  flex-col items-center justify-center mt-28">
@@ -80,7 +83,7 @@ function LoginForm() {
             </div>
           ) : null}</div>
           
-
+<p className="text-gray-800 text-sm mt-2"  >Don't have an account? <Link to="/signup" className="text-blue-500 ">Sign Up</Link> </p>
           <div className="mt-5">
             {" "}
             <button type="submit" className="text-white bg-green py-2 w-full  rounded hover:bg-opacity-80 hover:duration-500 duration-500">submit </button>

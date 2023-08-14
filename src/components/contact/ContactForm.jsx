@@ -2,31 +2,29 @@ import React from 'react'
 import * as Yup from "yup";
 import { Formik, Form, useFormik } from "formik";
 import InputField from '../InputField/InputField';
-import { useSignupMutation } from '../../app/api/auth';
-function SignUpForm() {
-  
-  const [signup]=useSignupMutation()
-   const formik = useFormik({
+function ContactForm() {
+
+     const formik = useFormik({
      initialValues: {
-      fullname:"",
+      fullName:"",
       email: "",
-      password: "",
+      message: "",
     },
     onSubmit: (values) => {
       console.log(values)
-      signup(values)
    
     },
      validationSchema: Yup.object({
-      fullname: Yup.string().required(),
+      fullName: Yup.string().required(),
       email: Yup.string().email().required(),
-      password: Yup.string().required().min(8),
+      message: Yup.string().min(50).max(150).required(),
     }),
-  });
+     });
+     
   return (
-    <Formik >
-        <div className="w-full flex  flex-col items-center justify-center mt-28">
-          <p className="font-semibold text-lg text-gray-800 ">Create Account </p>
+     <Formik >
+        <div className="w-full flex  flex-col items-center justify-center mt-12">
+          <p className="font-semibold text-lg text-gray-800 ">Get In Touch </p>
         <Form
           onSubmit={formik.handleSubmit}
           className="grid grid-cols-1 mb-10 w-full lg:w-fit"
@@ -34,15 +32,15 @@ function SignUpForm() {
              <div className="flex flex-col mt-5">
               <label className="text-gray-800 font-english">Full name</label>
               <InputField
-            name="fullname"
+            name="fullName"
             placeholder="your name"
-            id="fullname"
-            value={formik.values.fullname}
+            id="fullName"
+            value={formik.values.fullName}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
               />
-              {formik.touched.fullname && formik.errors.fullname ? (
-            <span className="text-red-400 text-sm">{formik.errors.fullname}</span>
+              {formik.touched.fullName && formik.errors.fullName ? (
+            <span className="text-red-400 text-sm">{formik.errors.fullName}</span>
             ) : null}
             </div>
          
@@ -65,25 +63,25 @@ function SignUpForm() {
           
         
             <div className="mt-4 flex flex-col">
-              <label className="text-gray-800 font-english">Password</label>
+              <label className="text-gray-800 font-english">Message</label>
           <InputField
-            name="password"
-            placeholder="********"
-            id="password"
-            value={formik.values.password}
+            name="message"
+            placeholder="Write your message"
+            id="message"
+            value={formik.values.message}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
           />
-          {formik.touched.password && formik.errors.password ? (
+          {formik.touched.message && formik.errors.message ? (
             <div className="text-red-400 text-sm ">
-              {formik.errors.password}
+              {formik.errors.message}
             </div>
           ) : null}</div>
           
 
           <div className="mt-5">
             {" "}
-            <button type="submit" className="text-white bg-green py-2 w-full  rounded hover:bg-opacity-80 hover:duration-500 duration-500">Create </button>
+            <button type="submit" className="text-white bg-green py-2 w-full  rounded hover:bg-opacity-80 hover:duration-500 duration-500">Send </button>
               
           </div>
         </Form>
@@ -92,4 +90,4 @@ function SignUpForm() {
   )
 }
 
-export default SignUpForm
+export default ContactForm

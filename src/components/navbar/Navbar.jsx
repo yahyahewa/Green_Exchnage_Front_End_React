@@ -18,10 +18,10 @@ const Navbar = () => {
     setShowMenu((prevShowMenu) => !prevShowMenu);
   };
   return (
-    <nav className="lg:mx-36 flex justify-between  items-center relative py-4">
-      <Link to="/" className="flex sm:flex-row items-start justify-center ">
-        <span className="self-center text-green text-3xl font-bold">G</span>
-        <span className="text-black text-2xl pt-1 hidden sm:block">reen</span>
+    <nav className="lg:mx-36 flex items-center relative py-4">
+      <Link to="/" className="flex   ">
+        <span className=" text-green text-3xl font-bold">G</span>
+        <span className="text-black text-2xl pt-1 hidden sm:block ">reen</span>
         <span className="text-green text-3xl font-bold">E</span>
         <span className="text-black text-2xl pt-1 hidden sm:block">
           xchange
@@ -29,9 +29,9 @@ const Navbar = () => {
       </Link>
       {/* ------ humbergr menu , get start image account  ----------------- */}
       <article
-        className={`flex flex-col absolute top-0 lg:top-auto lg:relative lg:left-auto 
-         lg:flex-row lg:justify-between items-center p-1 gap-3 bg-jade-600 z-10
-          lg:bg-white lg:dark:bg-gray-900 h-[100vh] lg:h-auto w-1/2 lg:w-auto text-gray-100 lg:text-gray-600 transition-all
+        className={`flex flex-col absolute top-0 lg:top-1 lg:relative lg:left-auto  bg-white text-gray-800
+         lg:flex-row lg:justify-between items-center px-2 gap-3  z-10
+          lg:bg-white lg:dark:bg-gray-900 h-[100vh] lg:h-auto w-1/2 lg:w-auto  lg:text-gray-600 transition-all
           ${showMenu ? "-left-0" : "-left-[100%]"}`}
       >
         {Navlink.map((value) => {
@@ -51,21 +51,22 @@ const Navbar = () => {
             </NavLink>
           );
         })}
-        <select className="outline-none font-bold font-kurdish pt-1 bg-jade-600 text-gray-100 lg:bg-white lg:text-gray-800">
+        {/* TODO: add language by icon  */}
+        {/* <select className="outline-none font-bold font-kurdish pt-1 bg-jade-600 text-gray-100 lg:bg-white lg:text-gray-800">
           <option value="k">کوردی</option>
           <option value="a">عربي</option>
           <option value="e">English</option>
-        </select>
+        </select> */}
       </article>
       {/* ------ humbergr menu , get start image account----------------- */}
-      <article className="box-border flex  justify-center items-center gap-2 pt-1">
-        <Link
-          to={isUser ? "/donate" : "/login"}
-          className={`bg-green text-white p-2 py-[6px] rounded font-bold`}
+      <article className="box-border flex flex-row w-full  justify-end  items-center gap-2 pt-1">
+        {/* <Link
+          to="/login"
+          className={`bg-green text-white px-6 p-2 py-[6px] rounded font-bold`}
         >
-          {isUser ? "New Donate +" : "Get Start"}
-        </Link>
-        {isUser && (
+          Login
+        </Link> */}
+        {isUser ? (
           <Link to="/profile">
             <img
               src={
@@ -80,7 +81,12 @@ const Navbar = () => {
               className="w-8 rounded-full"
             />
           </Link>
-        )}
+        ): <Link
+          to="/login"
+          className={`bg-green text-white px-6 p-2 py-[6px] rounded font-bold`}
+        >
+          Login
+        </Link>}
         <article
           className={`lg:hidden flex flex-col justify-evenly gap-1`}
           onClick={handleToggleMenu}

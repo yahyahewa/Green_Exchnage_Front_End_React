@@ -23,7 +23,7 @@ const SingleCard = () => {
         } = card;
 
         return (
-          <Link to="">
+          <Link to={`/products/${card.id}`} key={card.id}>
             <div className=" w-full  mt-5 hover:shadow-lg ">
             <div className="flex justify-between items-center p-1">
               <div className="flex my-4">

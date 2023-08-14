@@ -6,7 +6,7 @@ import Home from "../Home";
 // import Items from "../Items";
 import Signup from "../Singup";
 // import About from "../Contact";
-import Support from "../Support";
+// import Support from "../Support";
 import SingleItem from "../SingleItem";
 import Login from "../Login";
 
@@ -28,8 +28,8 @@ const Router = () => {
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:id" element={<SingleItem />} />
-        <Route path="/support" element={<Support />} />
-        <Route path="/about" element={<Contact />} />
+        {/* <Route path="/support" element={<Support />} /> */}
+        <Route path="/contact" element={<Contact />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/403" element={<NotAuthorized/>}/>
