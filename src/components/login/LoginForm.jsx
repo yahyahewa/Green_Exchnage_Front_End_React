@@ -1,6 +1,6 @@
 import { Link, Navigate } from "react-router-dom";
 import { useLoginMutation } from "../../app/api/auth";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import * as Yup from "yup";
 import { Formik, Form, useFormik } from "formik";
 import InputField from "../InputField/InputField";
@@ -38,7 +38,7 @@ function LoginForm() {
         localStorage.setItem("userData", JSON.stringify(data?.data))
       );
     }
-  }, [data]);
+  }, [data, isErro, isLoading]);
 
   if (data && data?.data?.token) return <Navigate to={"/"} replace />;
   return (
@@ -83,7 +83,7 @@ function LoginForm() {
             </div>
           ) : null}</div>
           
-<p className="text-gray-800 text-sm mt-2"  >Don't have an account? <Link to="/signup" className="text-blue-500 ">Sign Up</Link> </p>
+<p className="text-gray-800 text-sm mt-2"  >Dont have an account? <Link to="/signup" className="text-blue-500 ">Sign Up</Link> </p>
           <div className="mt-5">
             {" "}
             <button type="submit" className="text-white bg-green py-2 w-full  rounded hover:bg-opacity-80 hover:duration-500 duration-500">submit </button>

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Navlink } from "../../assets/Data";
 import { Link, NavLink } from "react-router-dom";
-import { useSignupMutation } from "../../app/api/auth";
+// import { useSignupMutation } from "../../app/api/auth";
 const Navbar = () => {
-  const [data] = useSignupMutation();
+  // const [data] = useSignupMutation();
   const [showMenu, setShowMenu] = useState(false);
   const [isUser, setIsUser] = useState(false);
   useEffect(() => {

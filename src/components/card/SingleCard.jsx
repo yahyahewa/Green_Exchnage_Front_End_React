@@ -1,10 +1,10 @@
-import React from "react";
+
 import { Cards } from "../../assets/Data";
 import { Link } from "react-router-dom";
 import { IoLocationSharp } from "react-icons/io5";
 import { AiOutlineHeart } from "react-icons/ai";
 import ReactPaginate from "react-paginate";
-import { FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
+
 import { IoIosArrowDropleft,IoIosArrowDropright } from "react-icons/io";
 const SingleCard = () => {
   return (
@@ -12,14 +12,14 @@ const SingleCard = () => {
       <div className="grid grid-cols-3 gap-6 justify-between items-center">
       {Cards.map((card) => {
         const {
-          id,
+        
           DonatorName,
           ProfileImg,
-          Date,
+      
           Location,
           Img,
           Title,
-          Desc,
+          
         } = card;
 
         return (

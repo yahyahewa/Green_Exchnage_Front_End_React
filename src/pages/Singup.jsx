@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import signup from "../assets/images/signup.svg"
 
 import SignUpForm from "../components/signup/SignUpForm";
 const Singup = () => {
   // create use state object for use data
-  const [formData, setFormData] = useState({});
-  const [page, setPage] = useState("first");
+  // const [formData, setFormData] = useState({});
+  // const [page, setPage] = useState("first");
   return (
     <>
        <div className="lg:mx-36 pt-10 grid grid-cols-2 items-start gap-20 h-screen">

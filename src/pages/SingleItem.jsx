@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+// import React, { useState } from "react";
+import {  useParams } from "react-router-dom";
 function SingleItem() {
   const { id } = useParams()
   console.log(id)
-  const [islogin, setIsLoggedIn] = useState(true);
+  // const [islogin, setIsLoggedIn] = useState(true);
   return (
     <>
       {/* component */}

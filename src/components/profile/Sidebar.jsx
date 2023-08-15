@@ -3,6 +3,7 @@ import AddProduct from "./AddProduct";
 import MyProducts from "./MyProducts";
 import Setting from "./Setting";
 import { Link } from "react-router-dom";
+// eslint-disable-next-line react/prop-types
 function Sidebar({ setComponent }) {
   const [btnBg, setBtnBg] = useState(1);
   return (

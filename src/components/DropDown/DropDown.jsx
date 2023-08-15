@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 function DropDown() {
  const filtersItems=["category1","category2","category3","category4"]
 
-       const [isActive, setActive] = useState(false);
+  const [isActive, setActive] = useState(false);
   const handleDropdownClick = () => setActive(!isActive);
   
 //   const [changeState] = useChangeStateMutation()
-  const changestateHandler = () => {
+  // const changestateHandler = () => {
 //     changeState({ status: status ,id:id})
 //     console.log("data we send",{ status: status ,id:id})
-  }
+  // }
   return (
       <div>
        <div>

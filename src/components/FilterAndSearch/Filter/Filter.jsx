@@ -1,6 +1,6 @@
-import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import { green } from "@mui/material/colors";
-import React, { useState } from "react";
+import { FormControl, MenuItem, Select } from "@mui/material";
+
+import  { useState } from "react";
 
 const Filter = () => {
   const [value, setVlaue] = useState("")

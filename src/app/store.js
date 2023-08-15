@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import {api} from "./api/api"
-import userReducer from "../app/api/user.slice"
+// import userReducer from "../app/api/user.slice"
 export  default configureStore({
     reducer: {
-        user:userReducer,
+        // user:userReducer,
         [api.reducerPath]:api.reducer
     }
     ,middleware:(gdmw)=>gdmw().concat(api.middleware)

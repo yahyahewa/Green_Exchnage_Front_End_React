@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Navbar from "../components/navbar/Navbar";
-import { Link } from "react-router-dom";
+// import Navbar from "../components/navbar/Navbar";
+// import { Link } from "react-router-dom";
 import Sidebar from "../components/profile/Sidebar";
 import AddProduct from "../components/profile/AddProduct";
 function Profile() {

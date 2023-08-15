@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import contact from "../assets/images/contact.svg"
 import ContactForm from "../components/contact/ContactForm";
 function Contact() {

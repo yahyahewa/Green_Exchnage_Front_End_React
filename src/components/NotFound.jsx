@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import { Link } from "react-router-dom";
 const NotFound = () => {
   return ( <div className="flex items-center justify-center h-screen bg-gradient-to-r from-jade-500 via-jade-700 to-jade-900">
