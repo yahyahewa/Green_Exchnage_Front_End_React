@@ -1,12 +1,12 @@
-import React from "react";
+// import React from "react";
 // import Navbar from "../components/navbar/Navbar"
 // import Sigin from "../components/login/Login"
 // import { useFormik } from "formik";
 import login from "../assets/images/login.svg"
-import { Formik, Form, useFormik } from "formik";
+// import { Formik, Form, useFormik } from "formik";
 import LoginForm from "../components/login/LoginForm"
-import * as Yup from "yup";
-import InputField from "../components/InputField/InputField";
+// import * as Yup from "yup";
+// import InputField from "../components/InputField/InputField";
 function Login() {
 
   return (

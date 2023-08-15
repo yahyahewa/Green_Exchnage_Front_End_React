@@ -1,7 +1,7 @@
-import React from "react";
+// import React from "react";
 import Search from "./Search/Search";
 import Filter from "./Filter/Filter";
-import DropDown from "../DropDown/DropDown";
+// import DropDown from "../DropDown/DropDown";
 
 const Banner = () => {
   return (

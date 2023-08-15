@@ -1,5 +1,6 @@
-import React from 'react'
+// import React from 'react'
 import { Field } from "formik";
+// eslint-disable-next-line react/prop-types
 function InputField({ name, placeholder, value, onChange, id, type, accept }) {
   return (
    
