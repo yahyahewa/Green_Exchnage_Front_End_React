@@ -10,6 +10,7 @@ const Filter = () => {
   return (
     <div className="grid grid-cols-2 gap-x-2">
     
+      
        <FormControl sx={{  minWidth: 170 }} size="small">
         <Select
           sx={{border:1.5, borderRadius: 1 }} 
