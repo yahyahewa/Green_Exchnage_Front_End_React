@@ -33,12 +33,12 @@ function LoginForm() {
   //   login(formData);
   // };
   useEffect(() => {
-    if (!isErro && !isLoading && data) {
+    if (!isError && !isLoading && data) {
       JSON.stringify(
         localStorage.setItem("userData", JSON.stringify(data?.data))
       );
     }
-  }, [data, isErro, isLoading]);
+  }, [data, isError, isLoading]);
 
   if (data && data?.data?.token) return <Navigate to={"/"} replace />;
   return (
