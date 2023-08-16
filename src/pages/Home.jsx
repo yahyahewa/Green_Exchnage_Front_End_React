@@ -1,13 +1,13 @@
 import React from "react";
 import Hero from "../components/Home/Hero";
-import Slideer from "../components/Home/Slideer";
+import SliderComponent from "../components/Home/SliderComponent";
 import Blogs from "../components/Home/Blogs";
 import GetStart from "../components/Home/GetStart";
 const Home = () => {
   return (
-    <div className="flex flex-col justify-center items-center ">
+    <div>
       <Hero />
-      <Slideer />
+      <SliderComponent />
       <GetStart />
       <Blogs />
     </div>

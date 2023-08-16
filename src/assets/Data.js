@@ -119,3 +119,34 @@ export const BlogsCard = [
     Desc: " Consider organizing donation drives within your community, workplace, or social groups.",
   },
 ];
+
+export const SliderCards = [
+  {
+    id: 1,
+    Donator: "Ehsan Muhamad",
+    profile:
+      "https://imgv3.fotor.com/images/gallery/Realistic-Male-Profile-Picture.jpg",
+    Item: "https://freepngimg.com/save/9637-armchair-png-image/1126x1188",
+  },
+  {
+    id: 2,
+    Donator: "Rozh Bahman",
+    profile:
+      "https://cdn.pixabay.com/photo/2023/01/28/20/23/ai-generated-7751688_1280.jpg",
+    Item: "https://static.vecteezy.com/system/resources/previews/008/847/343/original/isolated-blue-front-sweater-free-png.png",
+  },
+  {
+    id: 3,
+    Donator: "Yahya Hiwa ",
+    profile:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJzI8ssBFPVXkeOkmcjICIBOzX3dJf8Undxi0ixAsi_CciCXHhVjMc1LggcEkJvS10BGE&usqp=CAU",
+    Item: "https://cosmeticworld.ca/cdn/shop/products/babyliss-pro-mediterraneo-ionic-ceramic-hair-dryer-bab6705mec-cosmetic-world-36430924284142.jpg?v=1645935386",
+  },
+  {
+    id: 4,
+    Donator: "Sana Rzgar ",
+    profile:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1-4rbYU57h7TIeAlsHLsomlddewPZCGmQQiKakgmKG81U3zCMvTKzb74LmkZPTdo8lvw&usqp=CAU",
+    Item: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrHEzISs4ff8iR_kXgHqHl28JpB1L39CM0xzS3PTUHEqdxyyaz1ulI28uYKaSAER9u9To&usqp=CAU",
+  },
+];
