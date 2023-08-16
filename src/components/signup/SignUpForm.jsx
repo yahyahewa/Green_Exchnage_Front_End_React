@@ -5,7 +5,7 @@ import InputField from '../InputField/InputField';
 import { useSignupMutation } from '../../app/api/auth';
 function SignUpForm() {
   
-  const [signup]=useSignupMutation()
+  const [signup,{data,isError,isLaoding}]=useSignupMutation()
    const formik = useFormik({
      initialValues: {
       fullname:"",
@@ -23,6 +23,13 @@ function SignUpForm() {
       password: Yup.string().required().min(8),
     }),
   });
+
+  useEffect(()=>{
+    if(data && !isError && isLoading){
+      console.log(data)
+    }
+  },[isError,isLoading,data])
+  
   return (
     <Formik >
         <div className="w-full flex  flex-col items-center justify-center mt-28">
