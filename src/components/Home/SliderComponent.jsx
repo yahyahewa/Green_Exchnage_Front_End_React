@@ -24,11 +24,8 @@ const SliderComponent = () => {
       {SliderCards.map((items) => {
         const { Donator, id, profile, Item } = items;
         return (
-          <SwiperSlide>
-            <div
-              key={id}
-              className="flex flex-col pb-4 justify-center items-center gap-2 md:pt-24 pt-8"
-            >
+          <SwiperSlide key={id}>
+            <div className="flex flex-col pb-4 justify-center items-center gap-2 md:pt-24 pt-8">
               <img
                 className=" w-24 h-28 object-cover rounded-ee-3xl rounded-ss-3xl shadow-md shadow-jade-500"
                 src={profile}
