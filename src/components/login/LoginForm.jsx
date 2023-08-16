@@ -6,7 +6,7 @@ import { Formik, Form, useFormik } from "formik";
 import InputField from "../InputField/InputField";
 
 function LoginForm() {
-  const [login, { data, isErro, isLoading }] = useLoginMutation()
+  const [login, { data, isError, isLoading }] = useLoginMutation()
   console.log(data)
   const formik = useFormik({
     initialValues: {
