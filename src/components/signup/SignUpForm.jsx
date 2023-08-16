@@ -3,9 +3,10 @@ import * as Yup from "yup";
 import { Formik, Form, useFormik } from "formik";
 import InputField from '../InputField/InputField';
 import { useSignupMutation } from '../../app/api/auth';
+import { Navigate } from 'react-router';
 function SignUpForm() {
   
-  const [signup,{data,isError,isLaoding}]=useSignupMutation()
+  const [signup,{data,isError,isLoading}]=useSignupMutation()
    const formik = useFormik({
      initialValues: {
       fullname:"",
@@ -13,7 +14,6 @@ function SignUpForm() {
       password: "",
     },
     onSubmit: (values) => {
-      console.log(values)
       signup(values)
    
     },
@@ -24,11 +24,16 @@ function SignUpForm() {
     }),
   });
 
-  useEffect(()=>{
-    if(data && !isError && isLoading){
-      console.log(data)
+
+  useEffect(() => {
+    if (!isError && !isLoading && data) {
+      JSON.stringify(
+        localStorage.setItem("userData", JSON.stringify(data?.data))
+      );
     }
-  },[isError,isLoading,data])
+  }, [data, isError, isLoading]);
+
+  if (data && data?.data?.token) return <Navigate to={"/"} replace />;
   
   return (
     <Formik >
