@@ -1,58 +1,64 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+// import React, { useState } from "react";
+import {  useParams } from "react-router-dom";
 function SingleItem() {
-  const [islogin, setIsLoggedIn] = useState(true);
+  const { id } = useParams()
+  console.log(id)
+  // const [islogin, setIsLoggedIn] = useState(true);
   return (
     <>
       {/* component */}
-      <section className="text-gray-700    bg-white">
-        <div className="container px-5 py-32 mx-auto ">
-          <div className="lg:w-4/5 mx-auto   flex flex-wrap items-center ">
+      <section className="text-gray-8 lg:mx-36">
+        <div className="py-32 grid grid-cols-2 gap-5 lg:gap-x-10">
+        
             <img
               alt={""}
-              className="lg:w-1/2 w-full  object-cover object-center rounded-2xl border border-gray-200 "
+              className="w-full h-[500px] object-cover rounded"
               src="https://codecondo.com/wp-content/uploads/2016/11/Metasploit-The-Penetration-Testers-Guide-e1598449869321.png"
-            />
-            <div className="lg:w-1/2 w-full lg:pl-24  lg:py-6 mt-6 lg:mt-0 ">
-              <h1 className=" text-3xl capitalize  text-gray-700 tracking-widest">
+          />
+          
+          <div className="flex flex-col justify-between xl:w-3/4">
+            <div className="flex justify-between items-end">
+              <div >
+              <h1 className="font-semibold text-3xl ">
                 Book
               </h1>
-              <h2 className="text-3xl capitalize  text-gray-700 tracking-widest">
+              <h2 className="text-xl font-semibold mt-2">
                 Ehsan muhamad
               </h2>
-              <div className="  ">
-                <span className="flex">
-                  <span className="text-xl  text-gray-700 tracking-widest pt-4">
-                    1/3/2023
-                  </span>
-                </span>
-                <span className="flex">
-                  <span className="text-xl capitalize  text-gray-700 tracking-widest pb-4">
-                    Khurmal
-                  </span>
-                </span>
+            </div>
+            
+             <div className=" flex  ">
+                <div>1/1/2023</div>
+                <div className="ml-4">khurmal</div>
+              
+                    
+             
               </div>
-              <span className="text-gray-900 text-xl tracking-wide capitalize font-bold">
+            </div>
+           
+             
+              <div className="font-semibold text-xl mt-5">
                 Description
-              </span>
-              <p className="leading-relaxed">
+              </div>
+              <p className="mt-2">
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit.
                 Quaerat corporis labore accusantium placeat dicta eos vero earum
                 tempora iure, ipsam pariatur adipisci? Sit, rerum nam sequi
                 ratione placeat harum aliquid?
               </p>
-              <div className=" mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
-                <span className="text-gray-900 text-xl tracking-wide capitalize font-bold">
+              <div className="">
+                <div className="font-semibold text-xl mt-5">
                   Note
-                </span>
-                <p className="leading-relaxed">
+                </div>
+                <p className="">
                   Lorem ipsum, dolor sit amet consectetur adipisicing elit.
                   Quaerat corporis labore accusantium placeat dicta eos vero
                   earum tempora iure, ipsam pariatur adipisci? Sit, rerum nam
                   sequi ratione placeat harum aliquid?
                 </p>
-              </div>
-              <div className=" gap-4 flex items-center justify-start ">
+            </div>
+            <button className="text-white bg-green py-2  rounded hover:bg-opacity-80 hover:duration-500 duration-500">Order</button>
+              {/* <div className=" gap-4 flex items-center justify-start ">
                 <a href="">
                   <img
                     className="w-20 rounded-md "
@@ -75,10 +81,10 @@ function SingleItem() {
                     alt=""
                   />
                 </a>
-              </div>
+              </div> */}
             </div>
           </div>
-          <section className="  container mx-auto py-8 flex justify-end ">
+          {/* <section className="  container mx-auto py-8 flex justify-end ">
             {islogin ? (
               <Link
                 to=""
@@ -94,8 +100,8 @@ function SingleItem() {
                 Please Login to Order
               </Link>
             )}
-          </section>
-        </div>
+          </section> */}
+        {/* </div> */}
       </section>
     </>
   );

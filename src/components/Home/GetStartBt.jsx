@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { Link } from "react-router-dom";
 import { HiChevronRight } from "react-icons/hi";
 const GetStartBt = () => {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin] = useState(false);
 
   return (
     <section>

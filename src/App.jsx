@@ -1,5 +1,4 @@
-import Fotter from "./components/Fotter/Fotter";
-import Navbar from "./components/navbar/Navbar";
+
 import "./index.css";
 
 // Components

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useUploadsMutation } from "../../app/api/profile";
 import { useEffect } from "react";
 
@@ -7,7 +7,7 @@ function AddProduct() {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({ image: [] });
   const [images,setImages]=useState([])
-  const [upload,{data:imagesData}]=useUploadsMutation();
+  const [{data:imagesData}]=useUploadsMutation();
 
 ////////////////////////////////////////////////////////////////
 const categories = [

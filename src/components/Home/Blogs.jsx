@@ -1,4 +1,4 @@
-import React from "react";
+
 import { BlogsCard } from "../../assets/Data";
 const Blogs = () => {
   return (

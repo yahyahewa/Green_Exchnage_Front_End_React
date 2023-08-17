@@ -1,15 +1,56 @@
-import React from "react";
+import { FormControl, MenuItem, Select } from "@mui/material";
+
+import  { useState } from "react";
 
 const Filter = () => {
+  const [value, setVlaue] = useState("")
+  const handleChange = (event) => {
+    setVlaue(event.target.value);
+  };
   return (
-    <div className="px-1 w-44 ">
-      <select className="  block bg-white w-full px-3 border border-jade-500 rounded-md py-2  pr-3 shadow-sm md:text-lg focus:outline-none focus:border-jade-500 focus:ring-jade-500 focus:ring-1 text-sm">
-        <option> Category</option>
-        <option value="">Filter</option>
-        <option value="">filter</option>
-        <option value="">filter</option>
-      </select>
+    <div className="grid grid-cols-2 gap-x-2">
+    
+      
+       <FormControl sx={{  minWidth: 170 }} size="small">
+        <Select
+          sx={{border:1.5, borderRadius: 1 }} 
+          value={value}
+          onChange={handleChange}
+          displayEmpty
+          color="success"
+          inputProps={{ 'aria-label': 'Without label' }}
+        >
+            <MenuItem value="">
+              <em>category</em>
+            </MenuItem>
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+      </FormControl>
+
+      
+       <FormControl sx={{  minWidth: 170 }} size="small">
+        <Select
+          sx={{border:1.5, borderColor: 'grey.600', borderRadius: 1 }} 
+          value={value}
+          onChange={handleChange}
+          displayEmpty
+          color="success"
+          inputProps={{ 'aria-label': 'Without label' }}
+        >
+              <MenuItem value="">
+                <em> sub category</em>
+              </MenuItem>
+              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value={20}>Twenty</MenuItem>
+              <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+      </FormControl>
+     
     </div>
+   
+
   );
 };
 

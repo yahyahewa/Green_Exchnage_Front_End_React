@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import Hero from "../components/Home/Hero";
 import SliderComponent from "../components/Home/SliderComponent";
 import Blogs from "../components/Home/Blogs";
