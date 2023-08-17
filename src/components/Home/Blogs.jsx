@@ -9,7 +9,7 @@ const Blogs = () => {
           <div className="-mx-4 flex flex-wrap justify-center">
             <div className="w-full px-4">
               <div className="mx-auto mb-[60px] max-w-[510px] text-center lg:mb-20">
-                <h2 className="text-transparent bg-clip-text bg-gradient-to-r from-gray-700 to-gray-400 pb-5 text-3xl font-bold sm:text-4xl md:text-[40px]">
+                <h2 className="pb-4 text-3xl sm:text-4xl font-extrabold text-center  from-gray-800">
                   Save Our Planet
                 </h2>
                 <p className=" text-lg  text-gray-900">
