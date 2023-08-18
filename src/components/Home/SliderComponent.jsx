@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination, Mousewheel, Autoplay } from "swiper/modules";
 import { SliderCards } from "../../assets/Data";
+import { useActiveUserQuery } from "../../app/api/home";
+
 const SliderComponent = () => {
+  const { data, isError, isLoading } = useActiveUserQuery(3);
+  useEffect(() => {
+    if (data && !isError && !isLoading) console.log(data);
+  }, [data]);
   return (
     <Swiper
       spaceBetween={30}
