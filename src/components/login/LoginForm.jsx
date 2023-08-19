@@ -40,7 +40,7 @@ function LoginForm() {
     }
   }, [data, isError, isLoading]);
 
-  if (data && data?.data?.token) return <Navigate to={"/"} replace />;
+  if (data && data?.data?.token) return <Navigate to="/" replace />;
   return (
         <Formik >
         <div className="w-full flex  flex-col items-center justify-center mt-28">
