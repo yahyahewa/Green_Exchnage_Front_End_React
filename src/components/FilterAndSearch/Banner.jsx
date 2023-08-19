@@ -1,15 +1,14 @@
-// import React from "react";
 import Search from "./Search/Search";
 import Filter from "./Filter/Filter";
-// import DropDown from "../DropDown/DropDown";
 
-const Banner = () => {
+
+// eslint-disable-next-line react/prop-types
+const Banner = ({search, setSearch, category, setCategory}) => {
   return (
     <>
       <div className="md:w-full flex pt-4 items-center justify-between px-2">
-        <Search />
-        {/* <DropDown/> */}
-        <Filter />
+        <Search search={search} setSearch={setSearch}  />
+        <Filter category={category} setCategory={setCategory} />
       </div>
     </>
   );

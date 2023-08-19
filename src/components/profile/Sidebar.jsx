@@ -8,15 +8,15 @@ function Sidebar({ setComponent }) {
   const [btnBg, setBtnBg] = useState(1);
   return (
     <aside
-      className={`w-8 sm:w-36 flex flex-col justify-between items-start
-        font-kurdish rounded-md overflow-hidden h-[60%] dark:text-white lg:absolute`}
+      className={`mx-4 p-4 flex flex-col justify-between items-start
+        font-kurdish rounded-md overflow-hidden h-[550px] dark:text-white lg:absolute bg-gray-50 w-1/6 shadow`}
     >
       <section
         className={`flex flex-col justify-center items-center gap-y-[10px] py-2 w-full`}
       >
-        <article
+        {/* <article
           className={`flex justify-center sm:justify-start items-center gap-x-2 p-1 
-          rounded-md cursor-default w-full mb-4 font-bold text-lg text-gray-700`}
+          rounded-md cursor-default w-full mb-4 font-bold text-lg text-gray-800`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -33,12 +33,12 @@ function Sidebar({ setComponent }) {
             />
           </svg>
           <span className="hidden sm:block pt-[2px]">Menu</span>
-        </article>
+        </article> */}
         {/* ------------------- New Donate ------------------- */}
         <article
-          className={`flex justify-center text-gray-600 sm:justify-start items-center gap-x-2 p-1 
-          rounded-md cursor-pointer w-full ${
-            btnBg == 1 && `bg-jade-200 text-jade-700 transition-all`
+         className={`flex justify-center text-gray-800 sm:justify-start items-center gap-x-2 p-1 
+          rounded cursor-pointer w-full ${
+            btnBg == 1 && `bg-green hover:bg-opacity-70 duration-500 hover:duration-500 text-white transition-all `
           }`}
           onClick={() => {
             setBtnBg(1);
@@ -51,7 +51,7 @@ function Sidebar({ setComponent }) {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6 scale-110 sm:scale-100"
+            className="w-6 h-6 scale-110 sm:scale-100 ml-2"
           >
             <path
               strokeLinecap="round"
@@ -63,9 +63,9 @@ function Sidebar({ setComponent }) {
         </article>
         {/* ------------------- My Donate ------------------- */}
         <article
-          className={`flex justify-center text-gray-600 sm:justify-start items-center gap-x-2 p-1 
-          rounded-md cursor-pointer w-full ${
-            btnBg == 2 && `bg-jade-200 text-jade-700 transition-all`
+          className={`flex justify-center text-gray-800 sm:justify-start items-center gap-x-2 p-1 
+          rounded cursor-pointer w-full ${
+            btnBg == 2 && `bg-green hover:bg-opacity-70 duration-500 hover:duration-500 text-white transition-all`
           }`}
           onClick={() => {
             setBtnBg(2);
@@ -78,7 +78,7 @@ function Sidebar({ setComponent }) {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6 scale-110 sm:scale-100"
+            className="w-6 h-6 scale-110 sm:scale-100 ml-2"
           >
             <path
               strokeLinecap="round"
@@ -91,9 +91,9 @@ function Sidebar({ setComponent }) {
         </article>
         {/* ------------------- My Donate ------------------- */}
         <article
-          className={`flex justify-center text-gray-600 sm:justify-start items-center gap-x-2 p-1 
-          rounded-md cursor-pointer w-full ${
-            btnBg == 3 && `bg-jade-200 text-jade-700 transition-all`
+          className={`flex justify-center text-gray-800 sm:justify-start items-center gap-x-2 p-1 
+          rounded cursor-pointer w-full ${
+            btnBg == 3 && `bg-green hover:bg-opacity-70 duration-500 hover:duration-500 text-white transition-all`
           }`}
           onClick={() => {
             setBtnBg(3);
@@ -106,7 +106,7 @@ function Sidebar({ setComponent }) {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6 scale-110 sm:scale-100"
+            className="w-6 h-6 scale-110 sm:scale-100 ml-2"
           >
             <path
               strokeLinecap="round"
@@ -126,9 +126,8 @@ function Sidebar({ setComponent }) {
       {/* ------------------- Logout ------------------- */}
       <Link
         to={"/login"}
-        className={`flex justify-center sm:justify-start items-center gap-x-2 p-1 
-        rounded-md cursor-pointer w-full px-2 py-1 my-1 font-bold text-gray-100 text-sm 
-        bg-jade-600 `}
+        className={`flex justify-centersm:justify-start items-center gap-x-2 p-1 
+          rounded cursor-pointer w-full bg-green hover:bg-opacity-70 duration-500 hover:duration-500 text-white transition-all `}
         onClick={() => {
           localStorage.removeItem("userData");
         }}
@@ -139,7 +138,7 @@ function Sidebar({ setComponent }) {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-6 h-6"
+          className="w-6 h-6 ml-2"
         >
           <path
             strokeLinecap="round"
@@ -148,7 +147,7 @@ function Sidebar({ setComponent }) {
           />
         </svg>
 
-        <span className="hidden sm:block pt-1">Logout</span>
+        <span className="hidden sm:block pt-1 ">Logout</span>
       </Link>
     </aside>
   );

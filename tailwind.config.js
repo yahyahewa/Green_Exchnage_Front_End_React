@@ -34,5 +34,6 @@ export default {
 // 5. ba nav baraka baw shewaya bet agra dway keshay bo drus krdn chaki akain
 // 6. responsive krdny designaka bo kata step bet
 // 7. lg:mx-36 , my-10  bo hamu pagekan dabne bas pagekan  ,bo am pagenam danawa bas agar page trman zyad krd
-//8.
+//8. bo button tania (rounded) dabnen 
+// 9. hover lasar opacitya bo buttonakan 
 

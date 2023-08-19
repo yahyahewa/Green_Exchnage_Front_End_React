@@ -13,7 +13,7 @@ import Login from "../Login";
 import {  Routes, Route } from "react-router-dom";
 import Protect from "../../components/protect/Protect";
 import Profile from "../Profile";
-import NotAuthorized from "../../components/protect/NotAuthorized";
+// import NotAuthorized from "../../components/protect/NotAuthorized";
 import NotFound from "../../components/NotFound";
 import Navbar from "../../components/navbar/Navbar";
 import Fotter from "../../components/Fotter/Fotter";
@@ -32,10 +32,11 @@ const Router = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/403" element={<NotAuthorized/>}/>
-        <Route element={<Protect/>}>
+        {/* TODO: uncomment this  */}
+        {/* <Route path="/403" element={<NotAuthorized/>}/> */}
+        {/* <Route element={<Protect/>}> */}
           <Route path="/profile" element={<Profile/>}/>
-        </Route>
+        {/* </Route> */}
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Fotter/>
