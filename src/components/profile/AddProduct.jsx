@@ -1,29 +1,36 @@
 import { useState } from "react";
 import { useUploadsMutation } from "../../app/api/profile";
 import { useEffect } from "react";
-
+import { useGetCategorySubCategoryQuery } from "../../app/api/category";
 
 function AddProduct() {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({ image: [] });
-  const [images,setImages]=useState([])
-  const [{data:imagesData}]=useUploadsMutation();
+  const [images, setImages] = useState([]);
+  const [{ data: imagesData }] = useUploadsMutation();
+  const {
+    data: catData,
+    isLoading: catLoading,
+    isErro: catIsError,
+  } = useGetCategorySubCategoryQuery();
 
-////////////////////////////////////////////////////////////////
-const categories = [
-  "category1",
-  "category2",
-  "category3",
-  "category4",
-  "category5",
-];
+  ////////////////////////////////////////////////////////////////
+  const [subCategories, setSubCategories] = useState();
+  ////////////////////////////////////////////////////////////////
+  const subCategoryHandl = (e) => {
+    const filteredSubCategories = catData.data
+      .filter((value) => value._id == e.target.value)
+      .map((value) => value.subCategory);
 
-////////////////////////////////////////////////////////////////
-  // upload iamges 
-  useEffect(()=>{
+    filteredSubCategories = fi;
+    // setSubCategories(filteredSubCategories);
+  };
+  ////////////////////////////////////////////////////////////////
+  // upload iamges
+  useEffect(() => {
     // console.log(imagesData?.data);
-  },[imagesData])
-  
+  }, [imagesData]);
+
   ////////////////////////////////////////////////////////////////
   const handleImageUpload = (e) => {
     setImages([]);
@@ -32,7 +39,7 @@ const categories = [
       const reader = new FileReader();
 
       reader.onload = (e) => {
-        setImages((prev)=>([...prev,e.target.result]))
+        setImages((prev) => [...prev, e.target.result]);
       };
       reader.readAsDataURL(files[i]);
     }
@@ -90,15 +97,35 @@ const categories = [
                 Category
               </label>
               <select
+                onChange={(e) => {
+                  subCategoryHandl(e);
+                }}
+                required={true}
+                className="outline-none w-full border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="">Select category</option>
+                {catData?.data.map((value) => (
+                  <option key={value._id} value={value._id}>
+                    {value.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="w-full mt-4">
+              <label
+                htmlFor="category"
+                className="block mb-2 text font-medium text-gray-900 dark:text-white"
+              >
+                Subcategory
+              </label>
+              <select
                 onChange={handleFormData}
                 name="category"
                 required={true}
                 className="outline-none w-full border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
-                <option value="">Select category</option>
-                {categories.map((value, index) => (
-                  <option key={index}>{value}</option>
-                ))}
+                <option value="">Select subcategory</option>
+                {subCategories}
               </select>
             </div>
             <div className="w-full mt-4">
