@@ -18,10 +18,19 @@ const userApi=api.injectEndpoints({
                     }
                 }
             }
+        }),
+        
+        getUserProducts: builder.query({
+            query: (id,token) => ({
+                url: `api/product/user/${id}`,
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                } })
         })
     })
 })
 
 export const {
-    useUploadsMutation
+    useUploadsMutation,
+    useGetUserProductsQuery
 }=userApi;
