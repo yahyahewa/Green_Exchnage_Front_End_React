@@ -9,7 +9,6 @@ const userApi = api.injectEndpoints({
           for (let file of files) {
             formData.append("photos", file);
           }
-
           return {
             url: "api/product/uploads",
             method: "POST",
@@ -19,7 +18,15 @@ const userApi = api.injectEndpoints({
         }
       },
     }),
+    getUserProducts: builder.query({
+      query: (id, token) => ({
+        url: `api/product/user/${id}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useUploadsMutation } = userApi;
+export const { useGetUserProductsQuery, useUploadsMutation } = userApi;
