@@ -1,29 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useUploadsMutation } from "../../app/api/profile";
-import { useEffect } from "react";
 import { useGetCategorySubCategoryQuery } from "../../app/api/category";
 
 function AddProduct() {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({ image: [] });
   const [images, setImages] = useState([]);
-  const [{ data: imagesData }] = useUploadsMutation();
-  const {
-    data: catData,
-    isLoading: catLoading,
-    isErro: catIsError,
-  } = useGetCategorySubCategoryQuery();
+  const [uploads, { data: imagesData }] = useUploadsMutation();
+  const { data: catData } = useGetCategorySubCategoryQuery();
 
   ////////////////////////////////////////////////////////////////
   const [subCategories, setSubCategories] = useState();
   ////////////////////////////////////////////////////////////////
   const subCategoryHandl = (e) => {
-    const filteredSubCategories = catData.data
-      .filter((value) => value._id == e.target.value)
-      .map((value) => value.subCategory);
-
-    filteredSubCategories = fi;
-    // setSubCategories(filteredSubCategories);
+    let a;
+    for (let i = 0; i < catData?.data.length; i++) {
+      if (catData?.data[i]._id == e.target.value)
+        a = catData.data[i].subCategory;
+    }
+    if (a) {
+      const b = a.map((value) => {
+        return (
+          <option key={value._id} value={value._id}>
+            {value.name}
+          </option>
+        );
+      });
+      setSubCategories(b);
+    }
   };
   ////////////////////////////////////////////////////////////////
   // upload iamges
@@ -46,16 +50,15 @@ function AddProduct() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    uploads(images);
   };
-
   ////////////////////////////////////////////////////////////////
   const handleFormData = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
-    <div className="w-full dark:bg-gray-900 dark:text-white">
+    <div className="w-full">
       <div className="flex flex-col items-center justify-center px-6 py-8 lg:py-0">
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <form onSubmit={handleSubmit} className="px-6 pb-6 space-y-4">
@@ -97,9 +100,7 @@ function AddProduct() {
                 Category
               </label>
               <select
-                onChange={(e) => {
-                  subCategoryHandl(e);
-                }}
+                onChange={subCategoryHandl}
                 required={true}
                 className="outline-none w-full border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
