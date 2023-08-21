@@ -28,3 +28,5 @@ const userApi = api.injectEndpoints({
     }),
   }),
 });
+
+export const { useGetUserProductsQuery, useUploadsMutation } = userApi;
