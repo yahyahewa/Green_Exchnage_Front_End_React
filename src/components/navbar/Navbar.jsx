@@ -29,26 +29,30 @@ const Navbar = () => {
       </Link>
       {/* ------ humbergr menu , get start image account  ----------------- */}
       <article
-        className={`flex flex-col absolute top-0 lg:top-1 lg:relative lg:left-auto  bg-white text-gray-800
-         lg:flex-row lg:justify-between items-center px-2 gap-3  z-10
-          lg:bg-white lg:dark:bg-gray-900 h-[100vh] lg:h-auto w-1/2 lg:w-auto  lg:text-gray-600 transition-all
+        className={`flex flex-col absolute   top-0 lg:top-1 lg:relative lg:left-auto   bg-white text-gray-900
+         lg:flex-row lg:justify-between py-2  items-center px-4 gap-1 lg:gap-4 lg:pl-4  z-10
+          lg:bg-white  h-[100vh] lg:h-auto w-1/2 lg:w-auto  lg:text-gray-900 transition-all
           ${showMenu ? "-left-0" : "-left-[100%]"}`}
       >
         {Navlink.map((value) => {
           return (
-            <NavLink
-              onClick={() => {
-                setShowMenu(false);
-              }}
-              to={value.Link}
-              key={value.id}
-                 className={({ isActive }) =>
-                (isActive ? "text-green focus:outline-none focus:text-green" : "text-gray-800") +
-                "px-3 py-2 text-xl font-semibold hover:text-green "
-              }
-            >
-              {value.Title}
-            </NavLink>
+            <>
+              <NavLink
+                onClick={() => {
+                  setShowMenu(false);
+                }}
+                to={value.Link}
+                key={value.id}
+                className={({ isActive }) =>
+                  (isActive
+                    ? "text-green focus:outline-none focus:text-green"
+                    : "text-gray-800") +
+                  "px-3 py-2 text-xl font-semibold hover:text-green "
+                }
+              >
+                {value.Title}
+              </NavLink>
+            </>
           );
         })}
         {/* TODO: add language by icon  */}
@@ -81,12 +85,14 @@ const Navbar = () => {
               className="w-8 rounded-full"
             />
           </Link>
-        ): <Link
-          to="/login"
-          className={`bg-green text-white px-6 p-2 py-[6px] rounded font-bold hover:bg-opacity-70 duration-500 hover:duration-500`}
-        >
-          Login
-        </Link>}
+        ) : (
+          <Link
+            to="/login"
+            className={`bg-green text-white px-6 p-2 py-[6px] rounded font-bold hover:bg-opacity-70 duration-500 hover:duration-500`}
+          >
+            Login
+          </Link>
+        )}
         <article
           className={`lg:hidden flex flex-col justify-evenly gap-1`}
           onClick={handleToggleMenu}

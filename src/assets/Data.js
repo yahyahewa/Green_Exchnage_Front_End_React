@@ -2,23 +2,29 @@ export const Navlink = [
   {
     id: 1,
     Title: "Home",
-    // Style:
-    //   "block px-3 py-2 text-xl rounded active:text-jade-200 font-bold hover:text-jade-400 hover:text-jade-900 focus:outline-none focus:text-jade-600 focus:font-semibold",
     Link: "/",
   },
   {
     id: 2,
     Title: "Products",
-    // Style:
-    //   "block px-3 py-2 text-xl rounded active:text-jade-200 font-bold  hover:text-jade-400 hover:text-jade-900 focus:outline-none focus:text-jade-600 focus:font-semibold",
     Link: "/products",
   },
   {
     id: 3,
-    Title: "Contact",
+    Title: "About",
+    Link: "/about",
+  },
 
+  {
+    id: 4,
+    Title: "F&Q",
+    Link: "/fq",
+  },
+  {
+    id: 5,
+    Title: "Contact",
     Link: "/contact",
-  }
+  },
 ];
 
 export const Cards = [
