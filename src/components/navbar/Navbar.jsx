@@ -36,23 +36,21 @@ const Navbar = () => {
       >
         {Navlink.map((value) => {
           return (
-            <>
-              <NavLink
-                onClick={() => {
-                  setShowMenu(false);
-                }}
-                to={value.Link}
-                key={value.id}
-                className={({ isActive }) =>
-                  (isActive
-                    ? "text-green focus:outline-none focus:text-green"
-                    : "text-gray-800") +
-                  "px-3 py-2 text-xl font-semibold hover:text-green "
-                }
-              >
-                {value.Title}
-              </NavLink>
-            </>
+            <NavLink
+              onClick={() => {
+                setShowMenu(false);
+              }}
+              to={value.Link}
+              key={value.id}
+              className={({ isActive }) =>
+                (isActive
+                  ? "text-green focus:outline-none focus:text-green"
+                  : "text-gray-800") +
+                "px-3 py-2 text-xl font-semibold hover:text-green "
+              }
+            >
+              {value.Title}
+            </NavLink>
           );
         })}
         {/* TODO: add language by icon  */}
