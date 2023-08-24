@@ -26,7 +26,19 @@ const userApi = api.injectEndpoints({
         },
       }),
     }),
+    addProduct: builder.mutation({
+      query: (body, token) => ({
+        url: "api/product/",
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+        body: body,
+      }),
+    }),
   }),
 });
 
-export const { useGetUserProductsQuery, useUploadsMutation } = userApi;
+export const {
+  useGetUserProductsQuery,
+  useUploadsMutation,
+  useAddProductMutation,
+} = userApi;
