@@ -6,9 +6,10 @@ import Filter from "./Filter/Filter";
 const Banner = ({search, setSearch, category, setCategory}) => {
   return (
     <>
-      <div className="md:w-full flex pt-4 items-center justify-between px-2">
-        <Search search={search} setSearch={setSearch}  />
+      <div className="flex flex-col w-full">
         <Filter category={category} setCategory={setCategory} />
+        <Search search={search} setSearch={setSearch}  />
+       
       </div>
     </>
   );
