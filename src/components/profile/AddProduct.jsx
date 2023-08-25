@@ -50,7 +50,13 @@ function AddProduct() {
       setFormData({ ...formData, images: UploadImage?.data });
     }
   }, [UploadImage]);
-
+  ///------------- handle data -------------///
+  useEffect(() => {
+    if (prdData?.status == "success") {
+      setFormData({ owner: userInfo?.data._id });
+      setImages([]);
+    }
+  }, [prdData]);
   ///------------- handle upload -------------///
   const handleImageUpload = (e) => {
     setImages([]);
