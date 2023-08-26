@@ -4,10 +4,11 @@ import { useEffect } from "react";
 import * as Yup from "yup";
 import { Formik, Form, useFormik } from "formik";
 import InputField from "../InputField/InputField";
+import { useState } from "react";
 
 function LoginForm() {
-  const [login, { data, isError, isLoading }] = useLoginMutation()
-  console.log(data)
+  const [login, { data, isError, isLoading }] = useLoginMutation();
+  const [thereUSer, setThereUser] = useState("");
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -15,7 +16,7 @@ function LoginForm() {
     },
     onSubmit: (values, { resetForm }) => {
       // console.log(values)
-      login(values)
+      login(values);
       resetForm({ values: "" });
     },
     validationSchema: Yup.object({
@@ -34,65 +35,77 @@ function LoginForm() {
   // };
   useEffect(() => {
     if (!isError && !isLoading && data) {
-      JSON.stringify(
-        localStorage.setItem("userData", JSON.stringify(data?.data))
-      );
+      data?.status == "success"
+        ? JSON.stringify(
+            localStorage.setItem("userData", JSON.stringify(data?.data))
+          )
+        : setThereUser("user not found");
     }
-  }, [data, isError, isLoading]);
+  }, [data]);
 
-  if (data && data?.data?.token) return <Navigate to="/" replace />;
+  if (data?.status == "success" && data?.data?.token)
+    return <Navigate to="/profile" replace />;
   return (
-        <Formik >
-        <div className="w-full flex  flex-col items-center justify-center mt-28">
-          <p className="font-semibold text-lg text-gray-800 ">Log In </p>
+    <Formik>
+      <div className="w-full flex  flex-col items-center justify-center mt-28">
+        <p className="font-semibold text-lg text-gray-800 ">Log In </p>
         <Form
           onSubmit={formik.handleSubmit}
           className="grid grid-cols-1 mb-10 w-full lg:w-fit"
-          >
-            <div className="flex flex-col ">
-              <label className="text-gray-800 font-english">Email</label>
-              <InputField
-            name="email"
-            placeholder="Example@gmail.com"
-            id="email"
-            value={formik.values.email}
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-              />
-              {formik.touched.email && formik.errors.email ? (
-            <span className="text-red-400 text-sm">{formik.errors.email}</span>
+        >
+          <div className="flex flex-col ">
+            <label className="text-gray-800 font-english">Email</label>
+            <InputField
+              name="email"
+              placeholder="Example@gmail.com"
+              id="email"
+              value={formik.values.email}
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+            />
+            {formik.touched.email && formik.errors.email ? (
+              <span className="text-red-400 text-sm">
+                {formik.errors.email}
+              </span>
             ) : null}
-            </div>
-         
-           
-          
-        
-            <div className="mt-4 flex flex-col">
-              <label className="text-gray-800 font-english">Password</label>
-          <InputField
-            name="password"
-            placeholder="********"
-            id="password"
-            value={formik.values.password}
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-          />
-          {formik.touched.password && formik.errors.password ? (
-            <div className="text-red-400 text-sm ">
-              {formik.errors.password}
-            </div>
-          ) : null}</div>
-          
-<p className="text-gray-800 text-sm mt-2"  >Dont have an account? <Link to="/signup" className="text-blue-500 ">Sign Up</Link> </p>
+          </div>
+
+          <div className="mt-4 flex flex-col">
+            <label className="text-gray-800 font-english">Password</label>
+            <InputField
+              name="password"
+              placeholder="********"
+              id="password"
+              value={formik.values.password}
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+            />
+            {formik.touched.password && formik.errors.password ? (
+              <div className="text-red-400 text-sm ">
+                {formik.errors.password}
+              </div>
+            ) : null}
+          </div>
+
+          <p className="text-gray-800 text-sm mt-2">
+            Dont have an account?{" "}
+            <Link to="/signup" className="text-blue-500 ">
+              Sign Up
+            </Link>{" "}
+          </p>
           <div className="mt-5">
-            {" "}
-            <button type="submit" className="text-white bg-green py-2 w-full  rounded hover:bg-opacity-80 hover:duration-500 duration-500">submit </button>
-              
+            <button
+              type="submit"
+              className="text-white bg-green py-2 w-full  rounded hover:bg-opacity-80 hover:duration-500 duration-500"
+            >
+              submit
+            </button>
+            <div className="text-red-400 text-sm mt-1">{thereUSer}</div>
           </div>
         </Form>
       </div>
     </Formik>
-  
+
     // <div className="grid grid-cols-2">
     //   <div></div>
     //   <section className=" dark:bg-gray-900">
@@ -100,7 +113,7 @@ function LoginForm() {
     //       <div className="dark:bg-gray-800 dark:border-gray-700">
     //         <div className="">
     //           <h1 className="">
-    //             Sign in 
+    //             Sign in
     //           </h1>
     //           <p className="">
     //             Welcome back. Enter your credentials to access your account
