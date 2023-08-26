@@ -10,7 +10,6 @@ function AddProduct() {
     addProduct,
     { data: prdData, isError: prdError, isLoading: prdLoading },
   ] = useAddProductMutation();
-  const [loading, setLoading] = useState(false);
   let userInfo = {};
   if (
     localStorage.getItem("userData") &&
@@ -216,16 +215,9 @@ function AddProduct() {
         </div>
 
         <button
-          className={`w-96 mt-20 outline-none text-white ${
-            loading ? "bg-jade-200" : "bg-jade-600"
-          } font-medium rounded px-1 py-2 h-fit text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 flex justify-center items-center gap-x-2`}
-          onClick={() => setLoading((prevLoading) => !prevLoading)}
+          className={`w-96 mt-20 outline-none text-white bg-green font-medium rounded px-1 py-2 h-fit text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 flex justify-center items-center gap-x-2`}
         >
-          {!loading ? (
-            <span>Add</span>
-          ) : (
-            <div className="flex items-center justify-center animate-spin rounded-full h-6 w-6 border-t-2 border-jade-700 border-solid"></div>
-          )}
+          Add
         </button>
       </form>
     </div>
