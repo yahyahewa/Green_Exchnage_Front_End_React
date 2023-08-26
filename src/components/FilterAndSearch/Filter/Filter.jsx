@@ -56,7 +56,10 @@ const Filter = ({ category, setCategory }) => {
      } else {
        setDataToMap(allCategory?.data)
  }
- },[dataToMap, setDataToMap, category, subcategoryy, allCategory])
+  }, [dataToMap, setDataToMap, category, subcategoryy, allCategory])
+  // const ske= Array(10).fill(0).map((_, index) => {
+  //   return <Skeleton key={ index} count={1}/>
+  // })
   return (
     <div className="flex items-center relative">
          
@@ -95,7 +98,7 @@ const Filter = ({ category, setCategory }) => {
                 onClick={() => handleCategoryClick(category)}
               >
                
-                {category.name}
+                {category.name }
               </button>
             ))}
           </div>
