@@ -84,12 +84,11 @@ function AddProduct() {
 
   ///------------- returen -------------///
   return (
-    <div className="w-full lg:mx-36 pl-40">
-      <p>Add Product</p>
-      {/* <div className="flex flex-col  px-6 py-8 lg:py-0"> */}
-      {/* <div className="w-full   md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"> */}
-      <form onSubmit={handleSubmit} className="grid grid-cols-2 pb-6 ">
-        <div className="w-96 mt-4">
+    <div className="w-full">
+      <form onSubmit={handleSubmit} className="grid justify-center items-start
+       grid-cols-1 lg:grid-cols-2 pb-6 h-screen">
+        {/* --------------------- name --------------------- */}
+        <div className="mt-1">
           <label
             htmlFor="name"
             className="block mb-2 text font-medium text-gray-900 "
@@ -101,10 +100,10 @@ function AddProduct() {
             name="name"
             onChange={handleFormData}
             type="text"
-            className=" hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500  pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green  outline-none w-full   text-gray-900 sm:text-sm  focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-green dark:focus:border-green"
+            className=" hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500  pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green  outline-none w-full   text-gray-900 sm:text-sm  focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 "
           />
         </div>
-        <div className="w-96 mt-4">
+        <div className="mt-1">
           <label
             htmlFor="phoneNumber"
             className="block mb-2 text font-medium text-gray-900 "
@@ -116,10 +115,11 @@ function AddProduct() {
             name="phone"
             onChange={handleFormData}
             type="tel"
-            className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green  outline-none w-full   text-gray-900 sm:text-sm  focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 dark:bg-gray-700 dark:border-gray-400   dark:focus:ring-green dark:focus:border-green"
+            className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green  outline-none w-full   text-gray-900 sm:text-sm  focus:ring-primary-600 focus:border-primary-600 block px-1 py-2"
           />
         </div>
-        <div className="w-96 mt-4">
+        {/* --------------------- category --------------------- */}
+        <div className="mt-1">
           <label
             htmlFor="category"
             className="block mb-2 text font-medium text-gray-900 "
@@ -129,7 +129,7 @@ function AddProduct() {
           <select
             onChange={subCategoryHandl}
             required={true}
-            className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green  outline-none w-full   text-gray-900 sm:text-sm  focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 dark:bg-gray-700 dark:border-green dark:placeholder-gray-400  dark:focus:ring-green dark:focus:border-green"
+            className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green  outline-none w-full   text-gray-900 sm:text-sm  focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 "
           >
             <option value="">Select category</option>
             {catData?.data.map((value) => (
@@ -139,7 +139,8 @@ function AddProduct() {
             ))}
           </select>
         </div>
-        <div className="w-96 mt-4">
+        {/* --------------------- subCategory --------------------- */}
+        <div className="mt-1">
           <label
             htmlFor="category"
             className="block mb-2 text font-medium text-gray-900 "
@@ -150,13 +151,13 @@ function AddProduct() {
             onChange={handleFormData}
             name="category"
             required={true}
-            className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green  outline-none w-full   text-gray-900 sm:text-sm  focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-green dark:focus:border-green"
+            className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green  outline-none w-full   text-gray-900 sm:text-sm  focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 "
           >
             <option value="">Select subcategory</option>
             {subCategories}
           </select>
         </div>
-        <div className="w-96 mt-4">
+        <div className="mt-1">
           <label
             htmlFor="address"
             className="block mb-2 text font-medium text-gray-900 "
@@ -168,10 +169,11 @@ function AddProduct() {
             name="address"
             onChange={handleFormData}
             type="text"
-            className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green  outline-none w-full   text-gray-900 sm:text-sm  focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-green dark:focus:border-green"
+            className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green  outline-none w-full   text-gray-900 sm:text-sm  focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 "
           />
         </div>
-        <div className="w-96 mt-4">
+        {/* --------------------- image show --------------------- */}
+        <div className="mt-1">
           <label
             htmlFor="image"
             className="block mb-2 text font-medium text-gray-900 "
@@ -190,16 +192,18 @@ function AddProduct() {
               ))}
             </div>
           )}
+          {/* --------------------- upload image --------------------- */}
           <input
             multiple={true}
             required={true}
             onChange={handleImageUpload}
             type="file"
             name="image"
-            className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green   w-96 bg-gray-50 text-gray-900 sm:text-sm  focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 dark:bg-gray-700 dark:border-gray-400 dark:hover:placeholder-gray-600  dark:focus:ring-green dark:focus:border-green"
+            className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green   bg-1ray-50 text-gray-900 sm:text-sm  focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 "
           />
         </div>
-        <div className="w-96 mt-4">
+        {/* --------------------- category --------------------- */}
+        <div className="mt-1">
           <label
             htmlFor="description"
             className="block mb-2 text font-medium text-gray-900 "
@@ -210,19 +214,17 @@ function AddProduct() {
             required={true}
             name="description"
             onChange={handleFormData}
-            className=" hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green  w-96  outline-none h-20 p-1   text-gray-900 dark:bg-gray-700 dark:border-gray-600 resize-none dark:placeholder-gray-400  dark:focus:ring-green dark:focus:border-green"
+            className=" hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green   ou1line-none h-20 p-1   text-gray-900 "
           ></textarea>
         </div>
 
         <button
-          className={`w-96 mt-20 outline-none text-white bg-green font-medium rounded px-1 py-2 h-fit text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 flex justify-center items-center gap-x-2`}
+          className={`mt-10 outline-none text-white bg-green font-medium rounded px-1 py-2 h-fit text-center flex justify-center items-center gap-x-2`}
         >
           Add
         </button>
       </form>
     </div>
-    // </div>
-    // </div>
   );
 }
 

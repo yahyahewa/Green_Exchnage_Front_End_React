@@ -8,7 +8,7 @@ function Profile() {
     <>
       <main
         className={`w-full flex flex-col justify-start items-start 
-        p-2 mt-10 h-screen max-w-[2000px] dark:text-white`}
+        px-10 sm:px-12 md:px-20 lg:px-24 xl:px-36`}
       >
         <Sidebar component={components} setComponent={setComponents} />
         {components}
