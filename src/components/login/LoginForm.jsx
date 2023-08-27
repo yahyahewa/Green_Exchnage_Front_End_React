@@ -41,13 +41,13 @@ function LoginForm() {
           )
         : setThereUser("user not found");
     }
-  }, [data]);
+  }, [data, isError, isLoading]);
 
   if (data?.status == "success" && data?.data?.token)
     return <Navigate to="/profile" replace />;
   return (
     <Formik>
-      <div className="w-full flex  flex-col items-center justify-center mt-28">
+      <div className="w-full flex  flex-col items-center justify-center md:mt-28">
         <p className="font-semibold text-lg text-gray-800 ">Log In </p>
         <Form
           onSubmit={formik.handleSubmit}
@@ -105,125 +105,6 @@ function LoginForm() {
         </Form>
       </div>
     </Formik>
-
-    // <div className="grid grid-cols-2">
-    //   <div></div>
-    //   <section className=" dark:bg-gray-900">
-    //     <div className="flex flex-col items-center justify-center">
-    //       <div className="dark:bg-gray-800 dark:border-gray-700">
-    //         <div className="">
-    //           <h1 className="">
-    //             Sign in
-    //           </h1>
-    //           <p className="">
-    //             Welcome back. Enter your credentials to access your account
-    //           </p>
-    //           <form
-    //             onSubmit={handleSubmite}
-    //             className=""
-    //             action="#"
-    //           >
-    //             <div>
-    //               {/* ------------------- email feild ---------------------------- */}
-    //               <label
-    //                 htmlFor="email"
-    //                 className="font-semibold text-gray-800 my-1"
-    //               >
-    //                Email
-    //               </label>
-    //               <input
-    //                 onChange={handleInputChange}
-    //                 type="email"
-    //                 name="email"
-    //                 id="email"
-    //                 className="text-gray-800 p-2 w-full outline-none border-2 rounded border-gray-200 focus:border-green focus:outline-none active:outline-none"
-    //                 placeholder="name@company.com"
-    //                 required=""
-    //               />
-    //             </div>
-    //             <div className="flex flex-col">
-    //               {/* ------------------- password feild ---------------------------- */}
-    //               <label
-    //                 htmlFor="password"
-    //                 className="font-semibold text-gray-800 my-1"
-    //               >
-    //                 Password
-    //               </label>
-    //               <input
-    //                 onChange={handleInputChange}
-    //                 type="password"
-    //                 name="password"
-    //                 placeholder="••••••••"
-    //                 className="text-gray-800 p-2 w-full outline-none border-2 rounded border-gray-200 focus:border-green focus:outline-none active:outline-none"
-    //                 required=""
-    //               />
-    //             </div>
-    //             <div className="flex items-center justify-between">
-    //               <div className="flex items-start">
-    //                 <div className="flex items-center h-5">
-    //                   <input
-    //                     id="remember"
-    //                     aria-describedby="remember"
-    //                     type="checkbox"
-    //                     className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3"
-    //                     required=""
-    //                   />
-    //                 </div>
-    //                 <div className="ml-3 text-sm">
-    //                   <label
-    //                     htmlFor="remember"
-    //                     className="text-gray-500 dark:text-gray-300"
-    //                   >
-    //                     Keep me signed in
-    //                   </label>
-    //                 </div>
-    //               </div>
-    //               <Link
-    //                 to="/forgot-password"
-    //                 className="text-sm font-medium text-[#00AA7A] hover:underline dark:text-[#00674a]"
-    //               >
-    //                 Forgot password?
-    //               </Link>
-    //             </div>
-    //             <button
-    //               disabled={isErro ? true : isLoading ? true : false}
-    //               type="submit"
-    //               className={`w-full text-white  ${
-    //                 isErro
-    //                   ? "bg-jade-200"
-    //                   : isLoading
-    //                   ? " bg-jade-200"
-    //                   : " bg-jade-500 hover:bg-jade-600 "
-    //               } focus:ring-4 focus:outline-none focus:ring-primary-300
-    //                font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800`}
-    //             >
-    //               {isErro ? (
-    //                 <div className="flex items-center justify-center">
-    //                   <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-jade-700 border-solid"></div>
-    //                 </div>
-    //               ) : isLoading ? (
-    //                 <div className="flex items-center justify-center">
-    //                   <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-jade-700 border-solid"></div>
-    //                 </div>
-    //               ) : (
-    //                 "Sign in"
-    //               )}
-    //             </button>
-    //             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-    //               Don’t have an account yet?
-    //               <Link
-    //                 to="/signup"
-    //                 className="font-medium text-[#00AA7A] hover:underline dark:text-[#00674a]"
-    //               >
-    //                 Sign up
-    //               </Link>
-    //             </p>
-    //           </form>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </section>
-    // </div>
   );
 }
 
