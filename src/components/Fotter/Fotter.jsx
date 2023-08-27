@@ -3,7 +3,7 @@ import { LINKS } from "../../assets/Data";
 import Logo from "../navbar/Logo";
 const Fotter = () => {
   return (
-    <footer className=" bg-opacity-80 text-gray-900    ">
+    <footer className="px-6 sm:px-12 lg:mx-26 md:px-20  bg-opacity-80 text-gray-900    ">
       <div className="lg:mx-36 px-2 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
           <Link to="/" className="font-bold  text-md text-neutral-600">
@@ -13,7 +13,7 @@ const Fotter = () => {
           <div className="flex flex-wrap mt-2 items-center  text-md font-medium sm:mb-0 ">
             {LINKS.map((value) => {
               return (
-                <Link
+                <Link key={value.id}
                   to={value.title}
                   className="mr-4 hover:underline md:mr-6 "
                 >
