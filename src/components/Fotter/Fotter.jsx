@@ -1,30 +1,27 @@
 import { Link } from "react-router-dom";
-import { Navlink } from "../../assets/Data";
-
+import { LINKS } from "../../assets/Data";
+import Logo from "../navbar/Logo";
 const Fotter = () => {
   return (
     <footer className=" bg-opacity-80 text-gray-900    ">
       <div className="lg:mx-36 px-2 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
-          <span className="text-md font-bold">
-            <span className="text-jade-600 text-2xl">G</span>reen
-            <span className="text-jade-600 text-2xl">E</span>xchange
-          </span>
+          <Link to="/" className="font-bold  text-md text-neutral-600">
+            <Logo />
+          </Link>
 
-          <ul className="flex flex-wrap mt-2 items-center  text-md font-medium sm:mb-0 ">
-            {Navlink.map((value) => {
+          <div className="flex flex-wrap mt-2 items-center  text-md font-medium sm:mb-0 ">
+            {LINKS.map((value) => {
               return (
-                <li key={value.id}>
-                  <Link
-                    to={value.Link}
-                    className="mr-4 hover:underline focus:underline md:mr-6 "
-                  >
-                    {value.Title}
-                  </Link>
-                </li>
+                <Link
+                  to={value.title}
+                  className="mr-4 hover:underline md:mr-6 "
+                >
+                  {value.title}
+                </Link>
               );
             })}
-          </ul>
+          </div>
         </div>
         <hr className="my-6   border-gray-800 py-2 sm:mx-auto lg:my-4" />
         <span className=" text-base sm:text-center flex flex-row justify-center my-4">
