@@ -4,7 +4,7 @@ const Search = ({ search, setSearch }) => {
 
   return (
     <div
-      className="flex justify-center items-center w-full my-5">
+      className="flex justify-center items-center w-full my-5 mt-10">
       <div className="relative flex ">
       <div className="absolute flex ml-2 items-center justify-start h-full">
         <img
