@@ -130,25 +130,25 @@ export const SliderCards = [
 export const AboutUs = [
   {
     id: 1,
-    name: "Ehsan Muhamad",
+    name: "Ehsan ",
     image:
       "https://imgv3.fotor.com/images/gallery/Realistic-Male-Profile-Picture.jpg",
   },
   {
     id: 2,
-    name: "Sana Rzgar",
+    name: "Sana ",
     image:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1-4rbYU57h7TIeAlsHLsomlddewPZCGmQQiKakgmKG81U3zCMvTKzb74LmkZPTdo8lvw&usqp=CAU",
   },
   {
     id: 3,
-    name: "Rozh Bahman",
+    name: "Rozh ",
     image:
       "https://cdn.pixabay.com/photo/2023/01/28/20/23/ai-generated-7751688_1280.jpg",
   },
   {
     id: 4,
-    name: "Yahya Hiwa ",
+    name: "Yahya  ",
     image:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJzI8ssBFPVXkeOkmcjICIBOzX3dJf8Undxi0ixAsi_CciCXHhVjMc1LggcEkJvS10BGE&usqp=CAU",
   },

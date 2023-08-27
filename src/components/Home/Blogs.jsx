@@ -11,7 +11,7 @@ const Blogs = () => {
                 <h2 className="lg:text-4xl   leading-9 text-gray-800  pb-4 text-3xl px-5 sm:text-4xl text-to font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-neutral-800 to-neutral-400">
                   Save Our Planet
                 </h2>
-                <p className=" text-lg  text-gray-900">
+                <p className=" lg:text-lg text-center font-normal text-md  leading-8   text-gray-900 text-gray-900">
                   Donating can indeed be a meaningful way to reduce waste and
                   help those in need. Here are some steps and ideas to consider
                 </p>
@@ -36,7 +36,9 @@ const Blogs = () => {
                           {title}
                         </p>
                       </h3>
-                      <p className=" text-base">{Desc}</p>
+                      <p className=" lg:text-lg text-center font-normal text-md  leading-6   text-gray-900">
+                        {Desc}
+                      </p>
                     </div>
                   </div>
                 </div>
