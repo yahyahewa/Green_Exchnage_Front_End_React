@@ -5,7 +5,7 @@ const About = () => {
     <div className="2xl:container 2xl:mx-auto lg:py-16 lg:px-20 md:py-12 md:px-6 py-9 px-4 pt-8">
       <div className="flex flex-col lg:flex-row justify-between gap-8">
         <div className="w-full lg:w-5/12 flex flex-col justify-center">
-          <h1 className=" lg:text-4xl   leading-9 text-gray-800  pb-4 text-3xl px-5 sm:text-4xl text-to font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-neutral-800 to-neutral-400">
+          <h1 className=" lg:text-4xl   leading-9 text-gray-800  pb-4 text-3xl px-5 sm:text-4xl text-to font-extrabold text-center  ">
             About Us
           </h1>
           <p className="font-normal text-md  leading-6 text-lg  text-gray-900 text-justify ">
@@ -28,10 +28,10 @@ const About = () => {
       </div>
       <div className="flex lg:flex-row flex-col justify-between gap-8 pt-12">
         <div className="w-full lg:w-5/12 flex flex-col justify-center">
-          <h1 className="lg:text-4xl   leading-9 text-gray-800  pb-4 text-3xl px-5 sm:text-4xl text-to font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-neutral-800 to-neutral-400">
+          <h1 className=" lg:text-4xl   leading-9 text-gray-800  pb-4 text-3xl px-5 sm:text-4xl text-to font-extrabold text-center">
             Our Story
           </h1>
-          <p className="text-lg  text-gray-900 leading-6  text-justify ">
+          <p className="font-normal text-md  leading-6 text-lg  text-gray-900 text-justify ">
             Our journey began with a shared vision and a chance encounter at a
             coding boot camp. Four like-minded technical individuals, each with
             their unique skills and expertise, converged at this pivotal moment
