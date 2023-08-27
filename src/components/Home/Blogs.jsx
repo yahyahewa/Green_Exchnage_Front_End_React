@@ -1,15 +1,14 @@
-
 import { BlogsCard } from "../../assets/Data";
 const Blogs = () => {
   return (
     <>
       {/* ====== Blog Section Start */}
-      <section className="pt-20 pb-10 px-3 lg:pt-[120px] lg:pb-20">
+      <section className="2xl:container 2xl:mx-auto lg:py-16 lg:px-20 md:py-12 md:px-6 py-9 px-0">
         <div className="container mx-auto">
           <div className="-mx-4 flex flex-wrap justify-center">
             <div className="w-full px-4">
               <div className="mx-auto mb-[60px] max-w-[510px] text-center lg:mb-20">
-                <h2 className="pb-4 text-3xl sm:text-4xl font-extrabold text-center  from-gray-800">
+                <h2 className="lg:text-4xl   leading-9 text-gray-800  pb-4 text-3xl px-5 sm:text-4xl text-to font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-neutral-800 to-neutral-400">
                   Save Our Planet
                 </h2>
                 <p className=" text-lg  text-gray-900">
@@ -37,7 +36,7 @@ const Blogs = () => {
                           {title}
                         </p>
                       </h3>
-                      <p className="text-body-color text-base">{Desc}</p>
+                      <p className=" text-base">{Desc}</p>
                     </div>
                   </div>
                 </div>
