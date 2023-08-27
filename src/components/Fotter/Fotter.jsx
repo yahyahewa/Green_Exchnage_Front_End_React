@@ -23,10 +23,10 @@ const Fotter = () => {
             })}
           </div>
         </div>
-        <hr className="my-6   border-gray-800 py-2 sm:mx-auto lg:my-4" />
-        <span className=" text-base sm:text-center flex flex-row justify-center my-4">
+        <hr className="my-4   border-gray-800 py-2 sm:mx-auto lg:my-2" />
+        <span className=" text-base text-center flex flex-row justify-center my-4">
           © 2023
-          <Link to="/" className="hover:underline pr-2  ">
+          <Link to="/" className="hover:underline  ">
             Green Exchange™
           </Link>
           . All Rights Reserved.
