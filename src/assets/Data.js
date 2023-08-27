@@ -1,30 +1,7 @@
-export const Navlink = [
-  {
-    id: 1,
-    Title: "Home",
-    Link: "/",
-  },
-  {
-    id: 2,
-    Title: "Products",
-    Link: "/products",
-  },
-  {
-    id: 3,
-    Title: "About",
-    Link: "/about",
-  },
-
-  {
-    id: 4,
-    Title: "F&Q",
-    Link: "/fq",
-  },
-  {
-    id: 5,
-    Title: "Contact",
-    Link: "/contact",
-  },
+export const LINKS = [
+  { title: "Products", path: "/products" },
+  { title: "Contact", path: "/contact" },
+  { title: "FAQ", path: "/fq" },
 ];
 
 export const Cards = [
