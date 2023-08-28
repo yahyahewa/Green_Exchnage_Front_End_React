@@ -1,7 +1,7 @@
 export const LINKS = [
-  { title: "Products", path: "/products" },
-  { title: "Contact", path: "/contact" },
-  { title: "FAQ", path: "/fq" },
+  { id:1,title: "Products", path: "/products" },
+  {id:2, title: "Contact", path: "/contact" },
+  { id:3,title: "FAQ", path: "/fq" },
 ];
 
 export const Cards = [
