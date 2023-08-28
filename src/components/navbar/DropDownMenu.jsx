@@ -31,7 +31,7 @@ function DropDownMenu() {
               </NavItem>
             ))}
           </ul>
-          {/* <div className="flex justify-center mt-10" onClick={close}>
+          <div className="flex justify-center mt-10" onClick={close}>
             <Link
               to={"/login"}
               className="btn btn-primary py-1 px-2 rounded-md btn-md bg-green
@@ -39,9 +39,9 @@ function DropDownMenu() {
             >
               Login
             </Link>
-          </div> */}
+          </div>
         </Drawer.Body>
-        {/* Drawer content */}
+        Drawer content
       </Drawer>
       <Group position="center">
         <Humberger openDrawer={open} />

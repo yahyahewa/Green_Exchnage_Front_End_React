@@ -4,7 +4,7 @@ import Logo from "../navbar/Logo";
 const Fotter = () => {
   return (
     <footer className="px-6 sm:px-12 lg:mx-26 md:px-20  bg-opacity-80 text-gray-900    ">
-      <div className="lg:mx-36 px-2 md:py-8">
+      <div className=" px-2 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
           <Link to="/" className="font-bold  text-md text-neutral-600">
             <Logo />
