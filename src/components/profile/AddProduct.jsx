@@ -84,11 +84,9 @@ function AddProduct() {
 
   ///------------- returen -------------///
   return (
-    <div className="w-full">
-      <form onSubmit={handleSubmit} className="grid justify-center items-start
-       grid-cols-1 lg:grid-cols-2 pb-6 h-screen">
+      <form onSubmit={handleSubmit} className="w-full max-w-[2000px] flex flex-wrap justify-center md:justify-around gap-x-2 gap-y-4 my-10">
         {/* --------------------- name --------------------- */}
-        <div className="mt-1">
+        <div className="mt-1 w-full lg:w-[45%]">
           <label
             htmlFor="name"
             className="block mb-2 text font-medium text-gray-900 "
@@ -103,7 +101,8 @@ function AddProduct() {
             className=" hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500  pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green  outline-none w-full   text-gray-900 sm:text-sm  focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 "
           />
         </div>
-        <div className="mt-1">
+        {/* --------------------- phone --------------------- */}
+        <div className="mt-1 w-full lg:w-[45%]">
           <label
             htmlFor="phoneNumber"
             className="block mb-2 text font-medium text-gray-900 "
@@ -119,7 +118,7 @@ function AddProduct() {
           />
         </div>
         {/* --------------------- category --------------------- */}
-        <div className="mt-1">
+        <div className="mt-1 w-full lg:w-[45%]">
           <label
             htmlFor="category"
             className="block mb-2 text font-medium text-gray-900 "
@@ -140,7 +139,7 @@ function AddProduct() {
           </select>
         </div>
         {/* --------------------- subCategory --------------------- */}
-        <div className="mt-1">
+        <div className="mt-1 w-full lg:w-[45%]">
           <label
             htmlFor="category"
             className="block mb-2 text font-medium text-gray-900 "
@@ -157,7 +156,24 @@ function AddProduct() {
             {subCategories}
           </select>
         </div>
-        <div className="mt-1">
+        {/* --------------------- city --------------------- */}
+        <div className="mt-1 w-full lg:w-[45%]">
+          <label
+            htmlFor="address"
+            className="block mb-2 text font-medium text-gray-900 "
+          >
+            City
+          </label>
+          <input
+            required={true}
+            name="city"
+            onChange={handleFormData}
+            type="text"
+            className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green  outline-none w-full   text-gray-900 sm:text-sm  focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 "
+          />
+        </div>
+        {/* --------------------- address --------------------- */}
+        <div className="mt-1 w-full lg:w-[45%]">
           <label
             htmlFor="address"
             className="block mb-2 text font-medium text-gray-900 "
@@ -172,38 +188,42 @@ function AddProduct() {
             className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green  outline-none w-full   text-gray-900 sm:text-sm  focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 "
           />
         </div>
-        {/* --------------------- image show --------------------- */}
-        <div className="mt-1">
+        {/* --------------------- image --------------------- */}
+        <div className="mt-1 w-full lg:w-[45%] h-[200px] overflow-hidden">
           <label
             htmlFor="image"
             className="block mb-2 text font-medium text-gray-900 "
           >
             Images
-          </label>
-          {images.length !== 0 && (
-            <div className="w-full border rounded-md outline-none p-1 flex flex-wrap justify-start gap-1">
-              {images.map((image, index) => (
-                <img
-                  key={index}
-                  src={image}
-                  className="w-16 h-16 rounded-md"
-                  alt={`Image ${index}`}
-                />
-              ))}
-            </div>
-          )}
-          {/* --------------------- upload image --------------------- */}
-          <input
-            multiple={true}
-            required={true}
-            onChange={handleImageUpload}
-            type="file"
-            name="image"
-            className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green   bg-1ray-50 text-gray-900 sm:text-sm  focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 "
-          />
+          </label><div className="border-2 border-gray-400 w-[100%] h-[165px]">
+  {images.length !== 0 && (
+    <div className="overflow-auto p-1 flex flex-wrap justify-start gap-1 w-[100%] h-[110px]">
+      {/* --------------------- image show --------------------- */}
+      {images.map((image, index) => (
+        <img
+          key={index}
+          src={image}
+          className="w-16 h-16 rounded-md"
+          alt={`Image ${index}`}
+        />
+      ))}
+    </div>
+  )}
+  <input
+    multiple={true}
+    required={true}
+    onChange={handleImageUpload}
+    type="file"
+    name="image"
+    className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 rounded-sm
+    border-gray-400 focus:outline-none focus:border-green bg-gray-50 text-gray-900 sm:text-sm
+    focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 w-full mt-1"
+  />
+</div>
+
         </div>
-        {/* --------------------- category --------------------- */}
-        <div className="mt-1">
+        {/* --------------------- description --------------------- */}
+        <div className="mt-1 w-full lg:w-[45%] h-[200px] overflow-hidden">
           <label
             htmlFor="description"
             className="block mb-2 text font-medium text-gray-900 "
@@ -214,17 +234,17 @@ function AddProduct() {
             required={true}
             name="description"
             onChange={handleFormData}
-            className=" hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green   ou1line-none h-20 p-1   text-gray-900 "
+            className=" hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3
+             rounded-sm border-gray-400 focus:outline-none focus:border-green ou1line-none p-1 border-2 text-gray-900 w-[100%] h-[165px]"
           ></textarea>
         </div>
 
         <button
-          className={`mt-10 outline-none text-white bg-green font-medium rounded px-1 py-2 h-fit text-center flex justify-center items-center gap-x-2`}
+          className={`mt-3 outline-none text-white bg-green font-medium rounded px-1 py-2 h-fit text-center flex justify-center items-center gap-x-2 w-full lg:w-[50%] `}
         >
           Add
         </button>
       </form>
-    </div>
   );
 }
 
