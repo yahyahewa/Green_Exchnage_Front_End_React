@@ -4,7 +4,7 @@ const Humberger = ({ openDrawer }) => {
   return (
     <div
       onClick={openDrawer}
-      className="  md:hidden cursor-pointer text-xl md:text-xl text-gray-500"
+      className="  md:hidden cursor-pointer text-3xl md:text-xl text-gray-900  "
     >
       <FiMenu className="fill-current" />
     </div>
