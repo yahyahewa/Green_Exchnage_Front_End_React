@@ -32,7 +32,10 @@ const SingleCard = () => {
       setCategory={setCategory}
       searchHandler={() => searchHandler()}
     />
-  {allProduct?.data?.length==0?<p className="min-h-screen text-center justify-center w-full flex text-lg mt-10 font-semibold text-gray-500">No Product</p>:  <div className="gap-8  lg:grid px-4  lg:grid-cols-3 md:grid md:grid-cols-3 xsm:grid-cols-1   ">
+      {allProduct?.data?.length == 0 ?
+        <p className="min-h-screen text-center justify-center w-full flex text-lg mt-10 font-semibold text-gray-500">No Product</p>
+        :
+        <div className="gap-8  lg:grid px-4 md:grid-cols-2  xl:grid-cols-3 md:grid  xsm:grid-cols-1   ">
       { allProduct?.data?.map((card) => {
         return (
           <Link to={`/products/${card._id}`} key={card._id}>
@@ -44,18 +47,18 @@ const SingleCard = () => {
                     src={card?.owner?.image}
                     alt="User Image"
                   />
-                  <div className="flex flex-col ml-4">
-                    <span className="font-bold">{card?.owner?.fullname }</span>
+                  <div className="flex flex-col ml-4 lg:ml-2">
+                    <span className="font-bold md:text-sm lg:text-lg whitespace-nowrap ">{card?.owner?.fullname }</span>
 
-                    <span className=" flex items-center text-sm ">
-                      <IoLocationSharp className="mr-1 text-green" />
-                      {card?.address}
+                    <span className=" flex items-center text-sm md:text-xs">
+                      <IoLocationSharp className="mr-1 text-green " />
+                      {card?.address.slice(0,10)}
                     </span>
                   </div>
                 </div>
 
-                <h1 className="font-bold text-lg text-gray-800 px-4 pb-2 ">
-                  {card?.name}
+                <h1 className="font-bold md:text-sm lg:text-lg text-gray-800 px-4 pb-2 ">
+                  {card?.name.slice(0,15)}
                 </h1>
               </div>
 

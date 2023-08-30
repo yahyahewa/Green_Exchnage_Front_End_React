@@ -4,9 +4,10 @@ import { LINKS } from "../../assets/Data";
 import Logo from "./Logo";
 import DropDownMenu from "./DropDownMenu";
 import Account from "./Account";
+// eslint-disable-next-line react/prop-types
 const NavbarComponent = ({ toggleDropDown }) => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light flex justify-between items-center px-10 py-4 lg:max-w-[85rem] mx-auto ">
+    <nav className="px-6 sm:px-12  lg:mx-26 md:px-20 navbar navbar-expand-lg navbar-light bg-light flex justify-between items-center  py-4  ">
       <Link to="/" className="font-bold  text-md text-neutral-600">
         <Logo />
       </Link>

@@ -11,7 +11,7 @@ import SingleItem from "../SingleItem";
 import Login from "../Login";
 
 import {  Routes, Route } from "react-router-dom";
-import Protect from "../../components/protect/Protect";
+// import Protect from "../../components/protect/Protect";
 import Profile from "../Profile";
 // import NotAuthorized from "../../components/protect/NotAuthorized";
 import NotFound from "../../components/NotFound";

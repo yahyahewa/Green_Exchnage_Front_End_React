@@ -61,16 +61,17 @@ const Filter = ({ category, setCategory }) => {
   //   return <Skeleton key={ index} count={1}/>
   // })
   return (
-    <div className="flex items-center relative">
+    <div className="flex items-center relative px-2 lg:px-0">
          
-      {showLeftArow === true && <div className={`${showLeftArow===true?"flex":"hidden"}+ justify-end bg-gradient-to-r h-full from-white w-10 absolute left-0  z-20`}>
+      {showLeftArow === true && <div className={`${showLeftArow===true?"flex":"hidden"}+ px-2 lg:px-0 justify-end bg-gradient-to-r h-full from-white w-14 absolute left-0  z-20`}>
         <button
              className="flex align-end mr-1 mt-[2px] display-none active:flex text-xl font-bold text-gray-600 focus:outline-none shadow bg-gray-100  hover:bg-gray-200 rounded-full items-center justify-center w-8 h-8 text-center"
       onClick={() => handleScroll(-1)}
     >
     
       &lt;
-    </button></div>}
+        </button>
+      </div>}
       <div className="flex flex-grow overflow-x-auto" >
         <div className="overflow-hidden">
           <div className="flex transition-transform duration-300 overflow-x-scroll no-scrollbar scroll-smooth" style={{ transform: 'translateX(0)' }} ref={containerRef}>

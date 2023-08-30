@@ -8,12 +8,13 @@ import Router from "./pages/Router/Router";
 import { SkeletonTheme } from "react-loading-skeleton";
 function App() {
   return (
-     <SkeletonTheme baseColor="#ebe8e8" highlightColor="#ded9d9">
+     <SkeletonTheme baseColor="#ebe8e8" highlightColor="#1d9051">
     <div className="">
       {/* <Navbar/> */}
       <Router />
       {/* <Fotter/> */}
-    </div></SkeletonTheme>
+      </div>
+    </SkeletonTheme>
   );
 }
 
