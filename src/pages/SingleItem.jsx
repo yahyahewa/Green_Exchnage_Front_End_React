@@ -6,8 +6,7 @@ function SingleItem() {
   // const [islogin, setIsLoggedIn] = useState(true);
   return (
     <>
-      {/* component */}
-      <section className="text-gray-8 lg:mx-36">
+      <section className="px-6 sm:px-12 lg:mx-26 md:px-20 text-gray-8 ">
         <div className="py-32 grid grid-cols-2 gap-5 lg:gap-x-10">
         
             <img
@@ -58,50 +57,8 @@ function SingleItem() {
                 </p>
             </div>
             <button className="text-white bg-green py-2  rounded hover:bg-opacity-80 hover:duration-500 duration-500">Order</button>
-              {/* <div className=" gap-4 flex items-center justify-start ">
-                <a href="">
-                  <img
-                    className="w-20 rounded-md "
-                    src="https://m.media-amazon.com/images/I/91TDrONQj2L._AC_UF1000,1000_QL80_.jpg"
-                    alt=""
-                  />
-                </a>
-
-                <a href="">
-                  <img
-                    className="w-20 rounded-md"
-                    src="https://m.media-amazon.com/images/I/91TDrONQj2L._AC_UF1000,1000_QL80_.jpg"
-                    alt=""
-                  />
-                </a>
-                <a href="">
-                  <img
-                    className="w-20 rounded-md"
-                    src="https://m.media-amazon.com/images/I/91TDrONQj2L._AC_UF1000,1000_QL80_.jpg"
-                    alt=""
-                  />
-                </a>
-              </div> */}
             </div>
           </div>
-          {/* <section className="  container mx-auto py-8 flex justify-end ">
-            {islogin ? (
-              <Link
-                to=""
-                className="px-10 bg-jade-600  text-white py-3 rounded-lg"
-              >
-                Order
-              </Link>
-            ) : (
-              <Link
-                to=""
-                className="px-10 bg-gray-300  text-gray-600 py-3 rounded-lg"
-              >
-                Please Login to Order
-              </Link>
-            )}
-          </section> */}
-        {/* </div> */}
       </section>
     </>
   );

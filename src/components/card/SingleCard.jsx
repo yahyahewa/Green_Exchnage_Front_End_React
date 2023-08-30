@@ -69,9 +69,9 @@ const SingleCard = () => {
                   className=" flex object-cover w-full h-60 hover:scale-110 relative hover:duration-500  duration-500"
                 />
                 <button className="">
-                  <span className="flex absolute top-2 right-2 bg-white/80 rounded-full p-1  justify-center items-center">
+                  {/* <span className="flex absolute top-2 right-2 bg-white/80 rounded-full p-1  justify-center items-center">
                     <AiOutlineHeart className="w-7 h-7 text-red-500" />
-                  </span>
+                  </span> */}
                 </button>
               </div>
             </div>
