@@ -1,8 +1,12 @@
 import React, { useState } from "react";
-import { useGetUserProductsQuery } from "../../app/api/profile";
+import { useUpdatePasswordMutation } from "../../app/api/profile";
 import { FaEdit } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
+import { useEffect } from "react";
 const Setting = () => {
+  const [updatePassword,
+  {data:dataPass,isError:errorPass,isLoading:loadPass}]
+  =useUpdatePasswordMutation()
   // Retrieve user data from local storage
   const userData = JSON.parse(localStorage.getItem("userData"));
 
@@ -65,22 +69,34 @@ const Setting = () => {
     event.preventDefault();
     // Here, you can send the updated data to your API or update local storage
     // Example: Update local storage
-    const updatedUserData = {
-      ...userData,
-      data: { ...userData.data, fullname, phone, image, email, password },
-    };
-    localStorage.setItem("userData", JSON.stringify(updatedUserData));
+    // const updatedUserData = {
+    //   ...userData,
+    //   data: { ...userData.data, fullname, phone, image, email, password },
+    // };
+    // localStorage.setItem("userData", JSON.stringify(updatedUserData));
 
-    // Provide user feedback for successful submission (you can add more)
-    alert("Profile updated successfully!");
-    setInputDisabled(true);
+    // // Provide user feedback for successful submission (you can add more)
+    // alert("Profile updated successfully!");
+    // setInputDisabled(true);
+    updatePassword(userPassword)
   };
-
+  const [userPassword,setUserPassword]=useState(
+    {id:userData?.data._id,email:userData?.data.email});
+  const handlePassword = (e)=>{
+    setUserPassword({...userPassword,[e.target.name]:e.target.value})
+  }
+  useEffect(()=>{
+    console.log(dataPass)
+  },[dataPass])
   return (
     <form
       onSubmit={handleSubmit}
       className="w-full  text-black flex flex-col justify-center items-center disabled:bg-gray-700 rounded    "
     >
+      <input type="text" className="border" onChange={handlePassword} name="oldPassword"/>
+      <input type="text" className="border" onChange={handlePassword} name="newPassword"/>
+      <input type="text" className="border" onChange={handlePassword} name="confirmNewPassword"/>
+      <button className="border bg-green">update Password</button>
       <div className=" flex md:w-4/12  flex-col justify-center items-center ">
         <div className=" flex justify-between w-full   ">
           <h2 className="text-xl capitalize font-semibold leading-7 my-8 text-center  text-gray-900">
