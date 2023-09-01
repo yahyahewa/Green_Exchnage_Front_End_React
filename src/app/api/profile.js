@@ -34,6 +34,22 @@ const userApi = api.injectEndpoints({
         body: body,
       }),
     }),
+    updateUserInfo: builder.mutation({
+      query: (body, token, id) => ({
+        url: `api/user/${id}`,
+        method: "PATCH",
+        headers: { Authorization: `Bearer ${token}` },
+        body: body,
+      }),
+    }),
+    updatePassword: builder.mutation({
+      query: (body, token, id) => ({
+        url: `api/user/`,
+        method: "PATCH",
+        headers: { Authorization: `Bearer ${token}` },
+        body: body,
+      }),
+    }),
   }),
 });
 
@@ -41,4 +57,6 @@ export const {
   useGetUserProductsQuery,
   useUploadsMutation,
   useAddProductMutation,
+  useUpdateUserInfoMutation,
+  useUpdatePasswordMutation
 } = userApi;
