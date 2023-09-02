@@ -6,7 +6,8 @@ import { useSignupMutation } from "../../app/api/auth";
 import { Navigate } from "react-router";
 function SignUpForm() {
   const [thereUSer, setThereUser] = useState("");
-  const [signup, { data, isError, isLoading }] = useSignupMutation();
+  const [signup, { data, isError, isLoading,error }] = useSignupMutation();
+  console.log("error",isError,error?.data?.data?.message)
   const formik = useFormik({
     initialValues: {
       fullname: "",
@@ -73,6 +74,11 @@ function SignUpForm() {
             {formik.touched.email && formik.errors.email ? (
               <span className="text-red-400 text-sm">
                 {formik.errors.email}
+              </span>
+            ) : null}
+             {isError && error?.data?.data?.message.startsWith("E11000") ? (
+              <span className="text-red-400 text-sm">
+                This user already exist
               </span>
             ) : null}
           </div>
