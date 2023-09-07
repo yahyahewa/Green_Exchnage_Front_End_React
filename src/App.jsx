@@ -8,8 +8,8 @@ import Router from "./pages/Router/Router";
 import { SkeletonTheme } from "react-loading-skeleton";
 function App() {
   return (
-     <SkeletonTheme baseColor="#ebe8e8" highlightColor="#1d9051">
-    <div className="">
+     <SkeletonTheme baseColor="#ebe8e8" highlightColor="#1d905150">
+    <div className="min-h-screen">
       {/* <Navbar/> */}
       <Router />
       {/* <Fotter/> */}
