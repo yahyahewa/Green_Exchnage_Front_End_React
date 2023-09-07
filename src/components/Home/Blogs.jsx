@@ -8,10 +8,10 @@ const Blogs = () => {
           <div className="-mx-4 flex flex-wrap justify-center">
             <div className="w-full px-4">
               <div className="mx-auto mb-[60px] max-w-[510px] text-center lg:mb-20">
-                <h2 className="lg:text-4xl   leading-9 text-gray-800  pb-4 text-3xl px-5 sm:text-4xl text-to font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-neutral-800 to-neutral-400">
+                <h1 className="pb-4  px-5 leading-9  text-3xl  sm:text-4xl  font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r  from-neutral-800 to-neutral-400">
                   Save Our Planet
-                </h2>
-                <p className=" lg:text-lg text-center font-normal text-md  leading-8   text-gray-900 text-gray-900">
+                </h1>
+                <p className=" lg:text-lg text-center font-normal text-md  leading-8   text-neutral-500 ">
                   Donating can indeed be a meaningful way to reduce waste and
                   help those in need. Here are some steps and ideas to consider
                 </p>
@@ -32,11 +32,11 @@ const Blogs = () => {
                     </div>
                     <div className="text-center">
                       <h3>
-                        <p className="text-dark  mb-4 inline-block text-xl font-semibold sm:text-2xl lg:text-xl xl:text-2xl">
+                        <p className="text-neutral-600  mb-4 inline-block text-xl font-semibold sm:text-2xl lg:text-xl xl:text-2xl">
                           {title}
                         </p>
                       </h3>
-                      <p className=" lg:text-lg text-center font-normal text-md  leading-6   text-gray-900">
+                      <p className=" lg:text-lg text-center font-normal text-md  leading-6   text-neutral-500">
                         {Desc}
                       </p>
                     </div>

@@ -5,10 +5,10 @@ const About = () => {
     <div className="2xl:container 2xl:mx-auto lg:py-16 lg:px-20 md:py-12 md:px-6 py-9 px-4 pt-8">
       <div className="flex flex-col lg:flex-row justify-between gap-8">
         <div className="w-full lg:w-6/12 flex flex-col justify-center">
-          <h1 className=" lg:text-4xl   leading-9 text-gray-800  pb-4 text-3xl px-5 sm:text-4xl text-to font-extrabold text-center  ">
+          <h1 className=" pb-4 leading-9 text-3xl sm:text-4xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r  from-neutral-800 to-neutral-400">
             About Us
           </h1>
-          <p className="lg:text-lg text-justify font-normal text-md  leading-8   text-gray-900 ">
+          <p className="lg:text-lg text-center font-normal text-md  xl:leading-8    text-neutral-500 ">
             We are a group of four individuals with a shared vision of using our
             skills and expertise to make a positive impact on the planet. At the
             core of our mission is the belief that technology can be a powerful
@@ -28,10 +28,10 @@ const About = () => {
       </div>
       <div className="flex lg:flex-row flex-col justify-between gap-8 pt-12">
         <div className="w-full lg:w-6/12 flex flex-col justify-center">
-          <h1 className=" lg:text-4xl   leading-9 text-gray-800  pb-4 text-3xl px-5 sm:text-4xl text-to font-extrabold text-center">
+          <h1 className=" pb-4 leading-9 text-3xl sm:text-4xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r  from-neutral-800 to-neutral-400">
             Our Story
           </h1>
-          <p className="lg:text-lg text-justify font-normal text-md leading-8 text-gray-900 ">
+          <p className="lg:text-lg text-center font-normal text-md  xl:leading-8 text-neutral-500  ">
             Our journey began with a shared vision and a chance encounter at a
             coding boot camp. Four like-minded technical individuals, each with
             their unique skills and expertise, converged at this pivotal moment
@@ -58,7 +58,7 @@ const About = () => {
                     src={image}
                     alt={name}
                   />
-                  <p className="font-medium text-xl leading-5 text-gray-800  mt-4">
+                  <p className="font-medium text-xl leading-5 text-neutral-800  mt-4">
                     {name}
                   </p>
                 </div>

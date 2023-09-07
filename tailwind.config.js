@@ -5,11 +5,11 @@ export default {
       fontFamily: {
         english: "english",
         kurdish: "kurdish",
+        ubuntu: "ubuntu",
       },
       colors: {
-        "green":"#1d9051",
+        green: "#1d9051",
         jade: {
-          
           50: "#ebfef6",
           100: "#d0fbe6",
           200: "#a4f6d2",
@@ -34,6 +34,5 @@ export default {
 // 5. ba nav baraka baw shewaya bet agra dway keshay bo drus krdn chaki akain
 // 6. responsive krdny designaka bo kata step bet
 // 7. lg:mx-36 , my-10  bo hamu pagekan dabne bas pagekan  ,bo am pagenam danawa bas agar page trman zyad krd
-//8. bo button tania (rounded) dabnen 
-// 9. hover lasar opacitya bo buttonakan 
-
+//8. bo button tania (rounded) dabnen
+// 9. hover lasar opacitya bo buttonakan
