@@ -38,7 +38,7 @@ function SignUpForm() {
     return <Navigate to="/profile" replace />;
   return (
     <Formik>
-      <div className="w-full flex  flex-col items-center justify-center md:mt-16 lg:mt-14 xl:mt-28">
+      <div className="w-full flex  flex-col items-center justify-center md:mt-16 lg:mt-14 xl:mt-28  mt-32 sm:mt-0">
         <p className="font-semibold text-lg text-gray-800 ">Create Account </p>
         <Form
           onSubmit={formik.handleSubmit}

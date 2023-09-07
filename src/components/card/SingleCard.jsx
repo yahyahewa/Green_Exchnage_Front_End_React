@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { IoLocationSharp } from "react-icons/io5";
-import { AiOutlineHeart } from "react-icons/ai";
+// import { AiOutlineHeart } from "react-icons/ai";
 import ReactPaginate from "react-paginate";
 import { IoIosArrowDropleft, IoIosArrowDropright } from "react-icons/io";
 import { useGetProductsQuery } from "../../app/api/products";
