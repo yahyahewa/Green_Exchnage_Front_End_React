@@ -22,7 +22,7 @@ import Contact from "../Contact";
 
 const Router = () => {
   return (
-    <div >
+    <div className="min-h-screen">
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
