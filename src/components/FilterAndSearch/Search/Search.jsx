@@ -1,7 +1,13 @@
-// eslint-disable-next-line react/prop-types
-const Search = ({ search, setSearch }) => {
-  console.log(search)
+import { useCallback } from "react";
 
+// eslint-disable-next-line react/prop-types
+const Search = ({setSearch}) => {
+  // console.log(search)
+  const searchHandler = useCallback((e) => {
+    console.log("search render")
+    
+  setSearch(e.target.value)
+},[setSearch]) 
   return (
     <div
       className="flex justify-center items-center w-full my-5 mt-10">
@@ -14,7 +20,7 @@ const Search = ({ search, setSearch }) => {
         />
       </div>
       <input
-        onChange={(e)=>{setSearch(e.target.value)}}
+        onChange={(e)=>{searchHandler(e)}}
         type="text"
         placeholder="Search "
         className="placeholder:px-1 p-8 placeholder:italic  placeholder:text-gray-400 block bg-white border-2 border-gray-400 rounded  w-80  pr-2  shadow-sm  py-2 focus:outline-none focus:border-green focus:ring-green 0 text-sm hover:border-gray-600"

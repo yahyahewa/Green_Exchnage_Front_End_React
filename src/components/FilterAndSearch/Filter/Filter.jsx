@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useGetCategorySubCategoryQuery } from "../../../app/api/category";
 import { useRef } from 'react';
 import { NavLink } from "react-router-dom";
+import { useCallback } from "react";
 
 
 
@@ -18,8 +19,7 @@ const Filter = ({ category, setCategory }) => {
   const [showLeftArow, setShowLeftArow] = useState(false)
   const [subcategoryy,setSubCategoryy]=useState()
   const [scrollAmount] = useState(500)
-    console.log(dataToMap)
-  const handleCategoryClick = categoryId => {
+  const handleCategoryClick = useCallback(categoryId => {
     if (categoryId === "") {
       setCategory("")
        setActiveCategory("")
@@ -38,7 +38,7 @@ const Filter = ({ category, setCategory }) => {
       }
      
     }
-  };
+  },[setCategory]) 
 
   const handleScroll = direction => {
   if (containerRef?.current?.scrollLeft >= 500 || direction===1) {
@@ -57,9 +57,6 @@ const Filter = ({ category, setCategory }) => {
        setDataToMap(allCategory?.data)
  }
   }, [dataToMap, setDataToMap, category, subcategoryy, allCategory])
-  // const ske= Array(10).fill(0).map((_, index) => {
-  //   return <Skeleton key={ index} count={1}/>
-  // })
   return (
     <div className="flex items-center relative px-2 lg:px-0">
          
@@ -116,49 +113,6 @@ const Filter = ({ category, setCategory }) => {
      
     </div>
 )}
-
-    
-//         <FormControl sx={{  minWidth: 170 }} size="small">
-//         <Select
-//           sx={{border:1.5, borderColor: 'grey.600', borderRadius: 1 }} 
-//           value={"All"}
-//           onChange={handleChange}
-//           displayEmpty
-//           color="success"
-//           inputProps={{ 'aria-label': 'Without label' }}
-//         >
-//               <MenuItem value="">
-//                 <em> sub category</em>
-//               </MenuItem>
-//               <MenuItem value={10}>Ten</MenuItem>
-//               <MenuItem value={20}>Twenty</MenuItem>
-//               <MenuItem value={30}>Thirty</MenuItem>
-//         </Select>
-//       </FormControl> */}
-// {/* 
-//        <FormControl sx={{  minWidth: 170 }} size="small">
-//         <Select
-//           sx={{border:1.5, borderRadius: 1 }} 
-//           // eslint-disable-next-line react/prop-types
-//           value={category===""?"All":category?.name}
-//           onChange={handleChange}
-//           displayEmpty
-//           color="success"
-//           inputProps={{ 'aria-label': 'Without label' }}
-//         >
-//             <MenuItem value={"All"}>
-//               <em>All</em>
-//             </MenuItem>
-//           {allCategory?.data?.map((category) => {
-//             // eslint-disable-next-line react/prop-types
-//             return <MenuItem value={category._id} key={category._id}>{category?.name}</MenuItem>
-//           })}
-        
-//             {/* <MenuItem value={10}>Ten</MenuItem>
-//             <MenuItem value={20}>Twenty</MenuItem>
-//             <MenuItem value={30}>Thirty</MenuItem> */}
-//         {/* </Select>
-//       </FormControl> */} 
 
 
 export default Filter;

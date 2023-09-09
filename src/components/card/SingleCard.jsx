@@ -3,9 +3,10 @@ import { IoLocationSharp } from "react-icons/io5";
 import ReactPaginate from "react-paginate";
 import { IoIosArrowDropleft, IoIosArrowDropright } from "react-icons/io";
 import { useGetProductsQuery } from "../../app/api/products";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Banner from "../FilterAndSearch/Banner";
 import SkeletonCards from "./SkeletonCards";
+import { useCallback } from "react";
 
 
 const SingleCard = () => {
@@ -13,14 +14,14 @@ const SingleCard = () => {
   const [category, setCategory] = useState("");
   const [page, setPage] = useState(1);
   const { data: allProduct, isLoading } = useGetProductsQuery({ search, page, category });
-  
-  console.log(allProduct);
+  console.log(allProduct)
 
-  const searchHandler = (searchValue) => {
+  const searchHandler = useCallback( (searchValue) => {
     setSearch(searchValue);
-    console.log(search);
-  };
-
+  },[])
+   
+ 
+   const memoizedData = useMemo(() => allProduct?.data || [], [allProduct]);
   if (isLoading) return <SkeletonCards cardNumber={9} />
   
   return (
@@ -33,17 +34,16 @@ const SingleCard = () => {
       setCategory={setCategory}
       searchHandler={() => searchHandler()}
     />
-      {allProduct?.data?.length == 0 ?
+      {memoizedData.length == 0 ?
         <p className="min-h-screen text-center justify-center w-full flex text-lg mt-10 font-semibold text-gray-500">No Product</p>
         :
         <div className="gap-8  lg:grid px-4 md:grid-cols-2  xl:grid-cols-3 md:grid  xsm:grid-cols-1   ">
-      { allProduct?.data?.map((card) => {
+      { memoizedData.map((card) => {
         return (
           <Link to={`/products/${card._id}`} key={card._id}>
             <div className=" w-full  mt-5 hover:shadow-lg ">
               <div className="flex justify-between items-center p-1">
                 <div className="flex my-4">
-                  {/* import.meta.env.VITE_BACK_END/uploads/users/image */}
                   <img
                     className="h-12 w-12 rounded-full object-cover "
                     src={`${import.meta.env.VITE_BACK_END}uploads/users/${card?.owner?.image}`}
@@ -51,7 +51,7 @@ const SingleCard = () => {
                   />
                   <div className="flex flex-col ml-4 lg:ml-2">
                  
-                    {console.log( `${import.meta.env.VITE_BACK_END}uploads/${card?.images[0]}`)}
+              
                     <span className="font-bold md:text-sm lg:text-lg whitespace-nowrap ">{card?.owner?.fullname }</span>
 
                     <span className=" flex items-center text-sm md:text-xs">
@@ -69,15 +69,11 @@ const SingleCard = () => {
               <div className="flex  overflow-hidden relative">
                 <img
               src={`${import.meta.env.VITE_BACK_END}uploads/${card?.images[0]}`}
-                  
-                  // src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
                   alt="products"
                   className=" flex object-cover w-full h-60 hover:scale-110 relative hover:duration-500  duration-500"
                 />
                 <button className="">
-                  {/* <span className="flex absolute top-2 right-2 bg-white/80 rounded-full p-1  justify-center items-center">
-                    <AiOutlineHeart className="w-7 h-7 text-red-500" />
-                  </span> */}
+                 
                 </button>
               </div>
             </div>
@@ -99,7 +95,7 @@ const SingleCard = () => {
           setPage(e.selected + 1);
         }}
         pageRangeDisplayed={5}
-        pageCount={page}
+        pageCount={allProduct && allProduct?.results / 8}
         previousLabel={
           <IoIosArrowDropleft className="w-8 h-8 hover:text-green text-gray-700 duration-500 hover:duration-500 mx-2" />
         }
