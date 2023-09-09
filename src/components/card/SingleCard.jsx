@@ -1,27 +1,28 @@
 import { Link } from "react-router-dom";
 import { IoLocationSharp } from "react-icons/io5";
-// import { AiOutlineHeart } from "react-icons/ai";
 import ReactPaginate from "react-paginate";
 import { IoIosArrowDropleft, IoIosArrowDropright } from "react-icons/io";
 import { useGetProductsQuery } from "../../app/api/products";
 import { useState } from "react";
 import Banner from "../FilterAndSearch/Banner";
-
 import SkeletonCards from "./SkeletonCards";
+
+
 const SingleCard = () => {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [page, setPage] = useState(1);
-  // const [loading, setLoading] = useState(true);
-  const { data: allProduct,isLoading } = useGetProductsQuery({ search, page, category });
+  const { data: allProduct, isLoading } = useGetProductsQuery({ search, page, category });
+  
   console.log(allProduct);
+
   const searchHandler = (searchValue) => {
     setSearch(searchValue);
     console.log(search);
   };
+
   if (isLoading) return <SkeletonCards cardNumber={9} />
   
-
   return (
     <div className="my-10">
       
@@ -42,12 +43,15 @@ const SingleCard = () => {
             <div className=" w-full  mt-5 hover:shadow-lg ">
               <div className="flex justify-between items-center p-1">
                 <div className="flex my-4">
+                  {/* import.meta.env.VITE_BACK_END/uploads/users/image */}
                   <img
                     className="h-12 w-12 rounded-full object-cover "
-                    src={card?.owner?.image}
+                    src={`${import.meta.env.VITE_BACK_END}uploads/users/${card?.owner?.image}`}
                     alt="User Image"
                   />
                   <div className="flex flex-col ml-4 lg:ml-2">
+                 
+                    {console.log( `${import.meta.env.VITE_BACK_END}uploads/${card?.images[0]}`)}
                     <span className="font-bold md:text-sm lg:text-lg whitespace-nowrap ">{card?.owner?.fullname }</span>
 
                     <span className=" flex items-center text-sm md:text-xs">
@@ -64,7 +68,9 @@ const SingleCard = () => {
 
               <div className="flex  overflow-hidden relative">
                 <img
-                  src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
+              src={`${import.meta.env.VITE_BACK_END}uploads/${card?.images[0]}`}
+                  
+                  // src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
                   alt="products"
                   className=" flex object-cover w-full h-60 hover:scale-110 relative hover:duration-500  duration-500"
                 />
