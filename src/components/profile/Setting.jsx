@@ -7,18 +7,39 @@ import {
   useAddProductMutation,
 } from "../../app/api/profile";
 import { LiaTimesSolid } from "react-icons/lia";
+import { BiSolidShow, BiShowAlt } from "react-icons/bi";
 const Setting = () => {
   // Retrieve user data from local storage
   const userData = JSON.parse(localStorage.getItem("userData"));
   const data1 = useUploadsMutation();
   console.log("🚀 ~ file: Setting.jsx:14 ~ Setting ~ data1:", data1);
 
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState("");
+  const [showConfirmPassword, setShowConfirmPassword] = useState("");
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+  const toggleNewpassowrd = () => {
+    setShowNewPassword(!showNewPassword);
+  };
+  const toggleConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
   // Initialize state with user data
   const [fullname, setFullname] = useState(userData?.data?.fullname);
   const [phone, setPhone] = useState(userData?.data?.phone);
-  const [password, setPassword] = useState(userData?.data?.password); // Never store passwords in state
   const [email, setEmail] = useState(userData?.data?.email);
 
+  // passwordstate
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  // image state
   const [image, setImage] = useState(
     userData?.data?.image ||
       "https://virl.bc.ca/wp-content/uploads/2019/01/AccountIcon2.png"
@@ -27,6 +48,7 @@ const Setting = () => {
   const [selectedImage, setSelectedImage] = useState(null); // Define selectedImage state
   const [isInputDisabled, setInputDisabled] = useState(true);
   const [showModal, setShowModal] = useState(false);
+
   const handleEnableInput = () => {
     if (isInputDisabled == false) {
       setInputDisabled(true);
@@ -49,9 +71,19 @@ const Setting = () => {
       case "email":
         setEmail(value);
         break;
+
       case "password":
-        setPassword(value);
+        setCurrentPassword(value);
         break;
+
+      case "newPassword":
+        setNewPassword(value);
+        break;
+
+      case "confirmPassword":
+        setConfirmPassword(value);
+        break;
+
       default:
         break;
     }
@@ -224,16 +256,24 @@ const Setting = () => {
                       <label className="block text-sm font-medium leading-6 text-gray-900">
                         Current
                       </label>
-                      <div className="mt-2">
-                        <input
-                          disabled={isInputDisabled}
-                          type="password"
-                          name="password"
-                          placeholder="***********"
-                          value={password}
-                          onChange={handleInputChange}
-                          className="disabled:bg-gray-200 disabled:text-gray-400 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-900 leading-tight focus:outline-none focus:bg-white focus:border-jade-500"
-                        />
+                      <div className="mt-2 flex justify-between ">
+                        <div className="w-full ">
+                          <input
+                            disabled={isInputDisabled}
+                            type={showPassword ? "text" : "password"}
+                            name="password"
+                            value={currentPassword}
+                            onChange={handleInputChange}
+                            className="disabled:bg-gray-200 disabled:text-gray-400 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-900 leading-tight focus:outline-none focus:bg-white focus:border-jade-500"
+                          />
+                        </div>
+                        <button
+                          type="button"
+                          className="text-2xl ml-2"
+                          onClick={togglePasswordVisibility}
+                        >
+                          {showPassword ? <BiShowAlt /> : <BiSolidShow />}
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -242,16 +282,24 @@ const Setting = () => {
                       <label className="block text-sm font-medium leading-6 text-gray-900">
                         New Password
                       </label>
-                      <div className="mt-2">
-                        <input
-                          disabled={isInputDisabled}
-                          type="password"
-                          name="password"
-                          placeholder="***********"
-                          value={password}
-                          onChange={handleInputChange}
-                          className="disabled:bg-gray-200 disabled:text-gray-400 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-900 leading-tight focus:outline-none focus:bg-white focus:border-jade-500"
-                        />
+                      <div className="mt-2 flex justify-between ">
+                        <div className="w-full ">
+                          <input
+                            disabled={isInputDisabled}
+                            type={showNewPassword ? "text" : "password"}
+                            name="password"
+                            value={currentPassword}
+                            onChange={handleInputChange}
+                            className="disabled:bg-gray-200 disabled:text-gray-400 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-900 leading-tight focus:outline-none focus:bg-white focus:border-jade-500"
+                          />
+                        </div>
+                        <button
+                          type="button"
+                          className="text-2xl ml-2"
+                          onClick={toggleNewpassowrd}
+                        >
+                          {showNewPassword ? <BiShowAlt /> : <BiSolidShow />}
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -260,16 +308,24 @@ const Setting = () => {
                       <label className="block text-sm font-medium leading-6 text-gray-900">
                         Confirm Password
                       </label>
-                      <div className="mt-2">
-                        <input
-                          disabled={isInputDisabled}
-                          type="password"
-                          name="password"
-                          placeholder="***********"
-                          value={password}
-                          onChange={handleInputChange}
-                          className="disabled:bg-gray-200  disabled:text-gray-400 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-900 leading-tight focus:outline-none focus:bg-white focus:border-jade-500"
-                        />
+                      <div className="mt-2 flex justify-between ">
+                        <div className="w-full ">
+                          <input
+                            disabled={isInputDisabled}
+                            type={showConfirmPassword ? "text" : "password"}
+                            name="password"
+                            value={currentPassword}
+                            onChange={handleInputChange}
+                            className="disabled:bg-gray-200 disabled:text-gray-400 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-900 leading-tight focus:outline-none focus:bg-white focus:border-jade-500"
+                          />
+                        </div>
+                        <button
+                          type="button"
+                          className="text-2xl ml-2"
+                          onClick={toggleConfirmPassword}
+                        >
+                          {showNewPassword ? <BiShowAlt /> : <BiSolidShow />}
+                        </button>
                       </div>
                     </div>
                   </div>
