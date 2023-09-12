@@ -9,25 +9,22 @@ import { useGetCategorySubCategoryQuery } from "../../app/api/category";
 function AddProduct() {
   const [
     addProduct,
-    { data: addData, isError: addError, isLoading: addLoadin },
+    { data: addData, isError: addError, isLoading: addLoading },
   ] = useAddProductMutation();
-  const { data: catData } = useGetCategorySubCategoryQuery();
-  const { data: cityData } = useGetCityQuery();
   const [
     uploadImage,
-    { data: imageData, isError: imageErr, isLoading: imageLoad },
+    { data: imageData, isError: imageError, isLoading: imageLoading },
   ] = useUploadsMutation();
+  const { data: catData } = useGetCategorySubCategoryQuery();
+  const { data: cityData } = useGetCityQuery();
   const [images, setImages] = useState([]);
   const [imageFile, setImageFile] = useState([]);
-  const [subCategories, setSubCategories] = useState();
+  const [subCategories, setSubCategories] = useState([]);
   const [canAdd, setCanAdd] = useState(false);
-  let userInfo = {};
-  if (
-    localStorage.getItem("userData") &&
-    localStorage.getItem("userData") != undefined
-  ) {
-    userInfo = JSON.parse(localStorage.getItem("userData"));
-  }
+
+  // Retrieve user info from localStorage
+  const userInfo = JSON.parse(localStorage.getItem("userData")) || {};
+
   const [formData, setFormData] = useState({
     owner: userInfo?.data._id,
     name: "",
@@ -38,7 +35,8 @@ function AddProduct() {
     images: [],
     description: "",
   });
-  ///------------- handle upload -------------///
+
+  // Handle image upload
   const handleImageUpload = (e) => {
     const files = e.target.files;
     const allowedExtensions = ["jpg", "jpeg", "png"];
@@ -57,47 +55,54 @@ function AddProduct() {
     }
 
     // Convert files to an array and set it in state
-    setImageFile([...imageFile, ...Array.from(files)]);
+    setImageFile((prevImageFile) => [...prevImageFile, ...Array.from(files)]);
 
     // Process valid files
     for (let i = 0; i < files.length; i++) {
       const reader = new FileReader();
 
       reader.onload = (e) => {
-        setImages((prev) => [...prev, e.target.result]);
+        setImages((prevImages) => [...prevImages, e.target.result]);
       };
       reader.readAsDataURL(files[i]);
     }
   };
 
-  ///------------- handle remove images -------------///
+  // Handle removing images
   const removeImage = (e) => {
-    const targetId = e.target.id;
+    const targetId = parseInt(e.target.id);
 
-    // Remove item from imageFile based on index
-    const updatedImageFile = imageFile.filter(
-      (value, index) => index !== parseInt(targetId)
-    );
+    // Remove item from imageFile and images arrays
+    const updatedImageFile = imageFile.filter((_, index) => index !== targetId);
+    const updatedImages = images.filter((_, index) => index !== targetId);
 
-    // Remove item from images based on index
-    const updatedImages = images.filter(
-      (value, index) => index !== parseInt(targetId)
-    );
-
-    // Update both state variables
     setImageFile(updatedImageFile);
     setImages(updatedImages);
   };
 
-  ///------------- handle submit -------------///
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     uploadImage(imageFile);
   };
 
-  //-------------- after upload data -----------//
+  // Handle image upload response
   useEffect(() => {
-    if (!addError && !addLoadin) {
+    if (!imageError && !imageLoading && imageData?.status === "success") {
+      setFormData({ ...formData, images: imageData.data });
+      setCanAdd(true);
+    }
+  }, [imageData, imageError, imageLoading]);
+
+  // Handle adding product after image upload
+  useEffect(() => {
+    if (
+      !imageError &&
+      !imageLoading &&
+      imageData?.status === "success" &&
+      canAdd
+    ) {
+      addProduct(formData);
       setFormData({
         owner: userInfo?.data._id,
         name: "",
@@ -109,59 +114,43 @@ function AddProduct() {
         description: "",
       });
       setImages([]);
-    }
-  }, [addData]);
-  //-------------- handle images respons -----------//
-  useEffect(() => {
-    if (!imageErr && !imageLoad && imageData?.status == "success") {
-      setFormData({ ...formData, images: imageData.data });
-      setCanAdd(true);
-    }
-  }, [imageData, imageErr, imageLoad]);
-  //---------- after upload image send data ----//
-  useEffect(() => {
-    if (
-      !imageErr &&
-      !imageLoad &&
-      imageData?.status == "success" &&
-      canAdd == true
-    ) {
-      addProduct(formData);
+      setImageFile([]);
       setCanAdd(false);
     }
   }, [formData.images]);
-  ///------------- handle data -------------///
+
+  // Handle form data changes
   const handleFormData = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  ///------------- make subcategory -------------///
-  const subCategoryHandl = (e) => {
-    let a;
-    for (let i = 0; i < catData?.data.length; i++) {
-      if (catData?.data[i]._id == e.target.value)
-        a = catData.data[i].subCategory;
-    }
-    if (a) {
-      const b = a.map((value) => {
-        return (
-          <option key={value._id} value={value._id}>
-            {value.name}
-          </option>
-        );
-      });
-      setSubCategories(b);
+
+  // Handle subcategory selection
+  const subCategoryHandle = (e) => {
+    const categoryId = e.target.value;
+    const selectedCategory = catData?.data.find(
+      (category) => category._id === categoryId
+    );
+
+    if (selectedCategory) {
+      const subCategoryOptions = selectedCategory.subCategory.map((value) => (
+        <option key={value._id} value={value._id}>
+          {value.name}
+        </option>
+      ));
+      setSubCategories(subCategoryOptions);
     }
   };
+
   return (
     <form
       onSubmit={handleSubmit}
       className="w-full max-w-[2000px] flex flex-wrap justify-center md:justify-around gap-x-2 gap-y-4 my-10"
     >
-      {/* --------------------- name --------------------- */}
+      {/* Product Name */}
       <div className="mt-1 w-full lg:w-[45%]">
         <label
           htmlFor="name"
-          className="block mb-2 text font-medium text-neutral-600 "
+          className="block mb-2 text font-medium text-neutral-600"
         >
           Product Name
         </label>
@@ -171,14 +160,15 @@ function AddProduct() {
           name="name"
           onChange={handleFormData}
           type="text"
-          className=" hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500  pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green  outline-none w-full   text-neutral-600 sm:text-sm  focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 "
+          className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green outline-none w-full text-neutral-600 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block px-1 py-2"
         />
       </div>
-      {/* --------------------- phone --------------------- */}
+
+      {/* Phone Number */}
       <div className="mt-1 w-full lg:w-[45%]">
         <label
           htmlFor="phoneNumber"
-          className="block mb-2 text font-medium text-neutral-600 "
+          className="block mb-2 text font-medium text-neutral-600"
         >
           Phone Number
         </label>
@@ -188,28 +178,27 @@ function AddProduct() {
           value={formData.phone}
           onChange={handleFormData}
           type="tel"
-          className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green  outline-none w-full   text-neutral-600 sm:text-sm  focus:ring-primary-600 focus:border-primary-600 block px-1 py-2"
+          className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green outline-none w-full text-neutral-600 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block px-1 py-2"
         />
       </div>
-      {/* --------------------- category --------------------- */}
+
+      {/* Category */}
       <div className="mt-1 w-full lg:w-[45%]">
         <label
           htmlFor="category"
-          className="block mb-2 text font-medium text-neutral-600 "
+          className="block mb-2 text font-medium text-neutral-600"
         >
           Category
         </label>
         <select
-          disabled={catData ? false : true}
-          onChange={subCategoryHandl}
+          disabled={!catData}
+          onChange={subCategoryHandle}
           required={true}
-          className={`duration-500 hover:duration-500 focus:duration-500 pl-3
-           border-2 rounded-sm  focus:outline-none  outline-none w-full 
-             text-neutral-600 sm:text-sm  focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 ${
-               catData
-                 ? "hover:border-gray-600 focus:border-green border-gray-400"
-                 : "bg-neutral-100"
-             }`}
+          className={`duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm focus:outline-none outline-none w-full text-neutral-600 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 ${
+            catData
+              ? "hover:border-gray-600 focus:border-green border-gray-400"
+              : "bg-neutral-100"
+          }`}
         >
           <option value="">Select category</option>
           {catData?.data.map((value) => (
@@ -219,51 +208,49 @@ function AddProduct() {
           ))}
         </select>
       </div>
-      {/* --------------------- subCategory --------------------- */}
-      <div className="mt-1 w-full lg:w-[45%]" disabled={catData ? false : true}>
+
+      {/* Subcategory */}
+      <div className="mt-1 w-full lg:w-[45%]">
         <label
-          htmlFor="category"
-          className="block mb-2 text font-medium text-neutral-600 "
+          htmlFor="subcategory"
+          className="block mb-2 text font-medium text-neutral-600"
         >
           Subcategory
         </label>
         <select
           onChange={handleFormData}
           name="category"
-          disabled={catData ? false : true}
+          disabled={!catData}
           required={true}
-          className={`duration-500 hover:duration-500 focus:duration-500 pl-3
-           border-2 rounded-sm  focus:outline-none  outline-none w-full 
-             text-neutral-600 sm:text-sm  focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 ${
-               catData
-                 ? "hover:border-gray-600 focus:border-green border-gray-400"
-                 : "bg-neutral-100"
-             }`}
+          className={`duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm focus:outline-none outline-none w-full text-neutral-600 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 ${
+            catData
+              ? "hover:border-gray-600 focus:border-green border-gray-400"
+              : "bg-neutral-100"
+          }`}
         >
           <option value="">Select subcategory</option>
           {subCategories}
         </select>
       </div>
-      {/* --------------------- city --------------------- */}
+
+      {/* City */}
       <div className="mt-1 w-full lg:w-[45%]">
         <label
-          htmlFor="cat gory"
-          className="block mb-2 text font-medium text-neutral-600 "
+          htmlFor="city"
+          className="block mb-2 text font-medium text-neutral-600"
         >
           City
         </label>
         <select
           name="city"
           onChange={handleFormData}
-          disabled={cityData ? false : true}
+          disabled={!cityData}
           required={true}
-          className={`duration-500 hover:duration-500 focus:duration-500 pl-3
-           border-2 rounded-sm  focus:outline-none  outline-none w-full 
-             text-neutral-600 sm:text-sm  focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 ${
-               cityData
-                 ? "hover:border-gray-600 focus:border-green border-gray-400"
-                 : "bg-neutral-100"
-             }`}
+          className={`duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm focus:outline-none outline-none w-full text-neutral-600 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 ${
+            cityData
+              ? "hover:border-gray-600 focus:border-green border-gray-400"
+              : "bg-neutral-100"
+          }`}
         >
           <option value="">Select City</option>
           {cityData?.data.map((value) => (
@@ -273,11 +260,12 @@ function AddProduct() {
           ))}
         </select>
       </div>
-      {/* --------------------- address --------------------- */}
+
+      {/* Address */}
       <div className="mt-1 w-full lg:w-[45%]">
         <label
           htmlFor="address"
-          className="block mb-2 text font-medium text-neutral-600 "
+          className="block mb-2 text font-medium text-neutral-600"
         >
           Address
         </label>
@@ -287,21 +275,22 @@ function AddProduct() {
           name="address"
           onChange={handleFormData}
           type="text"
-          className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green  outline-none w-full   text-neutral-600 sm:text-sm  focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 "
+          className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green outline-none w-full text-neutral-600 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block px-1 py-2"
         />
       </div>
+
+      {/* Images */}
       <div className="mt-1 w-full lg:w-[45%] h-[200px] overflow-hidden">
         <label
           htmlFor="image"
-          className="block mb-2 text font-medium text-neutral-600 "
+          className="block mb-2 text font-medium text-neutral-600"
         >
           Images
         </label>
         <div className="border-2 border-gray-400 w-[100%] h-[165px]">
-          {images?.length !== 0 && (
+          {images.length !== 0 && (
             <div className="overflow-auto p-1 flex flex-wrap justify-start gap-1 w-[100%] h-[110px]">
-              {/* --------------------- image show --------------------- */}
-
+              {/* Image show */}
               {images.map((image, index) => (
                 <div
                   key={index}
@@ -315,8 +304,7 @@ function AddProduct() {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-5 h-5 absolute rounded-md 
-                    p-[2px] bg-red-600 text-white left-[2px] right-[2px]"
+                    className="w-5 h-5 absolute rounded-md p-[2px] bg-red-600 text-white left-[2px] right-[2px]"
                   >
                     <path
                       strokeLinecap="round"
@@ -340,17 +328,16 @@ function AddProduct() {
             onChange={handleImageUpload}
             type="file"
             name="image"
-            className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 rounded-sm
-    border-gray-400 focus:outline-none focus:border-green bg-gray-50 text-neutral-600 sm:text-sm
-    focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 w-full mt-1"
+            className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 rounded-sm border-gray-400 focus:outline-none focus:border-green bg-gray-50 text-neutral-600 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 w-full mt-1"
           />
         </div>
       </div>
-      {/* --------------------- description --------------------- */}
+
+      {/* Description */}
       <div className="mt-1 w-full lg:w-[45%] h-[200px] overflow-hidden">
         <label
           htmlFor="description"
-          className="block mb-2 text font-medium text-neutral-600 "
+          className="block mb-2 text font-medium text-neutral-600"
         >
           Description
         </label>
@@ -359,34 +346,17 @@ function AddProduct() {
           name="description"
           onChange={handleFormData}
           value={formData.description}
-          className=" hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3
-             rounded-sm border-gray-400 focus:outline-none focus:border-green ou1line-none p-1 border-2 text-neutral-600 w-[100%] h-[165px]"
+          className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 rounded-sm border-gray-400 focus:outline-none focus:border-green outline-none p-1 border-2 text-neutral-600 w-[100%] h-[165px]"
         ></textarea>
       </div>
+
       <button
-        className={`mt-3 outline-none text-white bg-green font-medium
-           rounded px-1 py-2 h-fit text-center flex justify-center
-            items-center gap-x-2 w-full lg:w-[50%] 
-            ${
-              imageErr
-                ? "opacity-40"
-                : imageLoad
-                ? "opacity-40"
-                : addError
-                ? "opacity-40"
-                : addLoadin && "opacity-40"
-            }`}
-        disabled={
-          imageErr
-            ? true
-            : imageLoad
-            ? true
-            : addError
-            ? true
-            : addLoadin
-            ? true
-            : false
-        }
+        className={`mt-3 outline-none text-white bg-green font-medium rounded px-1 py-2 h-fit text-center flex justify-center items-center gap-x-2 w-full lg:w-[50%] ${
+          imageError || imageLoading || addError || addLoading
+            ? "opacity-40"
+            : ""
+        }`}
+        disabled={imageError || imageLoading || addError || addLoading}
       >
         Add
       </button>
