@@ -1,15 +1,13 @@
-import Search from "./Search/Search";
-import Filter from "./Filter/Filter";
-
+import Search from './Search/Search';
+import Filter from './Filter/Filter';
 
 // eslint-disable-next-line react/prop-types
-const Banner = ({search, setSearch, category, setCategory}) => {
+const Banner = ({ search, setSearch, category, setCategory }) => {
   return (
     <>
       <div className="flex flex-col w-full">
         <Filter category={category} setCategory={setCategory} />
-        <Search search={search} setSearch={setSearch}  />
-       
+        <Search search={search} setSearch={setSearch} />
       </div>
     </>
   );
