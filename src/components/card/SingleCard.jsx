@@ -33,6 +33,7 @@ const SingleCard = () => {
         setSearch={setSearch}
         category={category}
         setCategory={setCategory}
+        setPage={setPage}
         searchHandler={() => searchHandler()}
       />
       {memoizedData.length == 0 ? (
@@ -40,12 +41,16 @@ const SingleCard = () => {
           No Product
         </p>
       ) : (
-        <div className="gap-8  lg:grid px-4 lg:grid-cols-2  xl:grid-cols-3 md:grid xsm:grid-cols-1">
+        <div className="gap-8  lg:grid px-4 lg:grid-cols-2  xl:grid-cols-3 md:grid xsm:grid-cols-1 min-h-screen">
           {memoizedData.map((card) => {
             return (
-              <Link to={`/products/${card._id}`} key={card._id}>
-                <div className=" w-full  mt-5 hover:shadow-lg ">
-                  <div className="flex justify-between items-center p-1">
+              <Link
+                to={`/products/${card._id}`}
+                key={card._id}
+                className="bg-gray-50 rounded shadow h-fit"
+              >
+                <div className=" w-full  hover:shadow-lg ">
+                  <div className="flex px-4 justify-between items-center">
                     <div className="flex my-4">
                       <img
                         className="h-12 w-12 rounded-full object-cover "
@@ -55,20 +60,20 @@ const SingleCard = () => {
                         alt="User Image"
                       />
                       <div className="flex flex-col ml-4 lg:ml-2">
-                        <span className="font-semibold text-sm lg:text-base whitespace-nowrap ">
+                        <span className="font-semibold text-sm lg:text-base whitespace-nowrap text-ellipsis">
                           {card?.owner?.fullname}
                         </span>
 
                         <span className=" flex items-center text-xs">
                           <IoLocationSharp className="mr-1 text-green " />
-                          {card?.address}
+                          {card?.city?.name}
                         </span>
                       </div>
                     </div>
 
-                    <h1 className="font-semibold text-sm lg:text-base px-4 pb-2 ">
+                    {/* <h1 className="font-semibold text-sm lg:text-base px-4 pb-2 truncate">
                       {card?.name}
-                    </h1>
+                    </h1> */}
                   </div>
 
                   <div className="flex  overflow-hidden relative">
@@ -81,6 +86,9 @@ const SingleCard = () => {
                     />
                   </div>
                 </div>
+                <h1 className="font-semibold text-sm lg:text-base py-4 px-6 truncate">
+                  {card?.name}
+                </h1>
               </Link>
             );
           })}
