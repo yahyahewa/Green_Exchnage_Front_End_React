@@ -52,7 +52,7 @@ function SingleItem() {
                     ? singleProduct?.data?.name
                     : 'product name'}
                 </h1>
-                <p className="lg:text-xl font-semibold mt-2">
+                <p className="lg:text-xl font-semibold mt-2 py-2 px-4 bg-gray-50 w-fit">
                   {singleProduct?.data?.category[0]?.name}
                 </p>
                 <h2 className="lg:text-xl font-semibold mt-2">
@@ -75,7 +75,8 @@ function SingleItem() {
                 <div className="ml-5 flex items-center">
                   {' '}
                   <IoLocationSharp className="mr-2 w-5 h-5" />
-                  <span>{singleProduct?.data?.address}</span>
+                  <span className="">{singleProduct?.data?.city?.name}</span>
+                  <span>-{singleProduct?.data?.address}</span>{' '}
                 </div>
               </div>
             </div>

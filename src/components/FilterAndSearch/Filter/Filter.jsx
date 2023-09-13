@@ -6,7 +6,7 @@ import { useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useCallback } from 'react';
 
-const Filter = ({ category, setCategory }) => {
+const Filter = ({ category, setCategory, setPage }) => {
   const { data: allCategory } = useGetCategorySubCategoryQuery();
   const containerRef = useRef(null);
 
@@ -31,8 +31,10 @@ const Filter = ({ category, setCategory }) => {
           }
 
           setCategory(id);
+          setPage(1);
         } else {
           setCategory(categoryId._id);
+          setPage(1);
         }
       }
     },
@@ -81,7 +83,7 @@ const Filter = ({ category, setCategory }) => {
             <NavLink
               key={1}
               className={`py-2 px-4 mx-2 rounded focus:outline-none whitespace-nowrap h-fit ${
-                '' === activeCategory ? 'bg-blue-500 text-white' : 'bg-gray-50'
+                '' === activeCategory ? 'bg-green text-white' : 'bg-gray-50'
               }`}
               onClick={() => handleCategoryClick('')}
             >
@@ -92,7 +94,7 @@ const Filter = ({ category, setCategory }) => {
                 key={category._id}
                 className={`py-2 px-4 mx-2 rounded focus:outline-none whitespace-nowrap h-fit ${
                   category._id === activeCategory
-                    ? 'bg-blue-500 text-white'
+                    ? 'bg-green text-white'
                     : 'bg-gray-50'
                 }`}
                 onClick={() => handleCategoryClick(category)}
