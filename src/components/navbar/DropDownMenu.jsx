@@ -3,7 +3,6 @@ import { useDisclosure } from '@mantine/hooks';
 // import { useDisclosure } from '@mantine/hooks';
 import { Drawer, Group } from '@mantine/core';
 import Humberger from './Humberger';
-import { Link } from 'react-router-dom';
 import { LINKS } from '../../assets/Data';
 
 function DropDownMenu() {
