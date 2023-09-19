@@ -359,7 +359,7 @@ function AddProduct() {
       </div>
 
       <button
-        className={`mt-3 outline-none text-white bg-jade-600 font-medium 
+        className={`mt-3 outline-none text-white bg-jade-700 font-medium 
         rounded px-1 py-2 h-fit text-center flex justify-center 
         items-center gap-x-2 w-full lg:w-[50%] ${
           imageError || imageLoading || addError || addLoading
