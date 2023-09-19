@@ -49,7 +49,7 @@ const SingleCard = () => {
                 key={card._id}
                 className="bg-gray-50 rounded shadow h-fit"
               >
-                <div className=" w-full  hover:shadow-lg ">
+                <div className=" w-full">
                   <div className="flex px-4 justify-between items-center">
                     <div className="flex my-4">
                       <img

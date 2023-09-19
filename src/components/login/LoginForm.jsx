@@ -1,23 +1,28 @@
-import { Link, Navigate } from "react-router-dom";
-import { useLoginMutation } from "../../app/api/auth";
-import { useEffect } from "react";
-import * as Yup from "yup";
-import { Formik, Form, useFormik } from "formik";
-import InputField from "../InputField/InputField";
-import { useState } from "react";
+import { Link, Navigate } from 'react-router-dom';
+import { useLoginMutation } from '../../app/api/auth';
+import { useEffect } from 'react';
+import * as Yup from 'yup';
+import { Formik, Form, useFormik } from 'formik';
+import InputField from '../InputField/InputField';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addUser } from '../../app/api/userSlice';
 
 function LoginForm() {
-  const [login, { data, isError, isLoading }] = useLoginMutation();
-  const [thereUSer, setThereUser] = useState("");
+  const [login, { data, isError, isLoading, isSuccess }] = useLoginMutation();
+  const [thereUSer, setThereUser] = useState('');
+  const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
     onSubmit: (values, { resetForm }) => {
       // console.log(values)
       login(values);
-      resetForm({ values: "" });
+
+      resetForm({ values: '' });
     },
     validationSchema: Yup.object({
       email: Yup.string().email().required(),
@@ -35,15 +40,17 @@ function LoginForm() {
   // };
   useEffect(() => {
     if (!isError && !isLoading && data) {
-      data?.status == "success"
+      data?.status == 'success'
         ? JSON.stringify(
-            localStorage.setItem("userData", JSON.stringify(data?.data))
+            localStorage.setItem('userData', JSON.stringify(data?.data)),
           )
-        : setThereUser("user not found");
+        : setThereUser('user not found');
     }
   }, [data, isError, isLoading]);
-
-  if (data?.status == "success" && data?.data?.token)
+  if (isSuccess) {
+    dispatch(addUser(true));
+  }
+  if (data?.status == 'success' && data?.data?.token)
     return <Navigate to="/profile" replace />;
   return (
     <Formik>
@@ -88,10 +95,10 @@ function LoginForm() {
           </div>
 
           <p className="text-gray-800 text-sm mt-2">
-            Dont have an account?{" "}
+            Dont have an account?{' '}
             <Link to="/signup" className="text-blue-500 ">
               Sign Up
-            </Link>{" "}
+            </Link>{' '}
           </p>
           <div className="mt-5">
             <button

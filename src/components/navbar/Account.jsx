@@ -1,16 +1,11 @@
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLoginMutation } from '../../app/api/auth';
+import { useSelector } from 'react-redux';
 function Account() {
-  const [isUser, setIsUser] = useState(false);
-  useEffect(() => {
-    if (
-      localStorage.getItem("userData") != "undefined" &&
-      JSON.parse(localStorage.getItem("userData"))
-    ) {
-      setIsUser(true);
-    }
-  }, []);
-  return isUser ? (
+  const user = useSelector((state) => state.user.user);
+
+  return user || localStorage.getItem('userData') !== null ? (
     <Link to="/profile">
       <img
         src={`https://img.freepik.com/free-icon/user_318-804790.jpg?w=2000`}
@@ -19,7 +14,7 @@ function Account() {
     </Link>
   ) : (
     <Link
-      to={"/login"}
+      to={'/login'}
       className="btn btn-primary py-1 text-base px-2 font-bold rounded-md btn-md bg-green
              text-neutral-100 border-0 mr-3 hover:bg-jade-600 transition-all"
     >
