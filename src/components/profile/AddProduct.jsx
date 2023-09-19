@@ -5,6 +5,7 @@ import {
 } from '../../app/api/profile';
 import { useGetCityQuery } from '../../app/api/city';
 import { useGetCategorySubCategoryQuery } from '../../app/api/category';
+import "./profile.style.css"
 
 function AddProduct() {
   const [
@@ -153,7 +154,7 @@ function AddProduct() {
       <div className="mt-1 w-full lg:w-[49%]">
         <label
           htmlFor="name"
-          className="block mb-2 text font-medium text-neutral-600"
+          className="labels"
         >
           Product Name
         </label>
@@ -164,7 +165,7 @@ function AddProduct() {
           name="name"
           onChange={handleFormData}
           type="text"
-          className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green outline-none w-full text-neutral-600 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block px-1 py-2"
+          className="inputs outline-none"
         />
       </div>
 
@@ -172,7 +173,7 @@ function AddProduct() {
       <div className="mt-1 w-full lg:w-[49%]">
         <label
           htmlFor="phoneNumber"
-          className="block mb-2 text font-medium text-neutral-600"
+          className="labels"
         >
           Phone Number
         </label>
@@ -183,7 +184,7 @@ function AddProduct() {
           value={formData.phone}
           onChange={handleFormData}
           type="tel"
-          className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green outline-none w-full text-neutral-600 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block px-1 py-2"
+          className="inputs outline-none"
         />
       </div>
 
@@ -191,7 +192,7 @@ function AddProduct() {
       <div className="mt-1 w-full lg:w-[49%]">
         <label
           htmlFor="category"
-          className="block mb-2 text font-medium text-neutral-600"
+          className="labels"
         >
           Category
         </label>
@@ -219,7 +220,7 @@ function AddProduct() {
       <div className="mt-1 w-full lg:w-[49%]">
         <label
           htmlFor="subcategory"
-          className="block mb-2 text font-medium text-neutral-600"
+          className="labels"
         >
           Subcategory
         </label>
@@ -244,7 +245,7 @@ function AddProduct() {
       <div className="mt-1 w-full lg:w-[49%]">
         <label
           htmlFor="city"
-          className="block mb-2 text font-medium text-neutral-600"
+          className="labels"
         >
           City
         </label>
@@ -273,7 +274,7 @@ function AddProduct() {
       <div className="mt-1 w-full lg:w-[49%]">
         <label
           htmlFor="address"
-          className="block mb-2 text font-medium text-neutral-600"
+          className="labels"
         >
           Address
         </label>
@@ -284,7 +285,7 @@ function AddProduct() {
           name="address"
           onChange={handleFormData}
           type="text"
-          className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green outline-none w-full text-neutral-600 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block px-1 py-2"
+          className="inputs outline-none"
         />
       </div>
 
@@ -292,7 +293,7 @@ function AddProduct() {
       <div className="mt-1 w-full lg:w-[49%] h-[200px] overflow-hidden">
         <label
           htmlFor="image"
-          className="block mb-2 text font-medium text-neutral-600"
+          className="labels"
         >
           Images
         </label>
@@ -347,7 +348,7 @@ function AddProduct() {
       <div className="mt-1 w-full lg:w-[49%] h-[200px] overflow-hidden">
         <label
           htmlFor="description"
-          className="block mb-2 text font-medium text-neutral-600"
+          className="labels"
         >
           Description
         </label>

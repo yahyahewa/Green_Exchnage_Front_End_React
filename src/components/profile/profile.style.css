@@ -1,0 +1,35 @@
+/* Define the "inputs" class */
+.inputs {
+    padding-left: 0.75rem;
+    border-width: 2px;
+    border-radius: 0.125rem;
+    border-color: #cbd5e0;
+    outline-style: none;
+    width: 100%;
+    color: #718096;
+    font-size: 0.875rem;
+    display: block;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  
+  /* Define the hover and focus states for the "inputs" class */
+  .inputs:hover {
+    border-color: #4a90e2;
+    transition-duration: 0.5s;
+  }
+  
+  .inputs:focus {
+    transition-duration: 0.5s;
+    border-color: #48bb78;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.5);
+  }
+  .labels {
+    display: block;
+    margin-bottom: 0.5rem; /* You can adjust this value as needed */
+    font-weight: 500; /* This corresponds to font-medium */
+    color: #666; /* This corresponds to text-neutral-600 */
+  }
+    
