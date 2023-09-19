@@ -150,7 +150,7 @@ function AddProduct() {
        gap-y-4 my-10"
     >
       {/* Product Name */}
-      <div className="mt-1 w-full lg:w-[48%]">
+      <div className="mt-1 w-full lg:w-[49%]">
         <label
           htmlFor="name"
           className="block mb-2 text font-medium text-neutral-600"
@@ -169,7 +169,7 @@ function AddProduct() {
       </div>
 
       {/* Phone Number */}
-      <div className="mt-1 w-full lg:w-[48%]">
+      <div className="mt-1 w-full lg:w-[49%]">
         <label
           htmlFor="phoneNumber"
           className="block mb-2 text font-medium text-neutral-600"
@@ -188,7 +188,7 @@ function AddProduct() {
       </div>
 
       {/* Category */}
-      <div className="mt-1 w-full lg:w-[48%]">
+      <div className="mt-1 w-full lg:w-[49%]">
         <label
           htmlFor="category"
           className="block mb-2 text font-medium text-neutral-600"
@@ -216,7 +216,7 @@ function AddProduct() {
       </div>
 
       {/* Subcategory */}
-      <div className="mt-1 w-full lg:w-[48%]">
+      <div className="mt-1 w-full lg:w-[49%]">
         <label
           htmlFor="subcategory"
           className="block mb-2 text font-medium text-neutral-600"
@@ -241,7 +241,7 @@ function AddProduct() {
       </div>
 
       {/* City */}
-      <div className="mt-1 w-full lg:w-[48%]">
+      <div className="mt-1 w-full lg:w-[49%]">
         <label
           htmlFor="city"
           className="block mb-2 text font-medium text-neutral-600"
@@ -270,7 +270,7 @@ function AddProduct() {
       </div>
 
       {/* Address */}
-      <div className="mt-1 w-full lg:w-[48%]">
+      <div className="mt-1 w-full lg:w-[49%]">
         <label
           htmlFor="address"
           className="block mb-2 text font-medium text-neutral-600"
@@ -289,7 +289,7 @@ function AddProduct() {
       </div>
 
       {/* Images */}
-      <div className="mt-1 w-full lg:w-[48%] h-[200px] overflow-hidden">
+      <div className="mt-1 w-full lg:w-[49%] h-[200px] overflow-hidden">
         <label
           htmlFor="image"
           className="block mb-2 text font-medium text-neutral-600"
@@ -344,7 +344,7 @@ function AddProduct() {
       </div>
 
       {/* Description */}
-      <div className="mt-1 w-full lg:w-[48%] h-[200px] overflow-hidden">
+      <div className="mt-1 w-full lg:w-[49%] h-[200px] overflow-hidden">
         <label
           htmlFor="description"
           className="block mb-2 text font-medium text-neutral-600"
@@ -365,7 +365,7 @@ function AddProduct() {
         className={`mt-3 outline-none text-white bg-jade-700 
         font-medium 
         rounded px-1 py-2  text-center flex justify-center 
-        gap-x-2 w-full lg:w-[48%] ${
+        gap-x-2 w-full lg:w-[49%] ${
           imageError || imageLoading || addError || addLoading
             ? 'opacity-40'
             : ''
