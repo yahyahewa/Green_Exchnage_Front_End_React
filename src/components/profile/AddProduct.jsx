@@ -144,10 +144,13 @@ function AddProduct() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full max-w-[2000px] flex flex-wrap justify-center md:justify-around gap-x-2 gap-y-4 my-10"
+      className="w-full max-w-[2000px]
+       flex flex-wrap justify-center 
+       md:justify-between gap-x-2 
+       gap-y-4 my-10"
     >
       {/* Product Name */}
-      <div className="mt-1 w-full lg:w-[45%]">
+      <div className="mt-1 w-full lg:w-[48%]">
         <label
           htmlFor="name"
           className="block mb-2 text font-medium text-neutral-600"
@@ -166,7 +169,7 @@ function AddProduct() {
       </div>
 
       {/* Phone Number */}
-      <div className="mt-1 w-full lg:w-[45%]">
+      <div className="mt-1 w-full lg:w-[48%]">
         <label
           htmlFor="phoneNumber"
           className="block mb-2 text font-medium text-neutral-600"
@@ -185,7 +188,7 @@ function AddProduct() {
       </div>
 
       {/* Category */}
-      <div className="mt-1 w-full lg:w-[45%]">
+      <div className="mt-1 w-full lg:w-[48%]">
         <label
           htmlFor="category"
           className="block mb-2 text font-medium text-neutral-600"
@@ -213,7 +216,7 @@ function AddProduct() {
       </div>
 
       {/* Subcategory */}
-      <div className="mt-1 w-full lg:w-[45%]">
+      <div className="mt-1 w-full lg:w-[48%]">
         <label
           htmlFor="subcategory"
           className="block mb-2 text font-medium text-neutral-600"
@@ -238,7 +241,7 @@ function AddProduct() {
       </div>
 
       {/* City */}
-      <div className="mt-1 w-full lg:w-[45%]">
+      <div className="mt-1 w-full lg:w-[48%]">
         <label
           htmlFor="city"
           className="block mb-2 text font-medium text-neutral-600"
@@ -267,7 +270,7 @@ function AddProduct() {
       </div>
 
       {/* Address */}
-      <div className="mt-1 w-full lg:w-[45%]">
+      <div className="mt-1 w-full lg:w-[48%]">
         <label
           htmlFor="address"
           className="block mb-2 text font-medium text-neutral-600"
@@ -286,7 +289,7 @@ function AddProduct() {
       </div>
 
       {/* Images */}
-      <div className="mt-1 w-full lg:w-[45%] h-[200px] overflow-hidden">
+      <div className="mt-1 w-full lg:w-[48%] h-[200px] overflow-hidden">
         <label
           htmlFor="image"
           className="block mb-2 text font-medium text-neutral-600"
@@ -341,7 +344,7 @@ function AddProduct() {
       </div>
 
       {/* Description */}
-      <div className="mt-1 w-full lg:w-[45%] h-[200px] overflow-hidden">
+      <div className="mt-1 w-full lg:w-[48%] h-[200px] overflow-hidden">
         <label
           htmlFor="description"
           className="block mb-2 text font-medium text-neutral-600"
@@ -359,9 +362,10 @@ function AddProduct() {
       </div>
 
       <button
-        className={`mt-3 outline-none text-white bg-jade-700 font-medium 
-        rounded px-1 py-2 h-fit text-center flex justify-center 
-        items-center gap-x-2 w-full lg:w-[50%] ${
+        className={`mt-3 outline-none text-white bg-jade-700 
+        font-medium 
+        rounded px-1 py-2  text-center flex justify-center 
+        gap-x-2 w-full lg:w-[48%] ${
           imageError || imageLoading || addError || addLoading
             ? 'opacity-40'
             : ''
