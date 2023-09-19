@@ -155,6 +155,7 @@ function AddProduct() {
           Product Name
         </label>
         <input
+        id='name'
           value={formData.name}
           required={true}
           name="name"
@@ -173,6 +174,7 @@ function AddProduct() {
           Phone Number
         </label>
         <input
+        id='phoneNumber'
           required={true}
           name="phone"
           value={formData.phone}
@@ -191,6 +193,7 @@ function AddProduct() {
           Category
         </label>
         <select
+        id='category'
           disabled={!catData}
           onChange={subCategoryHandle}
           required={true}
@@ -218,6 +221,7 @@ function AddProduct() {
           Subcategory
         </label>
         <select
+        id='subcategory'
           onChange={handleFormData}
           name="category"
           disabled={!catData}
@@ -242,6 +246,7 @@ function AddProduct() {
           City
         </label>
         <select
+        id='city'
           name="city"
           onChange={handleFormData}
           disabled={!cityData}
@@ -270,6 +275,7 @@ function AddProduct() {
           Address
         </label>
         <input
+        id='address'
           required={true}
           value={formData.address}
           name="address"
@@ -328,6 +334,7 @@ function AddProduct() {
             onChange={handleImageUpload}
             type="file"
             name="image"
+            id="image"
             className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 rounded-sm border-gray-400 focus:outline-none focus:border-green bg-gray-50 text-neutral-600 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 w-full mt-1"
           />
         </div>
@@ -342,6 +349,7 @@ function AddProduct() {
           Description
         </label>
         <textarea
+        id='description'
           required={true}
           name="description"
           onChange={handleFormData}
