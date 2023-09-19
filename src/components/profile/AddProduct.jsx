@@ -9,7 +9,7 @@ import { useGetCategorySubCategoryQuery } from '../../app/api/category';
 function AddProduct() {
   const [
     addProduct,
-    { data: addData, isError: addError, isLoading: addLoading },
+    { isError: addError, isLoading: addLoading },
   ] = useAddProductMutation();
   const [
     uploadImage,
@@ -351,7 +351,9 @@ function AddProduct() {
       </div>
 
       <button
-        className={`mt-3 outline-none text-white bg-green font-medium rounded px-1 py-2 h-fit text-center flex justify-center items-center gap-x-2 w-full lg:w-[50%] ${
+        className={`mt-3 outline-none text-white bg-jade-600 font-medium 
+        rounded px-1 py-2 h-fit text-center flex justify-center 
+        items-center gap-x-2 w-full lg:w-[50%] ${
           imageError || imageLoading || addError || addLoading
             ? 'opacity-40'
             : ''

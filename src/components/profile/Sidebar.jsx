@@ -68,14 +68,7 @@ function Sidebar({ setComponent }) {
             strokeLinejoin="round"
             d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
           />
-        </svg></h1>
-    </aside>
-  );
-}
-
-export default Sidebar;
-
-{/* <Link
+        </svg></h1><Link className="absolute left-0 top-0 bg-jade-600"
 to={"/login"}
 onClick={() => {
   localStorage.removeItem("userData");
@@ -97,4 +90,11 @@ onClick={() => {
 </svg>
 
 <span className="hidden sm:block pt-1 ">Logout</span>
-</Link>  */}
+</Link> 
+    </aside>
+  );
+}
+
+export default Sidebar;
+
+ 
