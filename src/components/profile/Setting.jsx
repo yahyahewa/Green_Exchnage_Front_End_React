@@ -2,189 +2,145 @@ import React, { useState } from "react";
 import { AiFillEdit } from "react-icons/ai";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useUpdatePasswordMutation } from "../../app/api/profile";
+import {
+  useUpdatePasswordMutation,
+  useUpdateUserInfoMutation,
+} from "../../app/api/profile";
 import { LiaTimesSolid } from "react-icons/lia";
 import { BiSolidShow, BiShowAlt } from "react-icons/bi";
+
 const Setting = () => {
-  const [
-    updatePassword,
-    { data: dataPass, isError: errorPass, isLoading: loadPass },
-  ] = useUpdatePasswordMutation();
-
-  // Retrieve user data from local storage
   const userData = JSON.parse(localStorage.getItem("userData"));
+  const [userToken, setUserToken] = useState(userData?.data?.token);
+  const [userId, setUserId] = useState(userData.data?._id);
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [showNewPassword, setShowNewPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const toggleNewPassword = () => {
-    setShowNewPassword(!showNewPassword);
-  };
-
-  const toggleConfirmPassword = () => {
-    setShowConfirmPassword(!showConfirmPassword);
-  };
-
-  // Initialize state with user data
+  // *********************UserInfo********************
   const [fullname, setFullname] = useState(userData?.data?.fullname);
   const [phone, setPhone] = useState(userData?.data?.phone);
   const [email, setEmail] = useState(userData?.data?.email);
 
-  // password state
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-
-  // image state
-  const [image, setImage] = useState(
-    userData?.data?.image ||
-      "https://virl.bc.ca/wp-content/uploads/2019/01/AccountIcon2.png"
-  );
-
+  // *********************ImageProfile********************
+  const [image, setImage] = useState(userData?.data?.image || "");
   const [selectedImage, setSelectedImage] = useState(null);
+
   const [isInputDisabled, setInputDisabled] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
-  const handleEnableInput = () => {
-    setInputDisabled(!isInputDisabled);
-  };
+  // *********************password********************
+  const [
+    updatePasswordMutation,
+    { data: passwordData, isError: passwordError, isLoading: passwordLoading },
+  ] = useUpdatePasswordMutation();
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
-    // Update the corresponding state variable
-    switch (name) {
-      case "fullname":
-        setFullname(value);
-        break;
-      case "phone":
-        setPhone(value);
-        break;
-      case "image":
-        setImage(value);
-        break;
-      case "email":
-        setEmail(value);
-        break;
-      case "currentPassword":
-        setCurrentPassword(value);
-        break;
-      case "newPassword":
-        setNewPassword(value);
-        break;
-      case "confirmPassword":
-        setConfirmPassword(value);
-        break;
-      default:
-        break;
+  const [showPassword, setShowPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
+
+  // Function to handle the form submission for password update
+  const handlePasswordUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      if (newPassword !== confirmNewPassword) {
+        // Handle password confirmation mismatch
+        toast.error("New password and confirmation password do not match.", {
+          position: toast.POSITION.TOP_LEFT,
+          autoClose: 3000,
+        });
+        return;
+      }
+
+      const { data, error } = await updatePasswordMutation({
+        variables: {
+          id: userId,
+          email: email,
+          oldPassword: oldPassword,
+          newPassword: newPassword,
+          confirmNewPassword: confirmNewPassword,
+        },
+      });
+      if (error) {
+        toast.error("GraphQL error:", {
+          position: toast.POSITION.TOP_LEFT,
+          autoClose: 3000,
+        });
+      } else if (data) {
+        if (data.updatePassword.success) {
+          toast.success("Password updated successfully!", {
+            position: toast.POSITION.TOP_LEFT,
+            autoClose: 3000,
+          });
+        } else {
+          toast.error(
+            "Failed to update password: " + data.updatePassword.message,
+            {
+              position: toast.POSITION.TOP_LEFT,
+              autoClose: 3000,
+            }
+          );
+        }
+      }
+    } catch (error) {
+      console.error("Please Check your Connection", error);
     }
   };
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    setSelectedImage(file);
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      setImage(e.target.result);
-    };
-    reader.readAsDataURL(file);
-  };
+  // Rest of your component code here...
 
   // Function to handle the form submission for user info
-  const handleUserinfoSubmit = (event) => {
-    event.preventDefault();
+  const handleUserinfoUpdate = async (e) => {
+    e.preventDefault();
+    if (!fullname || !phone || !email || !image) {
+      if (!fullname) {
+        toast.error("Full Name cannot be blank.", {
+          position: toast.POSITION.TOP_LEFT,
+          autoClose: 3000,
+        });
+      }
 
-    // Validate fields
-    if (!fullname) {
-      toast.error("Full Name cannot be blank.", {
-        position: toast.POSITION.TOP_LEFT,
-        autoClose: 3000,
-      });
+      if (!phone || !email) {
+        toast.error("Phone Number or email cannot be blank.", {
+          position: toast.POSITION.TOP_LEFT,
+          autoClose: 3000,
+        });
+      }
       return;
     }
-
-    if (!phone) {
-      toast.error("Phone Number cannot be blank.", {
-        position: toast.POSITION.TOP_LEFT,
-        autoClose: 3000,
-      });
-      return;
-    }
-
-    if (!email) {
-      toast.error("Email cannot be blank.", {
-        position: toast.POSITION.TOP_LEFT,
-        autoClose: 3000,
-      });
-      return;
-    }
-
-    // Here, you can send the updated data to your API or update local storage
-    // Example: Update local storage
-    const updatedUserData = {
-      ...userData,
-      data: { ...userData.data, fullname, phone, image, email },
+    const updatedData = {
+      id: id,
+      fullname: fullname,
+      phone: phone,
+      email: email,
+      image: image,
     };
-    localStorage.setItem("userData", JSON.stringify(updatedUserData));
-
-    // Display a success toast message
-    toast.success("Profile updated successfully!", {
-      position: toast.POSITION.TOP_LEFT,
-      autoClose: 3000,
-    });
-
-    setInputDisabled(true);
-  };
-
-  // Function to handle the form submission for password
-  const handlePasswordSubmit = async (event) => {
-    event.preventDefault();
-
-    // Check if newPassword and confirmPassword match
-    if (newPassword !== confirmPassword) {
-      // Display an error toast message
-      toast.error("New password and confirm password do not match!", {
-        position: toast.POSITION.TOP_LEFT,
-        autoClose: 3000,
-      });
-      return; // Exit the function without further processing
-    } else if (!currentPassword) {
-      // Display an error toast message
-      toast.error("please write the curren password ", {
-        position: toast.POSITION.TOP_LEFT,
-        autoClose: 3000,
-      });
-      return; // Exit the function without further processing
-    }
 
     try {
-      // Here, you can send the updated password to your API
-      await updatePassword({ password: newPassword });
+      const { data, error } = await updateUserinfo({
+        variables: { input: updatedData },
+      });
 
-      // Display a success toast message
-      toast.success("Password updated successfully!", {
-        position: toast.POSITION.TOP_LEFT,
-        autoClose: 3000,
-      });
+      console.error("Error:", error);
+
+      if (data && data.updateUserInfo) {
+        toast.success("User information updated successfully!", {
+          position: toast.POSITION.TOP_LEFT,
+          autoClose: 3000,
+        });
+      } else {
+        console.error("Failed to update user information:", data);
+      }
     } catch (error) {
-      // Handle the error here
-      console.error("Password update failed:", error);
-      toast.error("Password update failed!", {
-        position: toast.POSITION.TOP_LEFT,
-        autoClose: 3000,
-      });
+      console.error("An error occurred:", error);
     }
   };
 
   return (
     <>
       <form
-        onSubmit={handleUserinfoSubmit}
+        onSubmit={handleUserinfoUpdate}
         className="w-full  text-black flex flex-col justify-center items-center disabled:bg-gray-700 rounded    "
       >
         <div className=" flex md:w-[45%] xsm:6/12 sm:6/12 lg:6/12 flex-col justify-center items-center ">
@@ -194,7 +150,9 @@ const Setting = () => {
             </h2>
             <button
               type="button"
-              onClick={handleEnableInput}
+              onClick={() => {
+                setInputDisabled(!isInputDisabled);
+              }}
               className="text-2xl capitalize  my-8 text-center  text-gray-900   border-jade-600 focus:text-jade-600"
             >
               <AiFillEdit />
@@ -209,7 +167,7 @@ const Setting = () => {
               />
 
               <div className="flex items-center justify-center ">
-                <h1 className="font-bold ">{fullname}</h1>
+                <h1 className="font-bold ">{userData?.data?.fullname}</h1>
               </div>
             </div>
           </div>
@@ -223,7 +181,15 @@ const Setting = () => {
                 type="file"
                 name="image"
                 accept="image/*"
-                onChange={handleImageChange}
+                onChange={(event) => {
+                  const file = event.target.files[0];
+                  setSelectedImage(file);
+                  const reader = new FileReader();
+                  reader.onload = (e) => {
+                    setImage(e.target.result);
+                  };
+                  reader.readAsDataURL(file);
+                }}
                 className=" disabled:bg-gray-200 disabled:text-gray-400 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-900 leading-tight focus:outline-none focus:bg-white focus:border-jade-500"
               />
 
@@ -238,7 +204,7 @@ const Setting = () => {
                     name="fullname"
                     placeholder="name"
                     value={fullname}
-                    onChange={handleInputChange}
+                    onChange={(event) => setFullname(event.target.value)}
                     className="   disabled:bg-gray-200 disabled:text-gray-400 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-900 leading-tight focus:outline-none focus:bg-white focus:border-jade-500"
                   />
                 </div>
@@ -255,7 +221,7 @@ const Setting = () => {
                     name="phone"
                     value={phone}
                     placeholder="07xxxxxxxxx"
-                    onChange={handleInputChange}
+                    onChange={(event) => setPhone(event.target.value)}
                     className="   disabled:bg-gray-200 disabled:text-gray-400 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-900 leading-tight focus:outline-none focus:bg-white focus:border-jade-500"
                   />
                 </div>
@@ -272,7 +238,7 @@ const Setting = () => {
                     name="email"
                     placeholder="example@example.com"
                     value={email}
-                    onChange={handleInputChange}
+                    onChange={(event) => setEmail(event.target.value)}
                     className="   disabled:bg-gray-200 disabled:text-gray-400 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-900 leading-tight focus:outline-none focus:bg-white focus:border-jade-500"
                   />
                 </div>
@@ -306,7 +272,7 @@ const Setting = () => {
       {showModal ? (
         <>
           <form
-            onSubmit={handlePasswordSubmit}
+            onSubmit={handlePasswordUpdate}
             className="justify-center items-center flex overflow-x-hidden  overflow-y-auto fixed inset-0 z-50 px-2 outline-none focus:outline-none"
           >
             <div className="relative w-full  mx-auto max-w-3xl">
@@ -335,19 +301,23 @@ const Setting = () => {
                     <div className="mt-2 flex justify-between ">
                       <div className="w-full ">
                         <input
-                          autocomplete={currentPassword}
+                          autocomplete={oldPassword}
                           disabled={isInputDisabled}
                           type={showPassword ? "text" : "password"}
-                          name="currentPassword"
-                          value={currentPassword}
-                          onChange={handleInputChange}
+                          name="oldPassword"
+                          value={oldPassword}
+                          onChange={(event) =>
+                            setOldPassword(event.target.value)
+                          }
                           className="disabled:bg-gray-200 disabled:text-gray-400 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-900 leading-tight focus:outline-none focus:bg-white focus:border-jade-500"
                         />
                       </div>
                       <button
                         type="button"
                         className="text-2xl ml-2"
-                        onClick={togglePasswordVisibility}
+                        onClick={() => {
+                          setShowPassword(!showPassword);
+                        }}
                       >
                         {showPassword ? <BiShowAlt /> : <BiSolidShow />}
                       </button>
@@ -367,14 +337,18 @@ const Setting = () => {
                           type={showNewPassword ? "text" : "password"}
                           name="newPassword"
                           value={newPassword}
-                          onChange={handleInputChange}
+                          onChange={(event) =>
+                            setNewPassword(event.target.value)
+                          }
                           className="disabled:bg-gray-200 disabled:text-gray-400 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-900 leading-tight focus:outline-none focus:bg-white focus:border-jade-500"
                         />
                       </div>
                       <button
                         type="button"
                         className="text-2xl ml-2"
-                        onClick={toggleNewPassword}
+                        onClick={() => {
+                          setShowNewPassword(!showNewPassword);
+                        }}
                       >
                         {showNewPassword ? <BiShowAlt /> : <BiSolidShow />}
                       </button>
@@ -389,21 +363,29 @@ const Setting = () => {
                     <div className="mt-2 flex justify-between ">
                       <div className="w-full ">
                         <input
-                          autocomplete={confirmPassword}
+                          autocomplete={confirmNewPassword}
                           disabled={isInputDisabled}
-                          type={showConfirmPassword ? "text" : "password"}
-                          name="confirmPassword"
-                          value={confirmPassword}
-                          onChange={handleInputChange}
+                          type={showConfirmNewPassword ? "text" : "password"}
+                          name="confirmNewPassword"
+                          value={confirmNewPassword}
+                          onChange={(event) =>
+                            setConfirmNewPassword(event.target.value)
+                          }
                           className="disabled:bg-gray-200 disabled:text-gray-400 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-900 leading-tight focus:outline-none focus:bg-white focus:border-jade-500"
                         />
                       </div>
                       <button
                         type="button"
                         className="text-2xl ml-2"
-                        onClick={toggleConfirmPassword}
+                        onClick={() => {
+                          setShowConfirmNewPassword(!showConfirmNewPassword);
+                        }}
                       >
-                        {showConfirmPassword ? <BiShowAlt /> : <BiSolidShow />}
+                        {showConfirmNewPassword ? (
+                          <BiShowAlt />
+                        ) : (
+                          <BiSolidShow />
+                        )}
                       </button>
                     </div>
                   </div>
