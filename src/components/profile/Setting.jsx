@@ -31,6 +31,10 @@ const Setting = () => {
     updatePasswordMutation,
     { data: passwordData, isError: passwordError, isLoading: passwordLoading },
   ] = useUpdatePasswordMutation();
+  const [
+    updatePasswordMutation,
+    { data: userData, isError: userError, isLoading: passwordLoading },
+  ] = useUpdateUserInfoMutation();
 
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -87,8 +91,6 @@ const Setting = () => {
       console.error("Please Check your Connection", error);
     }
   };
-
-  // Rest of your component code here...
 
   // Function to handle the form submission for user info
   const handleUserinfoUpdate = async (e) => {
