@@ -7,10 +7,8 @@ import { useGetCityQuery } from '../../app/api/city';
 import { useGetCategorySubCategoryQuery } from '../../app/api/category';
 
 function AddProduct() {
-  const [
-    addProduct,
-    { isError: addError, isLoading: addLoading },
-  ] = useAddProductMutation();
+  const [addProduct, { isError: addError, isLoading: addLoading }] =
+    useAddProductMutation();
   const [
     uploadImage,
     { data: imageData, isError: imageError, isLoading: imageLoading },
@@ -113,6 +111,7 @@ function AddProduct() {
         images: [],
         description: '',
       });
+      console.log(formData);
       setImages([]);
       setImageFile([]);
       setCanAdd(false);
@@ -147,18 +146,18 @@ function AddProduct() {
       className="w-full max-w-[2000px]
        flex flex-wrap justify-center 
        md:justify-between gap-x-2 
-       gap-y-4 my-10"
+       gap-y-4 my-10 text-neutral-500"
     >
       {/* Product Name */}
       <div className="mt-1 w-full lg:w-[49%]">
         <label
           htmlFor="name"
-          className="block mb-2 text font-medium text-neutral-600"
+          className="block mb-2 text font-medium text-neutral-500"
         >
           Product Name
         </label>
         <input
-        id='name'
+          id="name"
           value={formData.name}
           required={true}
           name="name"
@@ -172,12 +171,12 @@ function AddProduct() {
       <div className="mt-1 w-full lg:w-[49%]">
         <label
           htmlFor="phoneNumber"
-          className="block mb-2 text font-medium text-neutral-600"
+          className="block mb-2 text font-medium text-neutral-500"
         >
           Phone Number
         </label>
         <input
-        id='phoneNumber'
+          id="phoneNumber"
           required={true}
           name="phone"
           value={formData.phone}
@@ -191,12 +190,12 @@ function AddProduct() {
       <div className="mt-1 w-full lg:w-[49%]">
         <label
           htmlFor="category"
-          className="block mb-2 text font-medium text-neutral-600"
+          className="block mb-2 text font-medium text-neutral-500"
         >
           Category
         </label>
         <select
-        id='category'
+          id="category"
           disabled={!catData}
           onChange={subCategoryHandle}
           required={true}
@@ -219,12 +218,12 @@ function AddProduct() {
       <div className="mt-1 w-full lg:w-[49%]">
         <label
           htmlFor="subcategory"
-          className="block mb-2 text font-medium text-neutral-600"
+          className="block mb-2 text font-medium text-neutral-500"
         >
           Subcategory
         </label>
         <select
-        id='subcategory'
+          id="subcategory"
           onChange={handleFormData}
           name="category"
           disabled={!catData}
@@ -244,12 +243,12 @@ function AddProduct() {
       <div className="mt-1 w-full lg:w-[49%]">
         <label
           htmlFor="city"
-          className="block mb-2 text font-medium text-neutral-600"
+          className="block mb-2 text font-medium text-neutral-500"
         >
           City
         </label>
         <select
-        id='city'
+          id="city"
           name="city"
           onChange={handleFormData}
           disabled={!cityData}
@@ -273,12 +272,12 @@ function AddProduct() {
       <div className="mt-1 w-full lg:w-[49%]">
         <label
           htmlFor="address"
-          className="block mb-2 text font-medium text-neutral-600"
+          className="block mb-2 text font-medium text-neutral-500"
         >
           Address
         </label>
         <input
-        id='address'
+          id="address"
           required={true}
           value={formData.address}
           name="address"
@@ -292,7 +291,7 @@ function AddProduct() {
       <div className="mt-1 w-full lg:w-[49%] h-[200px] overflow-hidden">
         <label
           htmlFor="image"
-          className="block mb-2 text font-medium text-neutral-600"
+          className="block mb-2 text font-medium text-neutral-500"
         >
           Images
         </label>
@@ -347,12 +346,12 @@ function AddProduct() {
       <div className="mt-1 w-full lg:w-[49%] h-[200px] overflow-hidden">
         <label
           htmlFor="description"
-          className="block mb-2 text font-medium text-neutral-600"
+          className="block mb-2 text font-medium text-neutral-500"
         >
           Description
         </label>
         <textarea
-        id='description'
+          id="description"
           required={true}
           name="description"
           onChange={handleFormData}
@@ -372,7 +371,7 @@ function AddProduct() {
         }`}
         disabled={imageError || imageLoading || addError || addLoading}
       >
-        Add
+        Add Product
       </button>
     </form>
   );

@@ -1,8 +1,8 @@
-import { useState } from "react";
-import AddProduct from "./AddProduct";
-import MyProducts from "./MyProducts";
-import Setting from "./Setting";
-import { Link } from "react-router-dom";
+import { useState } from 'react';
+import AddProduct from './AddProduct';
+import MyProducts from './MyProducts';
+import Setting from './Setting';
+import { Link } from 'react-router-dom';
 // eslint-disable-next-line react/prop-types
 function Sidebar({ setComponent }) {
   const [btnBg, setBtnBg] = useState(1);
@@ -10,46 +10,67 @@ function Sidebar({ setComponent }) {
     <aside
       className={`w-full text-neutral-600 flex justify-around items-center text-xl`}
     >
-      <h1 className={`flex justify-center cursor-default border-b-2 font-medium text-sm md:text-base w-1/3 text-center py-2 ${btnBg==1?'bg-jade-100 border-jade-700 text-jade-700':``} transition-all`}
-       onClick={()=>{setBtnBg(1); setComponent(<AddProduct/>)}}><span className="hidden sm:block">Add Donate
-        
-  </span>
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    strokeWidth={1.5}
-    stroke="currentColor"
-    className="w-6 h-6 scale-110 sm:scale-100 ml-2"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-    />
-  </svg></h1>
-      <h1 className={`flex justify-center cursor-default border-b-2 font-medium text-sm md:text-base w-1/3 text-center py-2 ${btnBg==2?'bg-jade-100 border-jade-700 text-jade-700':``} transition-all`}
-       onClick={()=>{setBtnBg(2); setComponent(<MyProducts/>)}}>
-        <span className="hidden sm:block">My Donate
-  </span>
+      <h1
+        className={`flex justify-center cursor-default border-b-2 font-medium text-sm md:text-base w-1/3 text-center py-2 ${
+          btnBg == 1 ? 'bg-jade-50 border-jade-700 text-jade-700' : ``
+        } transition-all`}
+        onClick={() => {
+          setBtnBg(1);
+          setComponent(<AddProduct />);
+        }}
+      >
+        <span className="hidden sm:block">Add Donate</span>
         <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    strokeWidth={1.5}
-    stroke="currentColor"
-    className="w-6 h-6 scale-110 sm:scale-100 ml-2 "
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
-    />
-  </svg></h1>
-      <h1 className={`flex justify-center cursor-default border-b-2 font-medium text-sm md:text-base w-1/3 text-center py-2 ${btnBg==3?'bg-jade-100 border-jade-700 text-jade-700':``} transition-all`}
-       onClick={()=>{setBtnBg(3); setComponent(<Setting/>)}}><span className="hidden sm:block">Setting
-  </span>
-        
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="w-6 h-6 scale-110 sm:scale-100 ml-2"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+      </h1>
+      <h1
+        className={`flex justify-center cursor-default border-b-2 font-medium text-sm md:text-base w-1/3 text-center py-2 ${
+          btnBg == 2 ? 'bg-jade-50 border-jade-700 text-jade-700' : ``
+        } transition-all`}
+        onClick={() => {
+          setBtnBg(2);
+          setComponent(<MyProducts />);
+        }}
+      >
+        <span className="hidden sm:block">My Donate</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="w-6 h-6 scale-110 sm:scale-100 ml-2 "
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
+          />
+        </svg>
+      </h1>
+      <h1
+        className={`flex justify-center cursor-default border-b-2 font-medium text-sm md:text-base w-1/3 text-center py-2 ${
+          btnBg == 3 ? 'bg-jade-50 border-jade-700 text-jade-700' : ``
+        } transition-all`}
+        onClick={() => {
+          setBtnBg(3);
+          setComponent(<Setting />);
+        }}
+      >
+        <span className="hidden sm:block">Setting</span>
+
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -68,15 +89,16 @@ function Sidebar({ setComponent }) {
             strokeLinejoin="round"
             d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
           />
-        </svg></h1>
-
+        </svg>
+      </h1>
     </aside>
   );
 }
 
 export default Sidebar;
 
-{/* <Link className="absolute left-0 top-0 bg-jade-600"
+{
+  /* <Link className="absolute left-0 top-0 bg-jade-600"
 to={"/login"}
 onClick={() => {
   localStorage.removeItem("userData");
@@ -98,4 +120,5 @@ onClick={() => {
 </svg>
 
 <span className="hidden sm:block pt-1 ">Logout</span>
-</Link>  */}
+</Link>  */
+}
