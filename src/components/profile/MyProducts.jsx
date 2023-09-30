@@ -4,16 +4,23 @@ import { RiDeleteBin6Line } from 'react-icons/ri';
 import { BiSolidEdit } from 'react-icons/bi';
 import { format } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
-import { closeModal, openModal } from '../../app/api/ModalSlice';
+import {
+  closeDeleteModal,
+  closeModal,
+  openDeleteModal,
+  openModal,
+} from '../../app/api/ModalSlice';
 import Modal from 'react-modal';
 import UpdateForm from '../myDonate/updateForm';
 import { Oval } from 'react-loader-spinner';
+import DeleteModal from '../myDonate/DeleteModal';
 function MyProducts() {
   const dataUser = JSON.parse(localStorage.getItem('userData'));
   const id = dataUser?.data?._id;
   const token = dataUser.token;
   const modal = useSelector((state) => state.modal.modal);
-  console.log('modal', modal);
+  const deteModal = useSelector((state) => state.modal.deleteModal);
+
   const dispatch = useDispatch();
   const {
     data: userProducts,
@@ -47,7 +54,6 @@ function MyProducts() {
         />
       </div>
     );
-  console.log('donate', userProducts);
 
   return (
     <div className=" w-full text-neutral-500 min-h-screen ">
@@ -73,13 +79,12 @@ function MyProducts() {
                     <button
                       onClick={() => {
                         dispatch(openModal());
-                        console.log(modal);
                       }}
                       className="mx-2"
                     >
                       <BiSolidEdit className="w-6 h-6 text-green" />
                     </button>
-                    {/* <div className=""> */}{' '}
+
                     <div className="flex w-full flex-col justify-center items-center">
                       {' '}
                       <Modal
@@ -90,28 +95,44 @@ function MyProducts() {
                         className="flex flex-col  justify-center items-center min-h-screen "
                         contentLabel="EditModal"
                       >
-                        {/* {/* <div className="flex m-5 w-full flex-col justify-center items-center"> */}
                         <div className="flex justify-center items-center">
                           <UpdateForm
                             productId={data._id}
                             userId={data?.owner}
                           />
                         </div>
-                        {/* </div> */}
                       </Modal>
-                      {/* </div> */}
                     </div>
-                    <div className="ml-1">
+                    <button
+                      onClick={() => {
+                        dispatch(openDeleteModal());
+                      }}
+                      className="ml-1"
+                    >
                       <RiDeleteBin6Line className="w-6 h-6 text-red-500" />
-                    </div>
-                  </div>
+                    </button>
+                    <Modal
+                      isOpen={deteModal}
+                      onRequestClose={() => {
+                        dispatch(closeDeleteModal());
+                      }}
+                      className="flex flex-col  justify-center items-center min-h-screen "
+                      contentLabel="deletemodal"
+                    >
+                      <div className="flex justify-center items-center">
+                        <DeleteModal id={data._id} userId={data.owner} />
+                      </div>
+                    </Modal>
+                  </div>{' '}
                 </div>
-                <img
-                  src={`${import.meta.env.VITE_BACK_END}uploads/${
-                    data?.images[0]
-                  }`}
-                  className="mt-2 border overflow-hidden  flex object-cover w-full h-60 hover:scale-110 relative hover:duration-500 duration-500"
-                />
+                {data?.images && (
+                  <img
+                    src={`${import.meta.env.VITE_BACK_END}uploads/${
+                      data[0]?.images[0]
+                    }`}
+                    className="mt-2 border overflow-hidden  flex object-cover w-full h-60 hover:scale-110 relative hover:duration-500 duration-500"
+                  />
+                )}
               </div>
             );
           })}
