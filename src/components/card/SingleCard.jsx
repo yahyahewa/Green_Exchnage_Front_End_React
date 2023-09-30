@@ -69,10 +69,6 @@ const SingleCard = () => {
                         </span>
                       </div>
                     </div>
-
-                    {/* <h1 className="font-semibold text-sm lg:text-base px-4 pb-2 truncate">
-                      {card?.name}
-                    </h1> */}
                   </div>
 
                   <div className="flex  overflow-hidden relative">

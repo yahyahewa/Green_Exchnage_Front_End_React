@@ -9,10 +9,6 @@ import { useEffect } from 'react';
 import { useLayoutEffect } from 'react';
 // eslint-disable-next-line react/prop-types
 const NavbarComponent = ({ toggleDropDown }) => {
-  // const user = useSelector((state) => state.user.user);
-  // useLayoutEffect(() => {
-  //   console.log('render again');
-  // }, [localStorage.getItem('userData') !== null]);
   return (
     <nav className="px-6 sm:px-12  lg:mx-26 md:px-20 navbar navbar-expand-lg navbar-light bg-light flex justify-between items-center  py-4  ">
       <Link to="/" className="font-bold  text-md text-neutral-600">
