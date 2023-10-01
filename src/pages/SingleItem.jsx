@@ -9,7 +9,8 @@ import { Oval } from 'react-loader-spinner';
 function SingleItem() {
   const { id } = useParams();
   const { data: singleProduct, isLoading } = useGetSingleProductQuery({ id });
-
+  console.log('single', singleProduct);
+  console.log(id);
   if (isLoading) {
     return (
       <p className="h-screen flex justify-center items-center">

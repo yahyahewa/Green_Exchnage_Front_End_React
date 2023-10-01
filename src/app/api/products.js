@@ -19,16 +19,6 @@ const products = api.injectEndpoints({
         headers: { Authorization: `Bearer ${token}` },
         body: body,
       }),
-      invalidatesTags: ['products'],
-    }),
-    deleteProductFromMyDonate: builder.mutation({
-      query: (body, token) => ({
-        url: `api/product/${body.user}/${body.product}`,
-        method: 'DELETE',
-        headers: { Authorization: `Bearer ${token}` },
-        body: body,
-      }),
-      invalidatesTags: ['products'],
     }),
   }),
 });
@@ -37,5 +27,4 @@ export const {
   useGetProductsQuery,
   useGetSingleProductQuery,
   useAddProductUpdateMutation,
-  useDeleteProductFromMyDonateMutation,
 } = products;

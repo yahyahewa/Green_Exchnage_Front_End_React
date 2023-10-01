@@ -17,6 +17,7 @@ const SingleCard = () => {
     page,
     category,
   });
+  console.log(allProduct);
 
   const searchHandler = useCallback((searchValue) => {
     setSearch(searchValue);

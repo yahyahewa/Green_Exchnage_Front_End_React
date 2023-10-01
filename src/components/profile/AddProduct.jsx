@@ -19,7 +19,7 @@ function AddProduct() {
   const [imageFile, setImageFile] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
   const [canAdd, setCanAdd] = useState(false);
-  console.log('imagefile', imageFile);
+
   // Retrieve user info from localStorage
   const userInfo = JSON.parse(localStorage.getItem('userData')) || {};
 

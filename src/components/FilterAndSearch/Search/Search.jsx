@@ -2,8 +2,11 @@ import { useCallback } from 'react';
 
 // eslint-disable-next-line react/prop-types
 const Search = ({ setSearch, setPage }) => {
+  // console.log(search)
   const searchHandler = useCallback(
     (e) => {
+      console.log('search render');
+
       setSearch(e.target.value);
       setPage(1);
     },

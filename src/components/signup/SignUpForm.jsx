@@ -1,18 +1,18 @@
-import { useEffect, useState } from 'react';
-import * as Yup from 'yup';
-import { Formik, Form, useFormik } from 'formik';
-import InputField from '../InputField/InputField';
-import { useSignupMutation } from '../../app/api/auth';
-import { Navigate } from 'react-router';
+import { useEffect, useState } from "react";
+import * as Yup from "yup";
+import { Formik, Form, useFormik } from "formik";
+import InputField from "../InputField/InputField";
+import { useSignupMutation } from "../../app/api/auth";
+import { Navigate } from "react-router";
 function SignUpForm() {
-  const [thereUSer, setThereUser] = useState('');
-  const [signup, { data, isError, isLoading, error }] = useSignupMutation();
-
+  const [thereUSer, setThereUser] = useState("");
+  const [signup, { data, isError, isLoading,error }] = useSignupMutation();
+  console.log("error",isError,error?.data?.data?.message)
   const formik = useFormik({
     initialValues: {
-      fullname: '',
-      email: '',
-      password: '',
+      fullname: "",
+      email: "",
+      password: "",
     },
     onSubmit: (values) => {
       signup(values);
@@ -26,15 +26,15 @@ function SignUpForm() {
 
   useEffect(() => {
     if (!isError && !isLoading && data) {
-      data?.status == 'success'
+      data?.status == "success"
         ? JSON.stringify(
-            localStorage.setItem('userData', JSON.stringify(data?.data)),
+            localStorage.setItem("userData", JSON.stringify(data?.data))
           )
-        : setThereUser('check your information');
+        : setThereUser("check your information");
     }
   }, [data, isError, isLoading]);
 
-  if (data?.status == 'success' && data?.data?.token)
+  if (data?.status == "success" && data?.data?.token)
     return <Navigate to="/profile" replace />;
   return (
     <Formik>
@@ -76,7 +76,7 @@ function SignUpForm() {
                 {formik.errors.email}
               </span>
             ) : null}
-            {isError && error?.data?.data?.message.startsWith('E11000') ? (
+             {isError && error?.data?.data?.message.startsWith("E11000") ? (
               <span className="text-red-400 text-sm">
                 This user already exist
               </span>
@@ -101,12 +101,12 @@ function SignUpForm() {
           </div>
 
           <div className="mt-5">
-            {' '}
+            {" "}
             <button
               type="submit"
               className="text-white bg-green py-2 w-full  rounded hover:bg-opacity-80 hover:duration-500 duration-500"
             >
-              Create{' '}
+              Create{" "}
             </button>
             <div className="text-red-400 text-sm mt-1">{thereUSer}</div>
           </div>
