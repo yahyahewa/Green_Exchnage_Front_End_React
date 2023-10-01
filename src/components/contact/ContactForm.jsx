@@ -1,21 +1,22 @@
-import { useEffect, useState } from 'react';
-import * as Yup from 'yup';
-import { Formik, Form, useFormik } from 'formik';
-import InputField from '../InputField/InputField';
-import { useContactMutation } from '../../app/api/contact';
+// import React from 'react'
+import { useEffect, useState } from "react";
+import * as Yup from "yup";
+import { Formik, Form, useFormik } from "formik";
+import InputField from "../InputField/InputField";
+import { useContactMutation } from "../../app/api/contact";
 function ContactForm() {
-  const [waitingSend, setWaitingSend] = useState('Send');
+  const [waitingSend, setWaitingSend] = useState("Send");
   const [laodingSend, setLoadingSend] = useState(false);
   const [send, { data, isLoading, isError }] = useContactMutation();
   const formik = useFormik({
     initialValues: {
-      fullname: '',
-      email: '',
-      message: '',
+      fullname: "",
+      email: "",
+      message: "",
     },
     onSubmit: (values, { resetForm }) => {
       send(values);
-      resetForm({ values: '' });
+      resetForm({ values: "" });
     },
     validationSchema: Yup.object({
       fullname: Yup.string().required(),
@@ -25,15 +26,15 @@ function ContactForm() {
   });
 
   useEffect(() => {
-    if (data?.status == undefined || data?.status == 'success') {
-      setWaitingSend('Send');
+    if (data?.status == undefined || data?.status == "success") {
+      setWaitingSend("Send");
       setLoadingSend(false);
     } else {
-      setWaitingSend('Please waiting a while');
+      setWaitingSend("Please waiting a while");
       setLoadingSend(true);
 
       const timer = setTimeout(() => {
-        setWaitingSend('Send');
+        setWaitingSend("Send");
         setLoadingSend(false);
       }, 900000);
     }
@@ -98,18 +99,18 @@ function ContactForm() {
           </div>
 
           <div className="mt-5">
-            {' '}
+            {" "}
             <button
               disabled={isError ? true : isLoading ? true : laodingSend}
               type="submit"
               className={`py-2 w-full bg-green text-white rounded hover:bg-opacity-80 hover:duration-500 duration-500 ${
                 isError
-                  ? 'opacity-80'
+                  ? "opacity-80"
                   : isLoading
-                  ? 'opacity-80'
+                  ? "opacity-80"
                   : laodingSend
-                  ? 'opacity-80'
-                  : ''
+                  ? "opacity-80"
+                  : ""
               } `}
             >
               {waitingSend}
