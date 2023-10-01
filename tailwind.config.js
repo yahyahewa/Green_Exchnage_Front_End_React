@@ -1,31 +1,34 @@
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       fontFamily: {
-        english: "english",
-        kurdish: "kurdish",
-        ubuntu: "ubuntu",
+        english: 'english',
+        kurdish: 'kurdish',
+        ubuntu: 'ubuntu',
       },
       colors: {
-        green: "#1d9051",
+        green: '#1d9051',
         jade: {
-          50: "#ebfef6",
-          100: "#d0fbe6",
-          200: "#a4f6d2",
-          300: "#6aebbc",
-          400: "#2fd89f",
-          500: "#0abf88",
-          600: "#00aa7a",
-          700: "#007c5c",
-          800: "#03624a",
-          900: "#04503e",
-          950: "#012d24",
+          50: '#ebfef6',
+          100: '#d0fbe6',
+          200: '#a4f6d2',
+          300: '#6aebbc',
+          400: '#2fd89f',
+          500: '#0abf88',
+          600: '#00aa7a',
+          700: '#007c5c',
+          800: '#03624a',
+          900: '#04503e',
+          950: '#012d24',
         },
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar'), // Add this line
+    // ...
+  ],
 };
 // 1. bo hamu gap :5 dabne
 // 2. tagy br u a bakar mahene, a refresh abetawa la reacta nabet refreshman habet
