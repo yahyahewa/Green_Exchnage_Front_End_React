@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { AiFillEdit } from "react-icons/ai";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { useState } from 'react';
+import { AiFillEdit } from 'react-icons/ai';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   useUpdatePasswordMutation,
   useUpdateUserInfoMutation,
-} from "../../app/api/profile";
-import { LiaTimesSolid } from "react-icons/lia";
-import { BiSolidShow, BiShowAlt } from "react-icons/bi";
+} from '../../app/api/profile';
+import { LiaTimesSolid } from 'react-icons/lia';
+import { BiSolidShow, BiShowAlt } from 'react-icons/bi';
 
 const Setting = () => {
-  const userData = JSON.parse(localStorage.getItem("userData"));
+  const userData = JSON.parse(localStorage.getItem('userData'));
   const [userToken, setUserToken] = useState(userData?.data?.token);
   const [userId, setUserId] = useState(userData.data?._id);
 
@@ -20,7 +20,7 @@ const Setting = () => {
   const [email, setEmail] = useState(userData?.data?.email);
 
   // *********************ImageProfile********************
-  const [image, setImage] = useState(userData?.data?.image || "");
+  const [image, setImage] = useState(userData?.data?.image || '');
   const [selectedImage, setSelectedImage] = useState(null);
 
   const [isInputDisabled, setInputDisabled] = useState(true);
@@ -31,14 +31,10 @@ const Setting = () => {
     updatePasswordMutation,
     { data: passwordData, isError: passwordError, isLoading: passwordLoading },
   ] = useUpdatePasswordMutation();
-  const [
-    updatePasswordMutation,
-    { data: userData, isError: userError, isLoading: passwordLoading },
-  ] = useUpdateUserInfoMutation();
 
-  const [oldPassword, setOldPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
 
   const [showPassword, setShowPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
@@ -50,7 +46,7 @@ const Setting = () => {
     try {
       if (newPassword !== confirmNewPassword) {
         // Handle password confirmation mismatch
-        toast.error("New password and confirmation password do not match.", {
+        toast.error('New password and confirmation password do not match.', {
           position: toast.POSITION.TOP_LEFT,
           autoClose: 3000,
         });
@@ -67,28 +63,28 @@ const Setting = () => {
         },
       });
       if (error) {
-        toast.error("GraphQL error:", {
+        toast.error('GraphQL error:', {
           position: toast.POSITION.TOP_LEFT,
           autoClose: 3000,
         });
       } else if (data) {
         if (data.updatePassword.success) {
-          toast.success("Password updated successfully!", {
+          toast.success('Password updated successfully!', {
             position: toast.POSITION.TOP_LEFT,
             autoClose: 3000,
           });
         } else {
           toast.error(
-            "Failed to update password: " + data.updatePassword.message,
+            'Failed to update password: ' + data.updatePassword.message,
             {
               position: toast.POSITION.TOP_LEFT,
               autoClose: 3000,
-            }
+            },
           );
         }
       }
     } catch (error) {
-      console.error("Please Check your Connection", error);
+      console.error('Please Check your Connection', error);
     }
   };
 
@@ -97,14 +93,14 @@ const Setting = () => {
     e.preventDefault();
     if (!fullname || !phone || !email || !image) {
       if (!fullname) {
-        toast.error("Full Name cannot be blank.", {
+        toast.error('Full Name cannot be blank.', {
           position: toast.POSITION.TOP_LEFT,
           autoClose: 3000,
         });
       }
 
       if (!phone || !email) {
-        toast.error("Phone Number or email cannot be blank.", {
+        toast.error('Phone Number or email cannot be blank.', {
           position: toast.POSITION.TOP_LEFT,
           autoClose: 3000,
         });
@@ -124,18 +120,18 @@ const Setting = () => {
         variables: { input: updatedData },
       });
 
-      console.error("Error:", error);
+      console.error('Error:', error);
 
       if (data && data.updateUserInfo) {
-        toast.success("User information updated successfully!", {
+        toast.success('User information updated successfully!', {
           position: toast.POSITION.TOP_LEFT,
           autoClose: 3000,
         });
       } else {
-        console.error("Failed to update user information:", data);
+        console.error('Failed to update user information:', data);
       }
     } catch (error) {
-      console.error("An error occurred:", error);
+      console.error('An error occurred:', error);
     }
   };
 
@@ -303,9 +299,8 @@ const Setting = () => {
                     <div className="mt-2 flex justify-between ">
                       <div className="w-full ">
                         <input
-                          autocomplete={oldPassword}
                           disabled={isInputDisabled}
-                          type={showPassword ? "text" : "password"}
+                          type={showPassword ? 'text' : 'password'}
                           name="oldPassword"
                           value={oldPassword}
                           onChange={(event) =>
@@ -334,9 +329,8 @@ const Setting = () => {
                     <div className="mt-2 flex justify-between ">
                       <div className="w-full ">
                         <input
-                          autocomplete={newPassword}
                           disabled={isInputDisabled}
-                          type={showNewPassword ? "text" : "password"}
+                          type={showNewPassword ? 'text' : 'password'}
                           name="newPassword"
                           value={newPassword}
                           onChange={(event) =>
@@ -365,9 +359,8 @@ const Setting = () => {
                     <div className="mt-2 flex justify-between ">
                       <div className="w-full ">
                         <input
-                          autocomplete={confirmNewPassword}
                           disabled={isInputDisabled}
-                          type={showConfirmNewPassword ? "text" : "password"}
+                          type={showConfirmNewPassword ? 'text' : 'password'}
                           name="confirmNewPassword"
                           value={confirmNewPassword}
                           onChange={(event) =>
