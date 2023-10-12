@@ -1,5 +1,4 @@
-
-import SingleCard from "./SingleCard";
+import SingleCard from './SingleCard';
 
 const Card = () => {
   return (

@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
-import { Pagination, Mousewheel, Autoplay } from "swiper/modules";
-import { useActiveUserQuery } from "../../app/api/home";
-import CircularProgress from "@mui/material/CircularProgress";
+import React, { useEffect } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import { Pagination, Mousewheel, Autoplay } from 'swiper/modules';
+import { useActiveUserQuery } from '../../app/api/home';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const SliderComponent = () => {
   const { data, isError, isLoading } = useActiveUserQuery(3);
@@ -36,7 +36,7 @@ const SliderComponent = () => {
         }}
         pagination={{
           bullet: {
-            backgroundColor: "green",
+            backgroundColor: 'green',
           },
           clickable: true,
         }}

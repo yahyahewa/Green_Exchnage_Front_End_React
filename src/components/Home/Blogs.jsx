@@ -1,8 +1,7 @@
-import { BlogsCard } from "../../assets/Data";
+import { BlogsCard } from '../../assets/Data';
 const Blogs = () => {
   return (
     <>
-      {/* ====== Blog Section Start */}
       <section className="2xl:container 2xl:mx-auto lg:py-16 lg:px-20 md:py-12 md:px-6 py-9 px-0">
         <div className="container mx-auto">
           <div className="-mx-4 flex flex-wrap justify-center">

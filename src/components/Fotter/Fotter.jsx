@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
-import { LINKS } from "../../assets/Data";
-import Logo from "../navbar/Logo";
+import { Link } from 'react-router-dom';
+import { LINKS } from '../../assets/Data';
+import Logo from '../navbar/Logo';
 const Fotter = () => {
   return (
     <footer className="px-6 sm:px-12 lg:mx-26 md:px-20  bg-opacity-80 text-gray-900    ">
@@ -13,7 +13,8 @@ const Fotter = () => {
           <div className="flex flex-wrap mt-2 items-center  text-md font-medium sm:mb-0 ">
             {LINKS.map((value) => {
               return (
-                <Link key={value.id}
+                <Link
+                  key={value.id}
                   to={value.title}
                   className="mr-4 hover:underline md:mr-6 "
                 >

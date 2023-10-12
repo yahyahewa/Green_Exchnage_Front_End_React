@@ -19,7 +19,6 @@ function LoginForm() {
       password: '',
     },
     onSubmit: (values, { resetForm }) => {
-      // console.log(values)
       login(values);
 
       resetForm({ values: '' });
@@ -29,15 +28,7 @@ function LoginForm() {
       password: Yup.string().required(),
     }),
   });
-  // const [formData, setFormData] = useState({});
-  // const [login, { data, isErro, isLoading }] = useLoginMutation();
-  // const handleInputChange = (e) => {
-  //   setFormData({ ...formData, [e.target.name]: e.target.value });
-  // };
-  // const handleSubmite = (e) => {
-  //   e.preventDefault();
-  //   login(formData);
-  // };
+
   useEffect(() => {
     if (!isError && !isLoading && data) {
       data?.status == 'success'

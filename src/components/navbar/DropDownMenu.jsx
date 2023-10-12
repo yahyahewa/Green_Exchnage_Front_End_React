@@ -1,10 +1,9 @@
-import NavItem from "./NavItem";
-import { useDisclosure } from "@mantine/hooks";
-// import { useDisclosure } from '@mantine/hooks';
-import { Drawer, Group } from "@mantine/core";
-import Humberger from "./Humberger";
-import { Link } from "react-router-dom";
-import { LINKS } from "../../assets/Data";
+import NavItem from './NavItem';
+import { useDisclosure } from '@mantine/hooks';
+import { Drawer, Group } from '@mantine/core';
+import Humberger from './Humberger';
+import { Link } from 'react-router-dom';
+import { LINKS } from '../../assets/Data';
 
 function DropDownMenu() {
   const [opened, { open, close }] = useDisclosure(false);
@@ -21,7 +20,7 @@ function DropDownMenu() {
       >
         <Drawer.Header>
           <Drawer.Title className=" w-full text-center"></Drawer.Title>
-          <Drawer.CloseButton size={"md"} />
+          <Drawer.CloseButton size={'md'} />
         </Drawer.Header>
         <Drawer.Body className="overflow-hidden">
           <ul className="flex flex-col justify-center items-center gap-10 text-xl text-center   bg-white hover:text-white">

@@ -1,7 +1,7 @@
-import React from "react";
-import { useSignupMutation } from "../../app/api/auth";
-import { Navigate } from "react-router-dom";
-import { useEffect } from "react";
+import React from 'react';
+import { useSignupMutation } from '../../app/api/auth';
+import { Navigate } from 'react-router-dom';
+import { useEffect } from 'react';
 function Secondpage({ formData, setFormData }) {
   const [signUp, { data: userData, isErro, isLoading }] = useSignupMutation();
 
@@ -15,12 +15,12 @@ function Secondpage({ formData, setFormData }) {
   };
   useEffect(() => {
     if (!isErro && !isLoading && userData) {
-      localStorage.setItem("userData", JSON.stringify(userData?.data));
+      localStorage.setItem('userData', JSON.stringify(userData?.data));
     }
   }, [userData]);
 
   if (userData && userData?.data?.token)
-    return <Navigate to={"/profile"} replace />;
+    return <Navigate to={'/profile'} replace />;
   return (
     <form
       onSubmit={handleSubmit}
@@ -119,10 +119,10 @@ function Secondpage({ formData, setFormData }) {
           disabled={isErro ? true : isLoading ? true : false}
           className={`px-4 py-2 ${
             isErro
-              ? "bg-jade-200"
+              ? 'bg-jade-200'
               : isLoading
-              ? " bg-jade-200"
-              : " bg-jade-500 hover:bg-jade-600 "
+              ? ' bg-jade-200'
+              : ' bg-jade-500 hover:bg-jade-600 '
           } text-white rounded-md transition-all w-full`}
         >
           {!isErro && !isLoading && <span>Submit</span>}

@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { AiFillEdit } from "react-icons/ai";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useUpdatePasswordMutation } from "../../app/api/profile";
-import { LiaTimesSolid } from "react-icons/lia";
-import { BiSolidShow, BiShowAlt } from "react-icons/bi";
+import React, { useState } from 'react';
+import { AiFillEdit } from 'react-icons/ai';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useUpdatePasswordMutation } from '../../app/api/profile';
+import { LiaTimesSolid } from 'react-icons/lia';
+import { BiSolidShow, BiShowAlt } from 'react-icons/bi';
 const Setting = () => {
   const [
     updatePassword,
@@ -12,7 +12,7 @@ const Setting = () => {
   ] = useUpdatePasswordMutation();
 
   // Retrieve user data from local storage
-  const userData = JSON.parse(localStorage.getItem("userData"));
+  const userData = JSON.parse(localStorage.getItem('userData'));
 
   const [showPassword, setShowPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
@@ -36,14 +36,14 @@ const Setting = () => {
   const [email, setEmail] = useState(userData?.data?.email);
 
   // password state
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   // image state
   const [image, setImage] = useState(
     userData?.data?.image ||
-      "https://virl.bc.ca/wp-content/uploads/2019/01/AccountIcon2.png"
+      'https://virl.bc.ca/wp-content/uploads/2019/01/AccountIcon2.png',
   );
 
   const [selectedImage, setSelectedImage] = useState(null);
@@ -59,25 +59,25 @@ const Setting = () => {
 
     // Update the corresponding state variable
     switch (name) {
-      case "fullname":
+      case 'fullname':
         setFullname(value);
         break;
-      case "phone":
+      case 'phone':
         setPhone(value);
         break;
-      case "image":
+      case 'image':
         setImage(value);
         break;
-      case "email":
+      case 'email':
         setEmail(value);
         break;
-      case "currentPassword":
+      case 'currentPassword':
         setCurrentPassword(value);
         break;
-      case "newPassword":
+      case 'newPassword':
         setNewPassword(value);
         break;
-      case "confirmPassword":
+      case 'confirmPassword':
         setConfirmPassword(value);
         break;
       default:
@@ -101,7 +101,7 @@ const Setting = () => {
 
     // Validate fields
     if (!fullname) {
-      toast.error("Full Name cannot be blank.", {
+      toast.error('Full Name cannot be blank.', {
         position: toast.POSITION.TOP_LEFT,
         autoClose: 3000,
       });
@@ -109,7 +109,7 @@ const Setting = () => {
     }
 
     if (!phone) {
-      toast.error("Phone Number cannot be blank.", {
+      toast.error('Phone Number cannot be blank.', {
         position: toast.POSITION.TOP_LEFT,
         autoClose: 3000,
       });
@@ -117,7 +117,7 @@ const Setting = () => {
     }
 
     if (!email) {
-      toast.error("Email cannot be blank.", {
+      toast.error('Email cannot be blank.', {
         position: toast.POSITION.TOP_LEFT,
         autoClose: 3000,
       });
@@ -130,10 +130,10 @@ const Setting = () => {
       ...userData,
       data: { ...userData.data, fullname, phone, image, email },
     };
-    localStorage.setItem("userData", JSON.stringify(updatedUserData));
+    localStorage.setItem('userData', JSON.stringify(updatedUserData));
 
     // Display a success toast message
-    toast.success("Profile updated successfully!", {
+    toast.success('Profile updated successfully!', {
       position: toast.POSITION.TOP_LEFT,
       autoClose: 3000,
     });
@@ -148,14 +148,14 @@ const Setting = () => {
     // Check if newPassword and confirmPassword match
     if (newPassword !== confirmPassword) {
       // Display an error toast message
-      toast.error("New password and confirm password do not match!", {
+      toast.error('New password and confirm password do not match!', {
         position: toast.POSITION.TOP_LEFT,
         autoClose: 3000,
       });
       return; // Exit the function without further processing
     } else if (!currentPassword) {
       // Display an error toast message
-      toast.error("please write the curren password ", {
+      toast.error('please write the curren password ', {
         position: toast.POSITION.TOP_LEFT,
         autoClose: 3000,
       });
@@ -167,14 +167,14 @@ const Setting = () => {
       await updatePassword({ password: newPassword });
 
       // Display a success toast message
-      toast.success("Password updated successfully!", {
+      toast.success('Password updated successfully!', {
         position: toast.POSITION.TOP_LEFT,
         autoClose: 3000,
       });
     } catch (error) {
       // Handle the error here
-      console.error("Password update failed:", error);
-      toast.error("Password update failed!", {
+      console.error('Password update failed:', error);
+      toast.error('Password update failed!', {
         position: toast.POSITION.TOP_LEFT,
         autoClose: 3000,
       });
@@ -337,7 +337,7 @@ const Setting = () => {
                         <input
                           autocomplete={currentPassword}
                           disabled={isInputDisabled}
-                          type={showPassword ? "text" : "password"}
+                          type={showPassword ? 'text' : 'password'}
                           name="currentPassword"
                           value={currentPassword}
                           onChange={handleInputChange}
@@ -364,7 +364,7 @@ const Setting = () => {
                         <input
                           autocomplete={newPassword}
                           disabled={isInputDisabled}
-                          type={showNewPassword ? "text" : "password"}
+                          type={showNewPassword ? 'text' : 'password'}
                           name="newPassword"
                           value={newPassword}
                           onChange={handleInputChange}
@@ -391,7 +391,7 @@ const Setting = () => {
                         <input
                           autocomplete={confirmPassword}
                           disabled={isInputDisabled}
-                          type={showConfirmPassword ? "text" : "password"}
+                          type={showConfirmPassword ? 'text' : 'password'}
                           name="confirmPassword"
                           value={confirmPassword}
                           onChange={handleInputChange}

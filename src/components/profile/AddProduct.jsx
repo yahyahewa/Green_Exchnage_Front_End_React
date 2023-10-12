@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 import {
   useAddProductMutation,
   useUploadsMutation,
-} from "../../app/api/profile";
-import { useGetCityQuery } from "../../app/api/city";
-import { useGetCategorySubCategoryQuery } from "../../app/api/category";
+} from '../../app/api/profile';
+import { useGetCityQuery } from '../../app/api/city';
+import { useGetCategorySubCategoryQuery } from '../../app/api/category';
 
 function AddProduct() {
   const [
@@ -23,33 +23,33 @@ function AddProduct() {
   const [canAdd, setCanAdd] = useState(false);
 
   // Retrieve user info from localStorage
-  const userInfo = JSON.parse(localStorage.getItem("userData")) || {};
+  const userInfo = JSON.parse(localStorage.getItem('userData')) || {};
 
   const [formData, setFormData] = useState({
     owner: userInfo?.data._id,
-    name: "",
-    phone: "",
-    category: "",
-    city: "",
-    address: "",
+    name: '',
+    phone: '',
+    category: '',
+    city: '',
+    address: '',
     images: [],
-    description: "",
+    description: '',
   });
 
   // Handle image upload
   const handleImageUpload = (e) => {
     const files = e.target.files;
-    const allowedExtensions = ["jpg", "jpeg", "png"];
+    const allowedExtensions = ['jpg', 'jpeg', 'png'];
 
     // Check file extensions
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
-      const fileNameParts = file.name.split(".");
+      const fileNameParts = file.name.split('.');
       const fileExtension =
         fileNameParts[fileNameParts.length - 1].toLowerCase();
 
       if (!allowedExtensions.includes(fileExtension)) {
-        alert("Please upload only jpg, jpeg, and png files.");
+        alert('Please upload only jpg, jpeg, and png files.');
         return; // Stop processing if an invalid file is found
       }
     }
@@ -88,7 +88,7 @@ function AddProduct() {
 
   // Handle image upload response
   useEffect(() => {
-    if (!imageError && !imageLoading && imageData?.status === "success") {
+    if (!imageError && !imageLoading && imageData?.status === 'success') {
       setFormData({ ...formData, images: imageData.data });
       setCanAdd(true);
     }
@@ -99,19 +99,19 @@ function AddProduct() {
     if (
       !imageError &&
       !imageLoading &&
-      imageData?.status === "success" &&
+      imageData?.status === 'success' &&
       canAdd
     ) {
       addProduct(formData);
       setFormData({
         owner: userInfo?.data._id,
-        name: "",
-        phone: "",
-        category: "",
-        city: "",
-        address: "",
+        name: '',
+        phone: '',
+        category: '',
+        city: '',
+        address: '',
         images: [],
-        description: "",
+        description: '',
       });
       setImages([]);
       setImageFile([]);
@@ -128,7 +128,7 @@ function AddProduct() {
   const subCategoryHandle = (e) => {
     const categoryId = e.target.value;
     const selectedCategory = catData?.data.find(
-      (category) => category._id === categoryId
+      (category) => category._id === categoryId,
     );
 
     if (selectedCategory) {
@@ -196,8 +196,8 @@ function AddProduct() {
           required={true}
           className={`duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm focus:outline-none outline-none w-full text-neutral-600 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 ${
             catData
-              ? "hover:border-gray-600 focus:border-green border-gray-400"
-              : "bg-neutral-100"
+              ? 'hover:border-gray-600 focus:border-green border-gray-400'
+              : 'bg-neutral-100'
           }`}
         >
           <option value="">Select category</option>
@@ -224,8 +224,8 @@ function AddProduct() {
           required={true}
           className={`duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm focus:outline-none outline-none w-full text-neutral-600 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 ${
             catData
-              ? "hover:border-gray-600 focus:border-green border-gray-400"
-              : "bg-neutral-100"
+              ? 'hover:border-gray-600 focus:border-green border-gray-400'
+              : 'bg-neutral-100'
           }`}
         >
           <option value="">Select subcategory</option>
@@ -248,8 +248,8 @@ function AddProduct() {
           required={true}
           className={`duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm focus:outline-none outline-none w-full text-neutral-600 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 ${
             cityData
-              ? "hover:border-gray-600 focus:border-green border-gray-400"
-              : "bg-neutral-100"
+              ? 'hover:border-gray-600 focus:border-green border-gray-400'
+              : 'bg-neutral-100'
           }`}
         >
           <option value="">Select City</option>
@@ -353,8 +353,8 @@ function AddProduct() {
       <button
         className={`mt-3 outline-none text-white bg-green font-medium rounded px-1 py-2 h-fit text-center flex justify-center items-center gap-x-2 w-full lg:w-[50%] ${
           imageError || imageLoading || addError || addLoading
-            ? "opacity-40"
-            : ""
+            ? 'opacity-40'
+            : ''
         }`}
         disabled={imageError || imageLoading || addError || addLoading}
       >

@@ -1,11 +1,11 @@
-import { api } from "./api";
+import { api } from './api';
 
 const contact = api.injectEndpoints({
   endpoints: (builder) => ({
     contact: builder.mutation({
       query: (body) => ({
-        url: "api/contact/send-email",
-        method: "POST",
+        url: 'api/contact/send-email',
+        method: 'POST',
         body: body,
       }),
     }),
