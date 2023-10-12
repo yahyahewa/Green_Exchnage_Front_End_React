@@ -10,6 +10,7 @@ import { addUser } from '../../app/api/userSlice';
 
 function LoginForm() {
   const [login, { data, isError, isLoading, isSuccess }] = useLoginMutation();
+  console.log('is seccuess', isSuccess);
   const [thereUSer, setThereUser] = useState('');
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
@@ -47,7 +48,7 @@ function LoginForm() {
         : setThereUser('user not found');
     }
   }, [data, isError, isLoading]);
-  if (isSuccess) {
+  if (isSuccess === true) {
     dispatch(addUser(true));
   }
   if (data?.status == 'success' && data?.data?.token)
