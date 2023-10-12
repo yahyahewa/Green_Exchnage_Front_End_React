@@ -4,8 +4,6 @@ import { useCallback } from 'react';
 const Search = ({ setSearch, setPage }) => {
   const searchHandler = useCallback(
     (e) => {
-      console.log('search render');
-
       setSearch(e.target.value);
       setPage(1);
     },

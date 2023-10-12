@@ -7,7 +7,7 @@ import { Navigate } from 'react-router';
 function SignUpForm() {
   const [thereUSer, setThereUser] = useState('');
   const [signup, { data, isError, isLoading, error }] = useSignupMutation();
-  console.log('error', isError, error?.data?.data?.message);
+
   const formik = useFormik({
     initialValues: {
       fullname: '',

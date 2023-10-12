@@ -5,16 +5,16 @@ import { BiSolidEdit } from 'react-icons/bi';
 
 function MyProducts() {
   const dataUser = JSON.parse(localStorage.getItem('userData'));
-  console.log('id', dataUser?.data?._id);
+
   const id = dataUser?.data?._id;
   const token = dataUser.token;
-  console.log(token);
+
   const { data: userProducts, error } = useGetUserProductsQuery(id, token);
 
   if (error) {
     console.error('Error fetching user products:', error);
   }
-  console.log('donate', userProducts);
+
   const dataFake = [
     {
       id: 1,
