@@ -1,4 +1,3 @@
-// import React from "react";
 import emptyProduct from '../../assets/images/emptyProduct.svg';
 import { useGetUserProductsQuery } from '../../app/api/profile';
 import { RiDeleteBin6Line } from 'react-icons/ri';
@@ -47,7 +46,7 @@ function MyProducts() {
     },
   ];
   return (
-    <div className="lg:mx-36 pl-40 text-gray-800 w-full">
+    <div className=" text-gray-800 w-full">
       {userProducts?.data?.length === 0 ? (
         <div className="flex justify-center items-center w-full">
           {' '}
