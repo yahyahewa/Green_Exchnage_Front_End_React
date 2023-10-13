@@ -32,16 +32,19 @@ function SingleItem() {
   return (
     <>
       <section className="px-6 sm:px-12 lg:mx-26 md:px-20 flex text-neutral-500">
-        <div className="py-32 grid lg:grid-cols-2 gap-5 lg:gap-x-10">
-          {singleProduct?.data?.images?.length > 1 ? (
-            <SingleItemSlider images={singleProduct?.data?.images} />
-          ) : (
-            <img
-              alt={''}
-              className="w-[600px] h-[600px] object-cover rounded"
-              src="https://codecondo.com/wp-content/uploads/2016/11/Metasploit-The-Penetration-Testers-Guide-e1598449869321.png"
-            />
-          )}
+        <div className="w-full py-32 grid lg:grid-cols-2 gap-5 lg:gap-x-10">
+          <div className="">
+            {' '}
+            {singleProduct?.data?.images?.length > 1 ? (
+              <SingleItemSlider images={singleProduct?.data?.images} />
+            ) : (
+              <img
+                alt={''}
+                className="w-[600px] h-[600px] object-cover rounded"
+                src="https://codecondo.com/wp-content/uploads/2016/11/Metasploit-The-Penetration-Testers-Guide-e1598449869321.png"
+              />
+            )}
+          </div>
 
           <div className="flex flex-col justify-between  ">
             <div className="flex flex-col sm:flex-row lg:flex-col justify-between sm:items-end lg:items-start">

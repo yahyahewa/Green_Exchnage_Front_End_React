@@ -1,26 +1,26 @@
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       fontFamily: {
-        english: "english",
-        kurdish: "kurdish",
-        ubuntu: "ubuntu",
+        english: 'english',
+        kurdish: 'kurdish',
+        ubuntu: 'ubuntu',
       },
       colors: {
-        green: "#1d9051",
+        green: '#1d9051',
         jade: {
-          50: "#ebfef6",
-          100: "#d0fbe6",
-          200: "#a4f6d2",
-          300: "#6aebbc",
-          400: "#2fd89f",
-          500: "#0abf88",
-          600: "#00aa7a",
-          700: "#007c5c",
-          800: "#03624a",
-          900: "#04503e",
-          950: "#012d24",
+          50: '#ebfef6',
+          100: '#d0fbe6',
+          200: '#a4f6d2',
+          300: '#6aebbc',
+          400: '#2fd89f',
+          500: '#0abf88',
+          600: '#00aa7a',
+          700: '#007c5c',
+          800: '#03624a',
+          900: '#04503e',
+          950: '#012d24',
         },
       },
     },
@@ -36,3 +36,6 @@ export default {
 // 7. lg:mx-36 , my-10  bo hamu pagekan dabne bas pagekan  ,bo am pagenam danawa bas agar page trman zyad krd
 //8. bo button tania (rounded) dabnen
 // 9. hover lasar opacitya bo buttonakan
+
+// TODO:
+// 1.  active habe bo navbar itemakan
