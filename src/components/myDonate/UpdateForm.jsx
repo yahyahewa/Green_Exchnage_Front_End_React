@@ -1,7 +1,6 @@
 import { Form, Formik, useFormik } from 'formik';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
-import InputField from '../InputField/InputField';
 import PreviewImage from './PreviewImage';
 import { useDispatch } from 'react-redux';
 import { closeModal } from '../../app/api/ModalSlice';
@@ -10,7 +9,8 @@ import { useGetCategorySubCategoryQuery } from '../../app/api/category';
 import { useEffect } from 'react';
 import { useGetCityQuery } from '../../app/api/city';
 import { useAddProductUpdateMutation } from '../../app/api/products';
-function UpdateForm({ productId, userId }) {
+function UpdateForm({ productId, userId, data }) {
+  console.log('data', data);
   const [subCategories, setSubCategories] = useState([]);
   const dispatch = useDispatch();
   const { data: category } = useGetCategorySubCategoryQuery();
@@ -23,13 +23,13 @@ function UpdateForm({ productId, userId }) {
     initialValues: {
       id: productId,
       owner: userId,
-      name: '',
-      phone: '',
+      name: data.name,
+      phone: data.phone,
       category: '',
       city: '',
-      address: '',
+      address: data.address,
       images: [],
-      description: '',
+      description: data.description,
     },
     validationSchema: Yup.object({
       name: Yup.string().required('Required'),
@@ -55,30 +55,7 @@ function UpdateForm({ productId, userId }) {
 
           return true;
         }),
-      // images: Yup.mixed()
-      //   .required('Required')
-      //   .test('fileType', 'Invalid file type', (value) => {
-      //     if (!value) return true; // Allow empty values
-      //     const acceptedExtensions = ['png', 'jpg', 'jpeg'];
-      //     const fileExtension = value?.name?.split('.')?.pop()?.toLowerCase(); // Get the file extension
-      //     return acceptedExtensions.includes(fileExtension);
-      //   }),
-      // images: Yup.mixed()
-      //   .required('Required')
-      //   .test('fileType', 'Invalid file type', (value) => {
-      //     if (!value) return true; // Allow empty values
-      //     const acceptedFormats = ['image/png', 'image/jpg', 'image/jpeg'];
-      //     const fileExtension = value?.type?.toLowerCase(); // Convert to lowercase
-      //     return acceptedFormats.includes(fileExtension);
-      //   }),
-      // images: Yup.mixed()
-      //   .required('Required')
-      //   .test('fileType', 'Invalid file type', (value) => {
-      //     if (!value) return true; // Allow empty values
-      //     const acceptedFormats = ['image/png', 'image/jpg', 'image/jpeg'];
-      //     return acceptedFormats.includes(value.type);
-      //   }),
-      // images: Yup.array().required('Required'),
+
       description: Yup.string().required('Required'),
     }),
     onSubmit: (values, { resetForm }) => {
@@ -111,16 +88,13 @@ function UpdateForm({ productId, userId }) {
     console.log(isError, errors);
   }
   return (
-    // <div className="">
     <Formik>
-      <Form
-        onSubmit={formik.handleSubmit}
-        // className="  h-[500px] overscroll-y-auto"
-        // className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-96 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 scrollbar-thumb-rounded-full scrollbar-track-rounded-full"
-      >
-        <div className="flex flex-col items-center fixed top-24 left-0 w-fit sm:mx-32 md:mx-48 lg:left-1/3 h-[500px] sm:w-fit lg:w-1/3 overflow-y-auto  shadow-lg px-10 pb-10 bg-white">
-          {/* <div> */}
-          <div className="mt-5 mb-5  w-full flex justify-between items-center">
+      <Form onSubmit={formik.handleSubmit}>
+        <div
+          className="w-full flex flex-col items-center fixed top-24 left-0 sm:left-1/4 sm:w-2/4 lg:left-1/3 h-2/3  lg:w-1/3 
+        overflow-y-auto shadow-lg  pb-10 bg-white px-2"
+        >
+          <div className="mt-5 mb-5  w-full flex justify-between px-2">
             <p className="flex text-neutral-600 font-semibold m-0 p-0">
               Update Product
             </p>
@@ -129,13 +103,15 @@ function UpdateForm({ productId, userId }) {
             </button>
           </div>
 
-          <div className="flex  mt-3 flex-col">
+          <div className="flex  mt-3 flex-col ">
             {/* /////////name////// */}
             <div className="flex flex-col">
               <label htmlFor="name" className="text-neutral-600 ">
                 Product name:
               </label>
-              <InputField
+              <input
+                className=" text-neutral-500 w-full pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green
+                mt-2 px-1 py-2 hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500"
                 name="name"
                 placeholder="Product name"
                 id="name"
@@ -144,7 +120,7 @@ function UpdateForm({ productId, userId }) {
                 onChange={formik.handleChange}
               />
               {formik.touched.name && formik.errors.name && (
-                <p className="text-red-500">{formik.errors.name}</p>
+                <p className="text-red-500 px-2">{formik.errors.name}</p>
               )}
             </div>
             {/* ///////phone////////// */}
@@ -153,7 +129,9 @@ function UpdateForm({ productId, userId }) {
               <label htmlFor="phone" className="text-neutral-600 ">
                 Phone Number:
               </label>
-              <InputField
+              <input
+                className=" text-neutral-500 w-full pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green
+                mt-2 px-1 py-2 hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500"
                 name="phone"
                 placeholder="Phone number"
                 id="phone"
@@ -162,7 +140,7 @@ function UpdateForm({ productId, userId }) {
                 onChange={formik.handleChange}
               />
               {formik.touched.phone && formik.errors.phone && (
-                <p className="text-red-500">{formik.errors.phone}</p>
+                <p className="text-red-500 px-2">{formik.errors.phone}</p>
               )}
             </div>
             {/* ///////al category// */}
@@ -175,9 +153,7 @@ function UpdateForm({ productId, userId }) {
                 id="allcategory"
                 name="allcategory"
                 onChange={(e) => subCategoryHandle(e)}
-                // onChange={formik.handleChange}
-                // value={formik.values.category}
-                className=" text-neutral-500 w-full lg:w-80 2xl:w-96 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green
+                className=" text-neutral-500 w-full pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green
                 mt-2 px-1 py-2 hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500"
               >
                 <option value="">Select a category</option>
@@ -191,16 +167,15 @@ function UpdateForm({ productId, userId }) {
             {/* ////////subcategory//////// */}
             <div className="mt-3 flex flex-col">
               {' '}
-              <label htmlFor="category" className="text-neutral-600">
+              <label htmlFor="category" className="text-neutral-600 ">
                 SubCategory
               </label>{' '}
               <select
                 id="category"
                 name="category"
-                // onChange={(e) => subCategoryHandle(e)}
                 onChange={formik.handleChange}
                 value={formik.values.category}
-                className=" text-neutral-500 w-full lg:w-80 2xl:w-96 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green
+                className=" text-neutral-500 w-full pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green
                 mt-2 px-1 py-2 hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500"
               >
                 <option value="">Select a SubCategory</option>
@@ -212,30 +187,6 @@ function UpdateForm({ productId, userId }) {
               </select>
             </div>
 
-            {/* ////////////////////////// subcategory //////////////// */}
-            {/* <label htmlFor="category" className="text-neutral-600 mt-3">
-              SubCategory
-            </label> */}
-            {/* <select
-              id="category"
-              name="category"
-              // onChange={(e) => subCategoryHandle(e)}
-
-              // onChange={formik.handleChange}
-              value={formik.values.category}
-              className=" text-neutral-500 w-full lg:w-80 2xl:w-96 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green
-                mt-2 px-1 py-2 hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500"
-            >
-              <option value="">Select a SubCategory</option>
-              {subCategories?.map((option) => (
-                <option key={option.key} value={option.key}>
-                  {option.props.children}
-                </option>
-              ))}
-            </select>
-            {formik.touched.category && formik.errors.category && (
-              <p className="text-red-500">{formik.errors.category}</p>
-            )} */}
             {/* //////////city ////////////////////////////////// */}
             <div className="mt-3 flex flex-col">
               {' '}
@@ -246,10 +197,8 @@ function UpdateForm({ productId, userId }) {
                 id="city"
                 name="city"
                 onChange={formik.handleChange}
-                // onChange={(e) => subCategoryHandle(e)}
-                // onChange={formik.handleChange}
                 value={formik.values.category}
-                className=" text-neutral-500 w-full lg:w-80 2xl:w-96 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green
+                className=" text-neutral-500 w-full pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green 
                 mt-2 px-1 py-2 hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500"
               >
                 <option value="">Select a City</option>
@@ -260,7 +209,7 @@ function UpdateForm({ productId, userId }) {
                 ))}
               </select>{' '}
               {formik.touched.city && formik.errors.city && (
-                <p className="text-red-500">{formik.errors.city}</p>
+                <p className="text-red-500 px-2">{formik.errors.city}</p>
               )}
             </div>
 
@@ -270,7 +219,9 @@ function UpdateForm({ productId, userId }) {
               <label htmlFor="address" className="text-neutral-600 ">
                 Address:
               </label>
-              <InputField
+              <input
+                className=" text-neutral-500 w-full pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green 
+                mt-2 px-1 py-2 hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500"
                 name="address"
                 placeholder="Address"
                 id="address"
@@ -279,7 +230,7 @@ function UpdateForm({ productId, userId }) {
                 onChange={formik.handleChange}
               />
               {formik.touched.address && formik.errors.address && (
-                <p className="text-red-500">{formik.errors.address}</p>
+                <p className="text-red-500 px-2">{formik.errors.address}</p>
               )}
             </div>
 
@@ -290,14 +241,13 @@ function UpdateForm({ productId, userId }) {
                 Upload images:
               </label>
               <div
-                className="w-full lg:w-80 2xl:w-96 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green
-                 px-1 py-2 hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 h-[200px]"
+                className="w-full pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green
+                 px-1 py-2 hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 h-[200px] "
               >
                 <input
                   type="file"
                   id="images"
                   name="images"
-                  // value={formik.values.images}
                   onBlur={formik.handleBlur}
                   multiple
                   onChange={(event) => {
@@ -313,7 +263,7 @@ function UpdateForm({ productId, userId }) {
                 )}
               </div>{' '}
               {formik.touched.images && formik.errors.images && (
-                <p className="text-red-500">{formik.errors.images}</p>
+                <p className="text-red-500 px-2">{formik.errors.images}</p>
               )}
             </div>
 
@@ -328,25 +278,24 @@ function UpdateForm({ productId, userId }) {
                 value={formik.values.description}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 rounded-sm border-gray-400 focus:outline-none focus:border-green outline-none p-1 border-2 text-neutral-600 w-[100%] h-[200px]"
+                className="w-full  pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green
+                 px-1 py-2 hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 h-[200px]"
+                // className="mx-2 hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 rounded-sm border-gray-400 focus:outline-none focus:border-green outline-none p-1 border-2 text-neutral-600 w-full h-[200px]"
               />
               {formik.touched.description && formik.errors.description && (
-                <p className="text-red-500">{formik.errors.description}</p>
+                <p className="text-red-500 px-2">{formik.errors.description}</p>
               )}
             </div>
             <button
               type="submit"
-              // type="button"
-              className="text-white bg-green py-2 w-full  rounded-sm hover:bg-opacity-80 hover:duration-500 duration-500 mt-5"
+              className="text-white bg-green py-2 w-full rounded-sm hover:bg-opacity-80 hover:duration-500 duration-500 mt-5 "
             >
               Submit
             </button>
           </div>
         </div>{' '}
-        {/* </div>{' '} */}
       </Form>
     </Formik>
-    // </div>
   );
 }
 

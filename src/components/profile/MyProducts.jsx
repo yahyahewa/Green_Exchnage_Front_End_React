@@ -79,7 +79,7 @@ function MyProducts() {
                     >
                       <BiSolidEdit className="w-6 h-6 text-green" />
                     </button>
-                    {/* <div className=""> */}{' '}
+
                     <div className="flex w-full flex-col justify-center items-center">
                       {' '}
                       <Modal
@@ -90,16 +90,14 @@ function MyProducts() {
                         className="flex flex-col  justify-center items-center min-h-screen "
                         contentLabel="EditModal"
                       >
-                        {/* {/* <div className="flex m-5 w-full flex-col justify-center items-center"> */}
-                        <div className="flex justify-center items-center">
+                        <div className="flex justify-center items-center w-full">
                           <UpdateForm
                             productId={data._id}
                             userId={data?.owner}
+                            data={data}
                           />
                         </div>
-                        {/* </div> */}
                       </Modal>
-                      {/* </div> */}
                     </div>
                     <div className="ml-1">
                       <RiDeleteBin6Line className="w-6 h-6 text-red-500" />
