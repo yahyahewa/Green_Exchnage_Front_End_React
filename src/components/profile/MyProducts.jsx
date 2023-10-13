@@ -10,41 +10,42 @@ function MyProducts() {
   const token = dataUser.token;
 
   const { data: userProducts, error } = useGetUserProductsQuery(id, token);
+  console.log('my products', userProducts);
 
   if (error) {
     console.error('Error fetching user products:', error);
   }
 
-  const dataFake = [
-    {
-      id: 1,
-      name: 'name',
-      image:
-        'https://images.unsplash.com/photo-1525598912003-663126343e1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGhvbmV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60',
-      barwar: '10.10.2023',
-    },
-    {
-      id: 2,
-      name: 'name',
-      image:
-        'https://images.unsplash.com/photo-1525598912003-663126343e1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGhvbmV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60',
-      barwar: '10.10.2023',
-    },
-    {
-      id: 3,
-      name: 'name',
-      image:
-        'https://images.unsplash.com/photo-1525598912003-663126343e1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGhvbmV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60',
-      barwar: '10.10.2023',
-    },
-    {
-      id: 4,
-      name: 'name',
-      image:
-        'https://images.unsplash.com/photo-1525598912003-663126343e1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGhvbmV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60',
-      barwar: '10.10.2023',
-    },
-  ];
+  // const dataFake = [
+  //   {
+  //     id: 1,
+  //     name: 'name',
+  //     image:
+  //       'https://images.unsplash.com/photo-1525598912003-663126343e1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGhvbmV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60',
+  //     barwar: '10.10.2023',
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'name',
+  //     image:
+  //       'https://images.unsplash.com/photo-1525598912003-663126343e1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGhvbmV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60',
+  //     barwar: '10.10.2023',
+  //   },
+  //   {
+  //     id: 3,
+  //     name: 'name',
+  //     image:
+  //       'https://images.unsplash.com/photo-1525598912003-663126343e1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGhvbmV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60',
+  //     barwar: '10.10.2023',
+  //   },
+  //   {
+  //     id: 4,
+  //     name: 'name',
+  //     image:
+  //       'https://images.unsplash.com/photo-1525598912003-663126343e1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGhvbmV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60',
+  //     barwar: '10.10.2023',
+  //   },
+  // ];
   return (
     <div className=" text-gray-800 w-full">
       {userProducts?.data?.length === 0 ? (
@@ -54,7 +55,7 @@ function MyProducts() {
         </div>
       ) : (
         <div className="grid grid-cols-3 gap-5">
-          {dataFake.map((data) => {
+          {userProducts?.data?.map((data) => {
             return (
               <div
                 className="flex flex-col w-full justify-start relative overflow-hidden"

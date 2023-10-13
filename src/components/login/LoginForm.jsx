@@ -11,7 +11,6 @@ import { addUser } from '../../app/api/userSlice';
 function LoginForm() {
   const [login, { data, isError, isLoading, isSuccess }] = useLoginMutation();
   const [thereUSer, setThereUser] = useState('');
-  const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
