@@ -38,7 +38,7 @@ function LoginForm() {
         : setThereUser('user not found');
     }
   }, [data, isError, isLoading]);
-  if (isSuccess) {
+  if (isSuccess === true) {
     dispatch(addUser(true));
   }
   if (data?.status == 'success' && data?.data?.token)
