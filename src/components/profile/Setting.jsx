@@ -54,13 +54,11 @@ const Setting = () => {
       }
 
       const { data, error } = await updatePasswordMutation({
-        variables: {
-          id: userId,
-          email: email,
-          oldPassword: oldPassword,
-          newPassword: newPassword,
-          confirmNewPassword: confirmNewPassword,
-        },
+        id: userId,
+        email: email,
+        oldPassword: oldPassword,
+        newPassword: newPassword,
+        confirmNewPassword: confirmNewPassword,
       });
       if (error) {
         toast.error('GraphQL error:', {
@@ -91,22 +89,7 @@ const Setting = () => {
   // Function to handle the form submission for user info
   const handleUserinfoUpdate = async (e) => {
     e.preventDefault();
-    if (!fullname || !phone || !email || !image) {
-      if (!fullname) {
-        toast.error('Full Name cannot be blank.', {
-          position: toast.POSITION.TOP_LEFT,
-          autoClose: 3000,
-        });
-      }
 
-      if (!phone || !email) {
-        toast.error('Phone Number or email cannot be blank.', {
-          position: toast.POSITION.TOP_LEFT,
-          autoClose: 3000,
-        });
-      }
-      return;
-    }
     const updatedData = {
       id: id,
       fullname: fullname,
