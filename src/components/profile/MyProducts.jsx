@@ -2,73 +2,102 @@ import emptyProduct from '../../assets/images/emptyProduct.svg';
 import { useGetUserProductsQuery } from '../../app/api/profile';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { BiSolidEdit } from 'react-icons/bi';
+import { format } from 'date-fns';
+import { useDispatch, useSelector } from 'react-redux';
+import { closeModal, openModal } from '../../app/api/ModalSlice';
+import Modal from 'react-modal';
+import UpdateForm from '../myDonate/UpdateForm';
+import { Oval } from 'react-loader-spinner';
 
 function MyProducts() {
   const dataUser = JSON.parse(localStorage.getItem('userData'));
-
   const id = dataUser?.data?._id;
   const token = dataUser.token;
+  const modal = useSelector((state) => state.modal.modal);
+  const dispatch = useDispatch();
+  const {
+    data: userProducts,
+    error,
+    isLoading,
+  } = useGetUserProductsQuery(id, token);
 
-  const { data: userProducts, error } = useGetUserProductsQuery(id, token);
-  console.log('my products', userProducts);
+  console.log('modal', modal);
 
   if (error) {
-    console.error('Error fetching user products:', error);
+    return (
+      <>
+        <p className="h-screen w-full font-semibold text-lg flex justify-center items-center text-neutral-500">
+          Something went wrong!
+        </p>
+      </>
+    );
   }
 
-  // const dataFake = [
-  //   {
-  //     id: 1,
-  //     name: 'name',
-  //     image:
-  //       'https://images.unsplash.com/photo-1525598912003-663126343e1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGhvbmV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60',
-  //     barwar: '10.10.2023',
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'name',
-  //     image:
-  //       'https://images.unsplash.com/photo-1525598912003-663126343e1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGhvbmV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60',
-  //     barwar: '10.10.2023',
-  //   },
-  //   {
-  //     id: 3,
-  //     name: 'name',
-  //     image:
-  //       'https://images.unsplash.com/photo-1525598912003-663126343e1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGhvbmV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60',
-  //     barwar: '10.10.2023',
-  //   },
-  //   {
-  //     id: 4,
-  //     name: 'name',
-  //     image:
-  //       'https://images.unsplash.com/photo-1525598912003-663126343e1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGhvbmV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60',
-  //     barwar: '10.10.2023',
-  //   },
-  // ];
+  if (isLoading) {
+    return (
+      <div className="h-screen w-full flex justify-center items-center">
+        <Oval
+          height={100}
+          width={100}
+          color="#4fa94d"
+          visible={true}
+          ariaLabel="oval-loading"
+          secondaryColor="#4fa94d"
+          strokeWidth={2}
+          strokeWidthSecondary={2}
+        />
+      </div>
+    );
+  }
+
+  console.log('userProducts', userProducts);
+
   return (
-    <div className=" text-gray-800 w-full">
+    <div className="w-full text-neutral-500 min-h-screen">
       {userProducts?.data?.length === 0 ? (
         <div className="flex justify-center items-center w-full">
-          {' '}
           <img src={emptyProduct} alt="empty product" className="h-[500px]" />
         </div>
       ) : (
-        <div className="grid grid-cols-3 gap-5">
+        <div className="grid lg:grid-cols-2 xl:grid-cols-3 lg:mt-5 gap-5">
           {userProducts?.data?.map((data) => {
             return (
               <div
                 className="flex flex-col w-full justify-start relative overflow-hidden"
-                key={data.id}
+                key={data._id}
               >
                 <div className="flex justify-between items-center p-1">
                   <div className="flex flex-col">
                     <div className="font-bold">{data.name}</div>
-                    <div>{data.barwar}</div>
+                    <div>{format(new Date(data?.createdAt), 'yyyy-MM-dd')}</div>
                   </div>
                   <div className="flex items-center">
-                    <div>
+                    <button
+                      onClick={() => {
+                        dispatch(openModal());
+                        console.log(modal);
+                      }}
+                      className="mx-2"
+                    >
                       <BiSolidEdit className="w-6 h-6 text-green" />
+                    </button>
+                    <div className="flex w-full flex-col justify-center items-center">
+                      <Modal
+                        isOpen={modal}
+                        onRequestClose={() => {
+                          dispatch(closeModal());
+                        }}
+                        className="flex flex-col justify-center items-center min-h-screen"
+                        contentLabel="EditModal"
+                      >
+                        <div className="flex justify-center items-center w-full">
+                          <UpdateForm
+                            productId={data._id}
+                            userId={data?.owner}
+                            data={data}
+                          />
+                        </div>
+                      </Modal>
                     </div>
                     <div className="ml-1">
                       <RiDeleteBin6Line className="w-6 h-6 text-red-500" />
@@ -76,8 +105,8 @@ function MyProducts() {
                   </div>
                 </div>
                 <img
-                  src={data.image}
-                  className="mt-5 border overflow-hidden  flex object-cover w-full h-60 hover:scale-110 relative hover:duration-500 duration-500"
+                  src={`${import.meta.env.VITE_BACK_END}uploads/${data?.images[0]}`}
+                  className="mt-2 border overflow-hidden flex object-cover w-full h-60 hover:scale-110 relative hover:duration-500 duration-500"
                 />
               </div>
             );

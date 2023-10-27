@@ -40,7 +40,7 @@ const SingleCard = () => {
           No Product
         </p>
       ) : (
-        <div className="gap-8  lg:grid px-4 lg:grid-cols-2  xl:grid-cols-3 md:grid xsm:grid-cols-1 min-h-screen">
+        <div className="gap-8 lg:grid px-4 lg:grid-cols-2 xl:grid-cols-3 md:grid xsm:grid-cols-1 min-h-screen">
           {memoizedData.map((card) => {
             return (
               <Link

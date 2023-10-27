@@ -13,7 +13,7 @@ function Account() {
   ) : (
     <Link
       to={'/login'}
-      className="btn btn-primary py-1 text-base px-2 font-bold rounded-md btn-md bg-green
+      className="btn btn-primary py-1 text-base px-2 font-bold rounded-md btn-md bg-jade-700
              text-neutral-100 border-0 mr-3 hover:bg-jade-600 transition-all"
     >
       Login

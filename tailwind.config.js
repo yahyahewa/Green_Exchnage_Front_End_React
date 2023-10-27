@@ -25,7 +25,10 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar'), // Add this line
+    // ...
+  ],
 };
 // 1. bo hamu gap :5 dabne
 // 2. tagy br u a bakar mahene, a refresh abetawa la reacta nabet refreshman habet

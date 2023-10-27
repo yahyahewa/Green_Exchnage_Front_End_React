@@ -11,7 +11,20 @@ const products = api.injectEndpoints({
       query: ({ id }) => `api/product/product/${id}`,
       providesTags: ['products'],
     }),
+
+    addProductUpdate: builder.mutation({
+      query: (body, token) => ({
+        url: 'api/product/',
+        method: 'PATCH',
+        headers: { Authorization: `Bearer ${token}` },
+        body: body,
+      }),
+    }),
   }),
 });
 
-export const { useGetProductsQuery, useGetSingleProductQuery } = products;
+export const {
+  useGetProductsQuery,
+  useGetSingleProductQuery,
+  useAddProductUpdateMutation,
+} = products;

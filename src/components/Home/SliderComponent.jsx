@@ -69,7 +69,9 @@ const SliderComponent = () => {
                   </span>
                   <img
                     className="w-54 h-72 pt-4 hover:scale-110 relative hover:duration-500 duration-500 rounded sm:max-w-md object-cover"
-                    src={`https://green-exchange-8qyw.onrender.com/uploads/${product[0]?.images[0]}`}
+                    src={`${import.meta.env.VITE_BACK_END}uploads/items${
+                      product[0]?.images[0]
+                    }`}
                     alt={`Product of ${fullname}`}
                   />
                 </div>
