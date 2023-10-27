@@ -1,25 +1,24 @@
-import { api } from "./api";
+import { api } from './api';
 
 const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    // signup endpoint
     signup: builder.mutation({
       query: (body) => ({
-        url: "api/user/signupauth/",
-        method: "POST",
+        url: 'api/user/signupauth/',
+        method: 'POST',
         body: body,
       }),
     }),
-    // login endpoint
+
     login: builder.mutation({
       query: (body) => ({
-        url: "api/user/loginauth/",
-        method: "POST",
+        url: 'api/user/loginauth/',
+        method: 'POST',
         body: body,
       }),
-      invalidatesTags: ["userData"],
+      invalidatesTags: ['userData'],
     }),
   }),
 });
 
-export const { useSignupMutation,useLoginMutation } = authApi;
+export const { useSignupMutation, useLoginMutation } = authApi;

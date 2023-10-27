@@ -1,6 +1,6 @@
-import  { useState } from "react";
-import { Link } from "react-router-dom";
-import { HiChevronRight } from "react-icons/hi";
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { HiChevronRight } from 'react-icons/hi';
 const GetStartBt = () => {
   const [isLogin] = useState(false);
 

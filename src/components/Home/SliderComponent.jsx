@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
-import { Pagination, Mousewheel, Autoplay } from "swiper/modules";
-import { useActiveUserQuery } from "../../app/api/home";
-import CircularProgress from "@mui/material/CircularProgress";
+import React, { useEffect } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import { Pagination, Mousewheel, Autoplay } from 'swiper/modules';
+import { useActiveUserQuery } from '../../app/api/home';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const SliderComponent = () => {
   const { data, isError, isLoading } = useActiveUserQuery(3);
@@ -36,7 +36,7 @@ const SliderComponent = () => {
         }}
         pagination={{
           bullet: {
-            backgroundColor: "green",
+            backgroundColor: 'green',
           },
           clickable: true,
         }}
@@ -55,9 +55,9 @@ const SliderComponent = () => {
                     className="w-20 h-20 lg:w-28  lg:h-28 object-cover rounded-full shadow-sm lg:shadow-md "
                     src={`https://green-exchange-8qyw.onrender.com/uploads/users/${image}`}
                     alt={fullname}
-                    onLoad={() =>
-                      console.log(`Image for ${fullname} has loaded`)
-                    }
+                    // onLoad={() =>
+                    //   console.log(`Image for ${fullname} has loaded`)
+                    // }
                     onError={() =>
                       console.error(`Failed to load image for ${fullname}`)
                     }

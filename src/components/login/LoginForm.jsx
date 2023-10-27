@@ -11,7 +11,6 @@ import { addUser } from '../../app/api/userSlice';
 function LoginForm() {
   const [login, { data, isError, isLoading, isSuccess }] = useLoginMutation();
   const [thereUSer, setThereUser] = useState('');
-  const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
@@ -19,7 +18,6 @@ function LoginForm() {
       password: '',
     },
     onSubmit: (values, { resetForm }) => {
-      // console.log(values)
       login(values);
 
       resetForm({ values: '' });
@@ -29,15 +27,7 @@ function LoginForm() {
       password: Yup.string().required(),
     }),
   });
-  // const [formData, setFormData] = useState({});
-  // const [login, { data, isErro, isLoading }] = useLoginMutation();
-  // const handleInputChange = (e) => {
-  //   setFormData({ ...formData, [e.target.name]: e.target.value });
-  // };
-  // const handleSubmite = (e) => {
-  //   e.preventDefault();
-  //   login(formData);
-  // };
+
   useEffect(() => {
     if (!isError && !isLoading && data) {
       data?.status == 'success'
@@ -47,7 +37,7 @@ function LoginForm() {
         : setThereUser('user not found');
     }
   }, [data, isError, isLoading]);
-  if (isSuccess) {
+  if (isSuccess === true) {
     dispatch(addUser(true));
   }
   if (data?.status == 'success' && data?.data?.token)

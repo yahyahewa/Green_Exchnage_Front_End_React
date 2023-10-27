@@ -24,7 +24,7 @@ function AddProduct() {
   const userInfo = JSON.parse(localStorage.getItem('userData')) || {};
 
   const [formData, setFormData] = useState({
-    owner: userInfo?.data?._id,
+    owner: userInfo?.data._id,
     name: '',
     phone: '',
     category: '',

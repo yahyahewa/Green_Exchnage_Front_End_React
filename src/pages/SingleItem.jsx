@@ -1,12 +1,11 @@
-// import React, { useState } from "react";
 import { useParams } from 'react-router-dom';
 import { CgCalendarDates } from 'react-icons/cg';
 import { IoLocationSharp } from 'react-icons/io5';
-
 import SingleItemSlider from '../components/SingleItemSlider/SingleItemSlider';
 import { useGetSingleProductQuery } from '../app/api/products';
 import { format } from 'date-fns';
 import { Oval } from 'react-loader-spinner';
+
 function SingleItem() {
   const { id } = useParams();
   const { data: singleProduct, isLoading } = useGetSingleProductQuery({ id });
@@ -14,7 +13,7 @@ function SingleItem() {
   console.log(id);
   if (isLoading) {
     return (
-      <p className="h-screen flex justify-center items-center">
+      <div className="h-screen flex justify-center items-center">
         <Oval
           height={80}
           width={80}
@@ -27,7 +26,7 @@ function SingleItem() {
           strokeWidth={2}
           strokeWidthSecondary={2}
         />
-      </p>
+      </div>
     );
   }
   return (

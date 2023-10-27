@@ -1,7 +1,6 @@
-import { useState } from "react";
-// import Navbar from "../components/navbar/Navbar";
-import Sidebar from "../components/profile/Sidebar";
-import AddProduct from "../components/profile/AddProduct";
+import { useState } from 'react';
+import Sidebar from '../components/profile/Sidebar';
+import AddProduct from '../components/profile/AddProduct';
 function Profile() {
   const [components, setComponents] = useState(<AddProduct />);
   return (

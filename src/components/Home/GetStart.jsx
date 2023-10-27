@@ -1,4 +1,4 @@
-import GetStartBt from "./GetStartBt";
+import GetStartBt from './GetStartBt';
 
 const GetStart = () => {
   return (

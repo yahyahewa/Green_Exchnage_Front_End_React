@@ -39,3 +39,6 @@ export default {
 // 7. lg:mx-36 , my-10  bo hamu pagekan dabne bas pagekan  ,bo am pagenam danawa bas agar page trman zyad krd
 //8. bo button tania (rounded) dabnen
 // 9. hover lasar opacitya bo buttonakan
+
+// TODO:
+// 1.  active habe bo navbar itemakan

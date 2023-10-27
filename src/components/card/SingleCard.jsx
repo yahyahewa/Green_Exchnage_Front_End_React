@@ -17,7 +17,6 @@ const SingleCard = () => {
     page,
     category,
   });
-  console.log(allProduct);
 
   const searchHandler = useCallback((searchValue) => {
     setSearch(searchValue);
@@ -70,10 +69,6 @@ const SingleCard = () => {
                         </span>
                       </div>
                     </div>
-
-                    {/* <h1 className="font-semibold text-sm lg:text-base px-4 pb-2 truncate">
-                      {card?.name}
-                    </h1> */}
                   </div>
 
                   <div className="flex  overflow-hidden relative">
@@ -108,7 +103,7 @@ const SingleCard = () => {
             setPage(e.selected + 1);
           }}
           pageRangeDisplayed={5}
-          pageCount={allProduct && allProduct?.allLength / 9}
+          pageCount={allProduct && Math.ceil(allProduct?.allLength / 9)}
           previousLabel={
             <IoIosArrowDropleft className="w-8 h-8 hover:text-green text-gray-700 duration-500 hover:duration-500 mx-2" />
           }
