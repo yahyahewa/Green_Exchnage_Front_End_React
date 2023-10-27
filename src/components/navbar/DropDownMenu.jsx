@@ -1,8 +1,7 @@
 import NavItem from './NavItem';
-// import { useDisclosure } from '@mantine/hooks'; // Commented out conflicting import
+import { useDisclosure } from '@mantine/hooks';
 import { Drawer, Group } from '@mantine/core';
 import Humberger from './Humberger';
-import { Link } from 'react-router-dom';
 import { LINKS } from '../../assets/Data';
 
 function DropDownMenu() {
