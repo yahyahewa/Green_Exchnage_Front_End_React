@@ -38,8 +38,10 @@ function SingleItem() {
           ) : (
             <img
               alt={''}
-              className="w-[600px] h-[600px] object-cover rounded"
-              src="https://codecondo.com/wp-content/uploads/2016/11/Metasploit-The-Penetration-Testers-Guide-e1598449869321.png"
+              className="w-full h-[500px] lg:w-full lg:h-[600px] object-cover rounded"
+              src={`${import.meta.env.VITE_BACK_END}uploads/${
+                singleProduct?.data?.images[0]
+              }`}
             />
           )}
 
