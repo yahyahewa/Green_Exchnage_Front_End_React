@@ -8,11 +8,15 @@ import { closeModal, openModal } from '../../app/api/ModalSlice';
 import Modal from 'react-modal';
 import UpdateForm from '../myDonate/UpdateForm';
 import { Oval } from 'react-loader-spinner';
-
+import { useDeleteProductMutation } from '../../app/api/products';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useEffect } from 'react';
 function MyProducts() {
   const dataUser = JSON.parse(localStorage.getItem('userData'));
   const id = dataUser?.data?._id;
   const token = dataUser.token;
+  const notify = () => toast('Delete product!');
   const modal = useSelector((state) => state.modal.modal);
   const dispatch = useDispatch();
   const {
@@ -20,9 +24,10 @@ function MyProducts() {
     error,
     isLoading,
   } = useGetUserProductsQuery(id, token);
-
-  console.log('modal', modal);
-
+  const [
+    deleteProduct,
+    { isLoading: deleteLoading, isSuccess: deleteSuccess },
+  ] = useDeleteProductMutation();
   if (error) {
     return (
       <>
@@ -33,6 +38,12 @@ function MyProducts() {
     );
   }
 
+  useEffect(() => {
+    if (deleteSuccess) {
+      // Data is available, show success toast
+      toast.success('Delete product successfully!');
+    }
+  }, [deleteSuccess]);
   if (isLoading) {
     return (
       <div className="h-screen w-full flex justify-center items-center">
@@ -49,11 +60,22 @@ function MyProducts() {
       </div>
     );
   }
-
-  console.log('userProducts', userProducts);
-
   return (
     <div className="w-full text-neutral-500 min-h-screen">
+      {deleteSuccess === true && (
+        <ToastContainer
+          position="bottom-center"
+          autoClose={5000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+      )}
       {userProducts?.data?.length === 0 ? (
         <div className="flex justify-center items-center w-full">
           <img src={emptyProduct} alt="empty product" className="h-[500px]" />
@@ -75,7 +97,6 @@ function MyProducts() {
                     <button
                       onClick={() => {
                         dispatch(openModal());
-                        console.log(modal);
                       }}
                       className="mx-2"
                     >
@@ -88,11 +109,10 @@ function MyProducts() {
                           dispatch(closeModal());
                         }}
                         className="flex flex-col justify-center items-center min-h-screen"
-                        contentLabel="EditModal"
                       >
                         <div className="flex justify-center items-center w-full">
                           <UpdateForm
-                            productId={data._id}
+                            productId={data?._id}
                             userId={data?.owner}
                             data={data}
                           />
@@ -100,12 +120,25 @@ function MyProducts() {
                       </Modal>
                     </div>
                     <div className="ml-1">
-                      <RiDeleteBin6Line className="w-6 h-6 text-red-500" />
+                      <button
+                        onClick={() => {
+                          deleteProduct({ user: id, product: data?._id });
+                          // notify;
+                        }}
+                      >
+                        {' '}
+                        <RiDeleteBin6Line
+                          className="w-6 h-6 text-red-500"
+                          onClick={() => notify}
+                        />
+                      </button>
                     </div>
                   </div>
                 </div>
                 <img
-                  src={`${import.meta.env.VITE_BACK_END}uploads/${data?.images[0]}`}
+                  src={`${import.meta.env.VITE_BACK_END}uploads/${
+                    data?.images[0]
+                  }`}
                   className="mt-2 border overflow-hidden flex object-cover w-full h-60 hover:scale-110 relative hover:duration-500 duration-500"
                 />
               </div>

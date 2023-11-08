@@ -6,7 +6,7 @@ function Contact() {
       <div className="flex justify-center">
         <img
           src={contact}
-          className="w-full h-72 md:h-[500px] object-contain sm:object-cover"
+          className="hidden sm:flex w-full h-72 md:h-[500px] object-contain sm:object-cover"
         />
       </div>
       <ContactForm />

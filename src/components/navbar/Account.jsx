@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 function Account() {
   const user = useSelector((state) => state.user.user);
 
-  return user && localStorage.getItem('userData') !== null ? (
+  return user || localStorage.getItem('userData') ? (
     <Link to="/profile">
       <img
         src={`https://img.freepik.com/free-icon/user_318-804790.jpg?w=2000`}

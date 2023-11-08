@@ -111,7 +111,6 @@ function AddProduct() {
         images: [],
         description: '',
       });
-      console.log(formData);
       setImages([]);
       setImageFile([]);
       setCanAdd(false);

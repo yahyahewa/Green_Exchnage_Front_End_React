@@ -40,7 +40,7 @@ function ContactForm() {
   }, [data]);
   return (
     <Formik>
-      <div className="w-full flex  flex-col items-center justify-center mt-12">
+      <div className="w-full flex  flex-col items-center justify-center sm:mt-12">
         <p className="font-semibold text-lg text-gray-800 ">Get In Touch </p>
         <Form
           onSubmit={formik.handleSubmit}

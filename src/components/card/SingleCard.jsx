@@ -101,6 +101,7 @@ const SingleCard = () => {
           pageClassName="px-2 text-lg text-gray-800 hover:text-gray-500"
           onPageChange={(e) => {
             setPage(e.selected + 1);
+            window.scrollTo(0, 0);
           }}
           pageRangeDisplayed={5}
           pageCount={allProduct && Math.ceil(allProduct?.allLength / 9)}
