@@ -2,8 +2,6 @@ import { Form, Formik, useFormik } from 'formik';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
 import PreviewImage from './PreviewImage';
-import { useDispatch } from 'react-redux';
-import { closeModal } from '../../app/api/ModalSlice';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import { useGetCategorySubCategoryQuery } from '../../app/api/category';
 import { useEffect } from 'react';
@@ -11,13 +9,19 @@ import { useGetCityQuery } from '../../app/api/city';
 import { useAddProductUpdateMutation } from '../../app/api/products';
 import { ToastContainer, toast } from 'react-toastify';
 import { useUploadsMutation } from '../../app/api/profile';
-function UpdateForm({ productId, userId, data }) {
+function UpdateForm({ userId, data, onClose }) {
+  console.log(data);
+  const [uploadedImage, setUploadedImage] = useState(null);
+  console.log('uploaded image', uploadedImage);
   const [subCategories, setSubCategories] = useState([]);
-  const dispatch = useDispatch();
   const notify = () => toast('Update product!');
   const { data: category } = useGetCategorySubCategoryQuery();
   const { data: city } = useGetCityQuery();
-  const [uploadImage, { data: imageData }] = useUploadsMutation();
+  const [
+    uploadImage,
+    { data: imageData, isSuccess: imageSuccess, isLoading: imageLoading },
+  ] = useUploadsMutation();
+  console.log(imageData, imageSuccess, imageLoading, 'image');
   const [updateProduct, { isSuccess: updateSuccess }] =
     useAddProductUpdateMutation();
   const formik = useFormik({
@@ -26,8 +30,8 @@ function UpdateForm({ productId, userId, data }) {
       owner: userId,
       name: data.name,
       phone: data.phone,
-      category: '',
-      city: '',
+      category: data?.category[0],
+      city: data?.city,
       address: data.address,
       images: [],
       description: data.description,
@@ -58,10 +62,27 @@ function UpdateForm({ productId, userId, data }) {
       description: Yup.string().required('Required'),
     }),
     onSubmit: (values, { resetForm }) => {
-      updateProduct(values);
-      resetForm();
+      if (imageLoading) {
+        if (imageSuccess) {
+          updateProduct(values);
+          resetForm();
+        }
+      } else {
+        updateProduct(values);
+        resetForm();
+      }
     },
   });
+
+  const handleImageUpload = async (event) => {
+    const selectedImages = Array.from(event.currentTarget.files);
+    const result = await uploadImage(selectedImages);
+
+    if (result) {
+      formik.setFieldValue('images', result?.data?.data); // Update formik values with new images
+      setUploadedImage(result?.data?.data[0]); // Set the newly uploaded image for preview
+    }
+  };
   const subCategoryHandle = (e) => {
     const categoryId = e.target.value;
     const selectedCategory = category?.data.find(
@@ -78,7 +99,7 @@ function UpdateForm({ productId, userId, data }) {
     }
   };
   if (updateSuccess) {
-    dispatch(closeModal());
+    onClose(null);
   }
   useEffect(() => {
     if (updateSuccess) {
@@ -109,7 +130,7 @@ function UpdateForm({ productId, userId, data }) {
             <p className="flex text-neutral-600 font-semibold m-0 p-0">
               Update Product
             </p>
-            <button onClick={() => dispatch(closeModal())}>
+            <button type="button" onClick={() => onClose(null)}>
               <IoIosCloseCircleOutline className="w-7 h-7 text-neutral-600" />
             </button>
           </div>
@@ -196,6 +217,9 @@ function UpdateForm({ productId, userId, data }) {
                   </option>
                 ))}
               </select>
+              {formik.touched.category && formik.errors.category && (
+                <p className="text-red-500 px-2">{formik.errors.category}</p>
+              )}
             </div>
 
             {/* //////////city ////////////////////////////////// */}
@@ -261,21 +285,14 @@ function UpdateForm({ productId, userId, data }) {
                   name="images"
                   onBlur={formik.handleBlur}
                   multiple
-                  onChange={async (event) => {
-                    const selectedImages = Array.from(
-                      event.currentTarget.files,
-                    );
-                    const result = await uploadImage(selectedImages);
-
-                    if (result) {
-                      formik.setFieldValue('images', result?.data?.data);
-                    }
-                  }}
+                  onChange={handleImageUpload}
                 />
+
                 {
                   <PreviewImage
                     files={formik.values.images}
                     images={data?.images}
+                    uploadedImage={uploadedImage}
                   />
                 }
               </div>
@@ -305,10 +322,15 @@ function UpdateForm({ productId, userId, data }) {
             </div>
             <div onClick={() => notify}>
               <button
+                disabled={imageLoading}
                 type="submit"
                 className="text-white bg-green py-2 w-full rounded-sm hover:bg-opacity-80 hover:duration-500 duration-500 mt-5 "
               >
-                Submit
+                {imageLoading ? (
+                  <span className="text-neutral-200">Loading</span>
+                ) : (
+                  'submit'
+                )}
               </button>
             </div>
           </div>

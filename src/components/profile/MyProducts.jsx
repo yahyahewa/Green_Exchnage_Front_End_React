@@ -4,7 +4,6 @@ import { RiDeleteBin6Line } from 'react-icons/ri';
 import { BiSolidEdit } from 'react-icons/bi';
 import { format } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
-import { closeModal, openModal } from '../../app/api/ModalSlice';
 import Modal from 'react-modal';
 import UpdateForm from '../myDonate/UpdateForm';
 import { Oval } from 'react-loader-spinner';
@@ -12,10 +11,12 @@ import { useDeleteProductMutation } from '../../app/api/products';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from 'react';
+import { useState } from 'react';
 function MyProducts() {
   const dataUser = JSON.parse(localStorage.getItem('userData'));
   const id = dataUser?.data?._id;
   const token = dataUser.token;
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const notify = () => toast('Delete product!');
   const modal = useSelector((state) => state.modal.modal);
   const dispatch = useDispatch();
@@ -94,36 +95,32 @@ function MyProducts() {
                     <div>{format(new Date(data?.createdAt), 'yyyy-MM-dd')}</div>
                   </div>
                   <div className="flex items-center">
-                    <button
-                      onClick={() => {
-                        dispatch(openModal());
-                      }}
-                      className="mx-2"
-                    >
+                    <button onClick={() => setSelectedProduct(data)}>
                       <BiSolidEdit className="w-6 h-6 text-green" />
                     </button>
+
                     <div className="flex w-full flex-col justify-center items-center">
-                      <Modal
-                        isOpen={modal}
-                        onRequestClose={() => {
-                          dispatch(closeModal());
-                        }}
-                        className="flex flex-col justify-center items-center min-h-screen"
-                      >
-                        <div className="flex justify-center items-center w-full">
-                          <UpdateForm
-                            productId={data?._id}
-                            userId={data?.owner}
-                            data={data}
-                          />
-                        </div>
-                      </Modal>
+                      {selectedProduct && (
+                        <Modal
+                          isOpen={!!selectedProduct}
+                          onRequestClose={() => setSelectedProduct(null)}
+                          className="flex flex-col justify-center items-center min-h-screen"
+                        >
+                          <div className="flex justify-center items-center w-full">
+                            <UpdateForm
+                              onClose={setSelectedProduct}
+                              productId={selectedProduct?._id}
+                              userId={selectedProduct?.owner}
+                              data={selectedProduct}
+                            />
+                          </div>
+                        </Modal>
+                      )}
                     </div>
                     <div className="ml-1">
                       <button
                         onClick={() => {
                           deleteProduct({ user: id, product: data?._id });
-                          // notify;
                         }}
                       >
                         {' '}
