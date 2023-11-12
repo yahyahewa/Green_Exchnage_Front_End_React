@@ -9,23 +9,23 @@ function SingleItemSlider({ images }) {
     setWordData(wordSlider);
   };
   return (
-    <div className="h-[500px] ">
+    <div className="h-[500px] flex flex-col items-start">
       <img
         src={
           `${wordData}` ||
           `${import.meta.env.VITE_BACK_END}uploads/${images[0]}`
         }
         alt=""
-        className="w-full h-[400px] object-cover"
+        className="w-full h-96 sm:h-[400px] object-cover"
       />
-      <div className="flex w-full ">
+      <div className="flex  ">
         {images.map((data, i) => (
           <div className="mt-5 relative overflow-hidden" key={i}>
             <img
               alt=""
               className={
                 (wordData[i] === i ? ' ' : '') +
-                'w-[110px] h-[90px] object-cover hover:scale-110 duration-500 hover:duration-500 mr-1 '
+                ' lg:w-20 lg:h-20 xl:w-[110px] xl:h-[90px] object-cover hover:scale-110 duration-500 hover:duration-500 mr-1 '
               }
               src={`${import.meta.env.VITE_BACK_END}uploads/${data}`}
               onClick={() => handleClick(i)}

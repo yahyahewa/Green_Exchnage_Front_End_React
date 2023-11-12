@@ -17,6 +17,7 @@ const userApi = api.injectEndpoints({
           };
         }
       },
+      invalidatesTags: ['products'],
     }),
     getUserProducts: builder.query({
       query: (id, token) => ({
@@ -25,6 +26,7 @@ const userApi = api.injectEndpoints({
           Authorization: `Bearer ${token}`,
         },
       }),
+      providesTags: ['products'],
     }),
     addProduct: builder.mutation({
       query: (body, token) => ({
@@ -33,6 +35,7 @@ const userApi = api.injectEndpoints({
         headers: { Authorization: `Bearer ${token}` },
         body: body,
       }),
+      invalidatesTags: ['products'],
     }),
     updateUserInfo: builder.mutation({
       query: (body, token, id) => ({

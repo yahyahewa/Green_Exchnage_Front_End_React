@@ -2,31 +2,36 @@ import { Form, Formik, useFormik } from 'formik';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
 import PreviewImage from './PreviewImage';
-import { useDispatch } from 'react-redux';
-import { closeModal } from '../../app/api/ModalSlice';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import { useGetCategorySubCategoryQuery } from '../../app/api/category';
 import { useEffect } from 'react';
 import { useGetCityQuery } from '../../app/api/city';
 import { useAddProductUpdateMutation } from '../../app/api/products';
-function UpdateForm({ productId, userId, data }) {
-  console.log('data', data);
+import { ToastContainer, toast } from 'react-toastify';
+import { useUploadsMutation } from '../../app/api/profile';
+function UpdateForm({ userId, data, onClose }) {
+  console.log(data);
+  const [uploadedImage, setUploadedImage] = useState(null);
+  console.log('uploaded image', uploadedImage);
   const [subCategories, setSubCategories] = useState([]);
-  const dispatch = useDispatch();
+  const notify = () => toast('Update product!');
   const { data: category } = useGetCategorySubCategoryQuery();
   const { data: city } = useGetCityQuery();
-  const [updateProduct, { isSuccess, errors, isError }] =
+  const [
+    uploadImage,
+    { data: imageData, isSuccess: imageSuccess, isLoading: imageLoading },
+  ] = useUploadsMutation();
+  console.log(imageData, imageSuccess, imageLoading, 'image');
+  const [updateProduct, { isSuccess: updateSuccess }] =
     useAddProductUpdateMutation();
-  console.log(city);
-  console.log('category', category);
   const formik = useFormik({
     initialValues: {
-      id: productId,
+      id: data._id,
       owner: userId,
       name: data.name,
       phone: data.phone,
-      category: '',
-      city: '',
+      category: data?.category[0],
+      city: data?.city,
       address: data.address,
       images: [],
       description: data.description,
@@ -44,10 +49,8 @@ function UpdateForm({ productId, userId, data }) {
         .test('fileType', 'Invalid file type', (value) => {
           if (!value) return true; // Allow empty values
           const acceptedExtensions = ['png', 'jpg', 'jpeg'];
-
-          // Iterate through the uploaded files and check their extensions
           for (let i = 0; i < value.length; i++) {
-            const fileExtension = value[i].name.split('.').pop().toLowerCase();
+            const fileExtension = value[i].split('.').pop().toLowerCase();
             if (!acceptedExtensions.includes(fileExtension)) {
               return false;
             }
@@ -59,11 +62,27 @@ function UpdateForm({ productId, userId, data }) {
       description: Yup.string().required('Required'),
     }),
     onSubmit: (values, { resetForm }) => {
-      console.log('Form Values:', values);
-      updateProduct(values);
-      resetForm();
+      if (imageLoading) {
+        if (imageSuccess) {
+          updateProduct(values);
+          resetForm();
+        }
+      } else {
+        updateProduct(values);
+        resetForm();
+      }
     },
   });
+
+  const handleImageUpload = async (event) => {
+    const selectedImages = Array.from(event.currentTarget.files);
+    const result = await uploadImage(selectedImages);
+
+    if (result) {
+      formik.setFieldValue('images', result?.data?.data); // Update formik values with new images
+      setUploadedImage(result?.data?.data[0]); // Set the newly uploaded image for preview
+    }
+  };
   const subCategoryHandle = (e) => {
     const categoryId = e.target.value;
     const selectedCategory = category?.data.find(
@@ -79,17 +98,30 @@ function UpdateForm({ productId, userId, data }) {
       setSubCategories(subCategoryOptions);
     }
   };
-  console.log('subcategory', subCategories);
-  useEffect(() => {}, [subCategories, setSubCategories]);
-  if (isSuccess) {
-    dispatch(closeModal());
+  if (updateSuccess) {
+    onClose(null);
   }
-  if (isError || errors) {
-    console.log(isError, errors);
-  }
+  useEffect(() => {
+    if (updateSuccess) {
+      toast.success('update product successfully!');
+    }
+  }, [updateSuccess]);
+
   return (
     <Formik>
       <Form onSubmit={formik.handleSubmit}>
+        <ToastContainer
+          position="bottom-center"
+          autoClose={5000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
         <div
           className="w-full flex flex-col items-center fixed top-24 left-0 sm:left-1/4 sm:w-2/4 lg:left-1/3 h-2/3  lg:w-1/3 
         overflow-y-auto shadow-lg  pb-10 bg-white px-2"
@@ -98,7 +130,7 @@ function UpdateForm({ productId, userId, data }) {
             <p className="flex text-neutral-600 font-semibold m-0 p-0">
               Update Product
             </p>
-            <button onClick={() => dispatch(closeModal())}>
+            <button type="button" onClick={() => onClose(null)}>
               <IoIosCloseCircleOutline className="w-7 h-7 text-neutral-600" />
             </button>
           </div>
@@ -185,6 +217,9 @@ function UpdateForm({ productId, userId, data }) {
                   </option>
                 ))}
               </select>
+              {formik.touched.category && formik.errors.category && (
+                <p className="text-red-500 px-2">{formik.errors.category}</p>
+              )}
             </div>
 
             {/* //////////city ////////////////////////////////// */}
@@ -197,7 +232,7 @@ function UpdateForm({ productId, userId, data }) {
                 id="city"
                 name="city"
                 onChange={formik.handleChange}
-                value={formik.values.category}
+                value={formik.values.city}
                 className=" text-neutral-500 w-full pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green 
                 mt-2 px-1 py-2 hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500"
               >
@@ -250,18 +285,17 @@ function UpdateForm({ productId, userId, data }) {
                   name="images"
                   onBlur={formik.handleBlur}
                   multiple
-                  onChange={(event) => {
-                    const selectedImages = Array.from(
-                      event.currentTarget.files,
-                    );
-                    formik.setFieldValue('images', selectedImages);
-                  }}
+                  onChange={handleImageUpload}
                 />
 
-                {formik.values.images && (
-                  <PreviewImage files={formik.values.images} />
-                )}
-              </div>{' '}
+                {
+                  <PreviewImage
+                    files={formik.values.images}
+                    images={data?.images}
+                    uploadedImage={uploadedImage}
+                  />
+                }
+              </div>
               {formik.touched.images && formik.errors.images && (
                 <p className="text-red-500 px-2">{formik.errors.images}</p>
               )}
@@ -286,12 +320,19 @@ function UpdateForm({ productId, userId, data }) {
                 <p className="text-red-500 px-2">{formik.errors.description}</p>
               )}
             </div>
-            <button
-              type="submit"
-              className="text-white bg-green py-2 w-full rounded-sm hover:bg-opacity-80 hover:duration-500 duration-500 mt-5 "
-            >
-              Submit
-            </button>
+            <div onClick={() => notify}>
+              <button
+                disabled={imageLoading}
+                type="submit"
+                className="text-white bg-green py-2 w-full rounded-sm hover:bg-opacity-80 hover:duration-500 duration-500 mt-5 "
+              >
+                {imageLoading ? (
+                  <span className="text-neutral-200">Loading</span>
+                ) : (
+                  'submit'
+                )}
+              </button>
+            </div>
           </div>
         </div>{' '}
       </Form>

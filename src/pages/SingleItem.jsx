@@ -9,8 +9,7 @@ import { Oval } from 'react-loader-spinner';
 function SingleItem() {
   const { id } = useParams();
   const { data: singleProduct, isLoading } = useGetSingleProductQuery({ id });
-  console.log('single', singleProduct);
-  console.log(id);
+
   if (isLoading) {
     return (
       <div className="h-screen flex justify-center items-center">
@@ -31,21 +30,23 @@ function SingleItem() {
   }
   return (
     <>
-      <section className="px-6 sm:px-12 lg:mx-26 md:px-20 flex text-neutral-500">
-        <div className="py-32 grid lg:grid-cols-2 gap-5 lg:gap-x-10">
-          {singleProduct?.data?.images?.length > 1 ? (
-            <SingleItemSlider images={singleProduct?.data?.images} />
-          ) : (
-            <img
-              alt={''}
-              className="w-full h-[500px] lg:w-full lg:h-[600px] object-cover rounded"
-              src={`${import.meta.env.VITE_BACK_END}uploads/${
-                singleProduct?.data?.images[0]
-              }`}
-            />
-          )}
+      <section className="px-6 sm:px-12 lg:mx-26 md:px-20  text-neutral-500 w-full">
+        <div className="py-32 grid lg:grid-cols-2 gap-5 lg:gap-x-10 ">
+          <div className="w-full">
+            {singleProduct?.data?.images?.length > 1 ? (
+              <SingleItemSlider images={singleProduct?.data?.images} />
+            ) : (
+              <img
+                alt={''}
+                className="w-full h-[500px] lg:w-full lg:h-[600px] object-cover rounded"
+                src={`${import.meta.env.VITE_BACK_END}uploads/${
+                  singleProduct?.data?.images[0]
+                }`}
+              />
+            )}
+          </div>
 
-          <div className="flex flex-col justify-between  ">
+          <div className="flex flex-col justify-between w-full">
             <div className="flex flex-col sm:flex-row lg:flex-col justify-between sm:items-end lg:items-start">
               <div>
                 <h1 className="font-semibold text-xl sm:text-2xl lg:text-3xl text-neutral-600 mt-5 sm:mt-0 whitespace-nowrap">
@@ -73,7 +74,7 @@ function SingleItem() {
                   </span>
                 </div>
 
-                <div className="ml-5 flex items-center">
+                <div className="ml-5 flex sm:flex-col md:flex-row items-center">
                   {' '}
                   <IoLocationSharp className="mr-2 w-5 h-5" />
                   <span className="">{singleProduct?.data?.city?.name}</span>

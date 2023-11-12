@@ -4,10 +4,16 @@ import { Formik, Form, useFormik } from 'formik';
 import InputField from '../InputField/InputField';
 import { useSignupMutation } from '../../app/api/auth';
 import { Navigate } from 'react-router';
+import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
+import { useDispatch } from 'react-redux';
+import { addUser } from '../../app/api/userSlice';
 function SignUpForm() {
-  const [thereUSer, setThereUser] = useState('');
-  const [signup, { data, isError, isLoading, error }] = useSignupMutation();
+  const dispatch = useDispatch();
 
+  const [thereUSer, setThereUser] = useState('');
+  const [signup, { data, isError, isLoading, error, isSuccess }] =
+    useSignupMutation();
+  const [showPassword, setShowPassword] = useState(false);
   const formik = useFormik({
     initialValues: {
       fullname: '',
@@ -33,7 +39,9 @@ function SignUpForm() {
         : setThereUser('check your information');
     }
   }, [data, isError, isLoading]);
-
+  if (isSuccess) {
+    dispatch(addUser(true));
+  }
   if (data?.status == 'success' && data?.data?.token)
     return <Navigate to="/profile" replace />;
   return (
@@ -85,14 +93,41 @@ function SignUpForm() {
 
           <div className="mt-4 flex flex-col">
             <label className="text-gray-800 font-english">Password</label>
-            <InputField
+            <div
+              className="w-full lg:w-80 2xl:w-96  pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green 
+      mt-2 px-1 py-2 hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 flex justify-between items-center"
+            >
+              {' '}
+              <input
+                type={!showPassword ? 'password' : 'text'}
+                name="password"
+                placeholder="password"
+                id="password"
+                value={formik.values.password}
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                className="focus:outline-none"
+              />
+              {showPassword ? (
+                <button className="mr-2" onClick={() => setShowPassword(false)}>
+                  <AiOutlineEyeInvisible className="w-6 h-6 text-neutral-500" />
+                </button>
+              ) : (
+                <button className="mr-2" onClick={() => setShowPassword(true)}>
+                  <AiOutlineEye className="w-6 h-6 text-neutral-500" />
+                </button>
+              )}
+            </div>
+
+            {/* <InputField
+              type="password"
               name="password"
-              placeholder="********"
+              placeholder="password"
               id="password"
               value={formik.values.password}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-            />
+            /> */}
             {formik.touched.password && formik.errors.password ? (
               <div className="text-red-400 text-sm ">
                 {formik.errors.password}
@@ -104,6 +139,7 @@ function SignUpForm() {
             {' '}
             <button
               type="submit"
+              disabled={isLoading}
               className="text-white bg-green py-2 w-full  rounded hover:bg-opacity-80 hover:duration-500 duration-500"
             >
               Create{' '}
