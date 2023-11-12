@@ -1,26 +1,10 @@
-// import React from "react";
-// import { Route, Routes } from "react-router-dom";
-
-// pages and components
-// import Home from "../Home";
-// import Items from "../Items";
-// import Signup from "../Singup";
-// import About from "../Contact";
-// import Support from "../Support";
-// import SingleItem from "../SingleItem";
-// import Login from "../Login";
 
 import { Routes, Route } from 'react-router-dom';
-// import Protect from "../../components/protect/Protect";
-// import Profile from "../Profile";
-// import NotAuthorized from "../../components/protect/NotAuthorized";
-// import NotFound from "../../components/NotFound";
 import Navbar from '../../components/navbar/Navbar';
 import Fotter from '../../components/Fotter/Fotter';
-// import Products from "../Products";
-// import Contact from "../Contact";
 import { Oval } from 'react-loader-spinner';
 import { Suspense, lazy } from 'react';
+import Protect from '../../components/protect/Protect';
 
 const Home = lazy(() => import('../Home'));
 const Products = lazy(() => import('../Products'));
@@ -34,7 +18,6 @@ const Router = () => {
   return (
     <div className="min-h-screen">
       <Navbar />
-      {/* <Routes> */}
       <Suspense
         fallback={
           <p className="h-screen flex justify-center items-center">
@@ -58,30 +41,16 @@ const Router = () => {
           <Route path="/products" element={<Products />} />
           <Route path="/products/:id" element={<SingleItem />} />
           <Route path="/contact" element={<Contact />} />
+          <Route element={<Protect type="reg" />}>
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
-          {/* TODO: uncomment this  */}
-          {/* <Route path="/403" element={<NotAuthorized/>}/> */}
-          {/* <Route element={<Protect/>}> */}
+          </Route>
+          <Route element={<Protect type="acc" />}>
           <Route path="/profile" element={<Profile />} />
-          {/* </Route> */}
+          </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
-      {/* <Route path="/" element={<Home />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/products/:id" element={<SingleItem />} /> */}
-      {/* <Route path="/support" element={<Support />} /> */}
-      {/* <Route path="/contact" element={<Contact />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} /> */}
-      {/* TODO: uncomment this  */}
-      {/* <Route path="/403" element={<NotAuthorized/>}/> */}
-      {/* <Route element={<Protect/>}> */}
-      {/* <Route path="/profile" element={<Profile/>}/> */}
-      {/* </Route> */}
-      {/* <Route path="*" element={<NotFound />} /> */}
-      {/* </Routes> */}
       <Fotter />
     </div>
   );
