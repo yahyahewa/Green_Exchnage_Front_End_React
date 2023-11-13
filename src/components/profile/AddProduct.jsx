@@ -39,113 +39,139 @@ function AddProduct() {
 
 // Handle image upload
 const handleImageUpload = (e) => {
-  const files = e.target.files;
-  const allowedExtensions = ['jpg', 'jpeg', 'png'];
-  const maxImages = 5;
-
-  // Check the number of images
-  if (imageFile.length + files.length > maxImages) {
-    toast.error(`You can upload only up to ${maxImages} images.`);
-    return;
-  }
-
-  // Check file extensions
-  for (let i = 0; i < files.length; i++) {
-    const file = files[i];
-    const fileNameParts = file.name.split('.');
-    const fileExtension =
-      fileNameParts[fileNameParts.length - 1].toLowerCase();
-
-    if (!allowedExtensions.includes(fileExtension)) {
-      toast.error('Please upload only jpg, jpeg, and png files.');
-      return; // Stop processing if an invalid file is found
+  try{const files = e.target.files;
+    const allowedExtensions = ['jpg', 'jpeg', 'png'];
+    const maxImages = 5;
+  
+    // Check the number of images
+    if (imageFile.length + files.length > maxImages) {
+      toast.error(`You can upload only up to ${maxImages} images.`);
+      return;
     }
-  }
-
-  // Convert files to an array and set it in state
-  setImageFile((prevImageFile) => [...prevImageFile, ...Array.from(files)]);
-
-  // Process valid files
-  for (let i = 0; i < files.length; i++) {
-    const reader = new FileReader();
-
-    reader.onload = (e) => {
-      setImages((prevImages) => [...prevImages, e.target.result]);
-    };
-    reader.readAsDataURL(files[i]);
-  }
+  
+    // Check file extensions
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const fileNameParts = file.name.split('.');
+      const fileExtension =
+        fileNameParts[fileNameParts.length - 1].toLowerCase();
+  
+      if (!allowedExtensions.includes(fileExtension)) {
+        toast.error('Please upload only jpg, jpeg, and png files.');
+        return; // Stop processing if an invalid file is found
+      }
+    }
+  
+    // Convert files to an array and set it in state
+    setImageFile((prevImageFile) => [...prevImageFile, ...Array.from(files)]);
+  
+    // Process valid files
+    for (let i = 0; i < files.length; i++) {
+      const reader = new FileReader();
+  
+      reader.onload = (e) => {
+        setImages((prevImages) => [...prevImages, e.target.result]);
+      };
+      reader.readAsDataURL(files[i]);
+    }}
+    catch(error){
+      console.log(error)
+    }
 };
 
 
   // Handle removing images
   const removeImage = (e) => {
-    const targetId = parseInt(e.target.id);
-
-    // Remove item from imageFile and images arrays
-    const updatedImageFile = imageFile.filter((_, index) => index !== targetId);
-    const updatedImages = images.filter((_, index) => index !== targetId);
-
-    setImageFile(updatedImageFile);
-    setImages(updatedImages);
+    try {
+      const targetId = parseInt(e.target.id);
+  
+      // Remove item from imageFile and images arrays
+      const updatedImageFile = imageFile.filter((_, index) => index !== targetId);
+      const updatedImages = images.filter((_, index) => index !== targetId);
+  
+      setImageFile(updatedImageFile);
+      setImages(updatedImages);
+    } catch (error) {
+      console.error("An error occurred while removing the image:", error);
+   }
   };
-
   // Handle form submission
   const handleSubmit = (e) => {
-    e.preventDefault();
+  try{  e.preventDefault();
     uploadImage(imageFile);
+  }catch(error){
+    console.log(error)
+  }
   };
 
   // Handle image upload response
   useEffect(() => {
+  try {
     if (!imageError && !imageLoading && imageData?.status === 'success') {
       setFormData({ ...formData, images: imageData.data });
       setCanAdd(true);
     }
-  }, [imageData, imageError, imageLoading]);
+  } catch (error) {
+    console.error("An error occurred in the image useEffect:", error);
+    // You can handle the error in a way that makes sense for your application
+  }
+}, [imageData, imageError, imageLoading]);
 
-  const[subCat,setSub] = useState([])
-  useEffect(()=>{
-    catData?.data?.map((item)=>{
-      if(item._id === formData?.Parentcategory){
-        setSub(item.subCategory)
+const [subCat, setSub] = useState([]);
+useEffect(() => {
+  try {
+    catData?.data?.map((item) => {
+      if (item._id === formData?.Parentcategory) {
+        setSub(item.subCategory);
       }
-    })
-  },[formData?.Parentcategory])
+    });
+  } catch (error) {
+    console.log(error);
+    // You can handle the error in a way that makes sense for your application
+  }
+}, [formData?.Parentcategory]);
+
   // Handle adding product after image upload
   useEffect(() => {
-    if (
-      !imageError &&
-      !imageLoading &&
-      imageData?.status === 'success' &&
-      canAdd
-    ) {
-      addProduct(formData);
-      setFormData({
-        owner: userInfo?.data._id,
-        name: '',
-        phone: '',
-        Parentcategory: '',
-        category: '',
-        city: '',
-        address: '',
-        images: [],
-        description: '',
-      });
-      setImages([]);
-      setImageFile([]);
-      setCanAdd(false);
-      toast.success('Product added successfully!');
-    }
+   try{ if (
+    !imageError &&
+    !imageLoading &&
+    imageData?.status === 'success' &&
+    canAdd
+  ) {
+    addProduct(formData);
+    setFormData({
+      owner: userInfo?.data._id,
+      name: '',
+      phone: '',
+      Parentcategory: '',
+      category: '',
+      city: '',
+      address: '',
+      images: [],
+      description: '',
+    });
+    setImages([]);
+    setImageFile([]);
+    setCanAdd(false);
+    toast.success('Product added successfully!');
+  }}
+  catch(error){
+    console.log(error)
+  }
   }, [formData.images]);
   // Handle form data changes
   const handleFormData = (e) => {
-    if(e.target.name === 'description'){
+    try{if(e.target.name === 'description'){
       if(e.target.value.length > 300){
       toast.error('Description should be less than 300 characters')
       return
       }
     }
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });}
+    catch(error){
+      console.log(error)
+    }
   };
   return (
     <> <form

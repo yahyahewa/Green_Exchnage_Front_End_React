@@ -3,7 +3,11 @@ import React from "react";
 function Select
 ({ name, type, Label, require, data, setData, value, disable, options, select }) {
   const handleData = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
+    try {
+      setData({ ...data, [e.target.name]: e.target.value });
+    } catch (error) {
+      console.error("Error handling data:", error);
+    }
   };
   return (
     <div className="mt-1 w-full lg:w-[49%]">
@@ -28,7 +32,7 @@ function Select
           }`}
         >
           <option value="">{select}</option>
-          {options&&options.map((option) => (
+          {options && options.map((option) => (
             <option key={option?._id} value={option?._id}>
               {option?.name}
             </option>
