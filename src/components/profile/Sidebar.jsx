@@ -2,12 +2,13 @@ import { useState } from 'react';
 import AddProduct from './AddProduct';
 import MyProducts from './MyProducts';
 import Setting from './Setting';
-import { Link } from 'react-router-dom';
+import { Navigate } from 'react-router';
 
 // eslint-disable-next-line react/prop-types
 function Sidebar({ setComponent }) {
+  const userData=localStorage.getItem('userData');
+  if(!userData) return <Navigate to="/login" replace />;
   const [btnBg, setBtnBg] = useState(1);
-
   return (
     <aside className={`w-full text-neutral-600 flex justify-around items-center text-xl`}>
       <h1
