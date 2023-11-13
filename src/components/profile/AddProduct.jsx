@@ -5,6 +5,9 @@ import {
 } from '../../app/api/profile';
 import { useGetCityQuery } from '../../app/api/city';
 import { useGetCategorySubCategoryQuery } from '../../app/api/category';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Select from '../Select';
 
 function AddProduct() {
   const [addProduct, { isError: addError, isLoading: addLoading }] =
@@ -17,7 +20,6 @@ function AddProduct() {
   const { data: cityData } = useGetCityQuery();
   const [images, setImages] = useState([]);
   const [imageFile, setImageFile] = useState([]);
-  const [subCategories, setSubCategories] = useState([]);
   const [canAdd, setCanAdd] = useState(false);
 
   // Retrieve user info from localStorage
@@ -27,6 +29,7 @@ function AddProduct() {
     owner: userInfo?.data._id,
     name: '',
     phone: '',
+    Parentcategory: '',
     category: '',
     city: '',
     address: '',
@@ -34,37 +37,45 @@ function AddProduct() {
     description: '',
   });
 
-  // Handle image upload
-  const handleImageUpload = (e) => {
-    const files = e.target.files;
-    const allowedExtensions = ['jpg', 'jpeg', 'png'];
+// Handle image upload
+const handleImageUpload = (e) => {
+  const files = e.target.files;
+  const allowedExtensions = ['jpg', 'jpeg', 'png'];
+  const maxImages = 5;
 
-    // Check file extensions
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      const fileNameParts = file.name.split('.');
-      const fileExtension =
-        fileNameParts[fileNameParts.length - 1].toLowerCase();
+  // Check the number of images
+  if (imageFile.length + files.length > maxImages) {
+    toast.error(`You can upload only up to ${maxImages} images.`);
+    return;
+  }
 
-      if (!allowedExtensions.includes(fileExtension)) {
-        alert('Please upload only jpg, jpeg, and png files.');
-        return; // Stop processing if an invalid file is found
-      }
+  // Check file extensions
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    const fileNameParts = file.name.split('.');
+    const fileExtension =
+      fileNameParts[fileNameParts.length - 1].toLowerCase();
+
+    if (!allowedExtensions.includes(fileExtension)) {
+      toast.error('Please upload only jpg, jpeg, and png files.');
+      return; // Stop processing if an invalid file is found
     }
+  }
 
-    // Convert files to an array and set it in state
-    setImageFile((prevImageFile) => [...prevImageFile, ...Array.from(files)]);
+  // Convert files to an array and set it in state
+  setImageFile((prevImageFile) => [...prevImageFile, ...Array.from(files)]);
 
-    // Process valid files
-    for (let i = 0; i < files.length; i++) {
-      const reader = new FileReader();
+  // Process valid files
+  for (let i = 0; i < files.length; i++) {
+    const reader = new FileReader();
 
-      reader.onload = (e) => {
-        setImages((prevImages) => [...prevImages, e.target.result]);
-      };
-      reader.readAsDataURL(files[i]);
-    }
-  };
+    reader.onload = (e) => {
+      setImages((prevImages) => [...prevImages, e.target.result]);
+    };
+    reader.readAsDataURL(files[i]);
+  }
+};
+
 
   // Handle removing images
   const removeImage = (e) => {
@@ -92,6 +103,14 @@ function AddProduct() {
     }
   }, [imageData, imageError, imageLoading]);
 
+  const[subCat,setSub] = useState([])
+  useEffect(()=>{
+    catData?.data?.map((item)=>{
+      if(item._id === formData?.Parentcategory){
+        setSub(item.subCategory)
+      }
+    })
+  },[formData?.Parentcategory])
   // Handle adding product after image upload
   useEffect(() => {
     if (
@@ -105,6 +124,7 @@ function AddProduct() {
         owner: userInfo?.data._id,
         name: '',
         phone: '',
+        Parentcategory: '',
         category: '',
         city: '',
         address: '',
@@ -114,39 +134,28 @@ function AddProduct() {
       setImages([]);
       setImageFile([]);
       setCanAdd(false);
+      toast.success('Product added successfully!');
     }
   }, [formData.images]);
-
   // Handle form data changes
   const handleFormData = (e) => {
+    if(e.target.name === 'description'){
+      if(e.target.value.length > 300){
+      toast.error('Description should be less than 300 characters')
+      return
+      }
+    }
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
-  // Handle subcategory selection
-  const subCategoryHandle = (e) => {
-    const categoryId = e.target.value;
-    const selectedCategory = catData?.data.find(
-      (category) => category._id === categoryId,
-    );
-
-    if (selectedCategory) {
-      const subCategoryOptions = selectedCategory.subCategory.map((value) => (
-        <option key={value._id} value={value._id}>
-          {value.name}
-        </option>
-      ));
-      setSubCategories(subCategoryOptions);
-    }
-  };
-
   return (
-    <form
+    <> <form
       onSubmit={handleSubmit}
       className="w-full max-w-[2000px]
        flex flex-wrap justify-center 
        md:justify-between gap-x-2 
        gap-y-4 my-10 text-neutral-500"
     >
+    
       {/* Product Name */}
       <div className="mt-1 w-full lg:w-[49%]">
         <label
@@ -186,86 +195,47 @@ function AddProduct() {
       </div>
 
       {/* Category */}
-      <div className="mt-1 w-full lg:w-[49%]">
-        <label
-          htmlFor="category"
-          className="block mb-2 text font-medium text-neutral-500"
-        >
-          Category
-        </label>
-        <select
-          id="category"
-          disabled={!catData}
-          onChange={subCategoryHandle}
-          required={true}
-          className={`duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm focus:outline-none outline-none w-full text-neutral-600 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 ${
-            catData
-              ? 'hover:border-gray-600 focus:border-green border-gray-400'
-              : 'bg-neutral-100'
-          }`}
-        >
-          <option value="">Select category</option>
-          {catData?.data.map((value) => (
-            <option key={value._id} value={value._id}>
-              {value.name}
-            </option>
-          ))}
-        </select>
-      </div>
+      
+     <Select
+        name="Parentcategory"
+        type="text"
+        Label="Category"
+        require={true}
+        data={formData}
+        setData={setFormData}
+        value={formData.Parentcategory}
+        disable={catData ? false : true}
+        options={catData?.data}
+        select="Select category"
+      />
 
       {/* Subcategory */}
-      <div className="mt-1 w-full lg:w-[49%]">
-        <label
-          htmlFor="subcategory"
-          className="block mb-2 text font-medium text-neutral-500"
-        >
-          Subcategory
-        </label>
-        <select
-          id="subcategory"
-          onChange={handleFormData}
-          name="category"
-          disabled={!catData}
-          required={true}
-          className={`duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm focus:outline-none outline-none w-full text-neutral-600 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 ${
-            catData
-              ? 'hover:border-gray-600 focus:border-green border-gray-400'
-              : 'bg-neutral-100'
-          }`}
-        >
-          <option value="">Select subcategory</option>
-          {subCategories}
-        </select>
-      </div>
-
+      
+     <Select
+        name="category"
+        type="text"
+        Label="Subcategory"
+        require={true}
+        data={formData}
+        setData={setFormData}
+        value={formData.category}
+        disable={catData ? false : true}
+        options={subCat}
+        select="Select category"
+      />
       {/* City */}
-      <div className="mt-1 w-full lg:w-[49%]">
-        <label
-          htmlFor="city"
-          className="block mb-2 text font-medium text-neutral-500"
-        >
-          City
-        </label>
-        <select
-          id="city"
-          name="city"
-          onChange={handleFormData}
-          disabled={!cityData}
-          required={true}
-          className={`duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm focus:outline-none outline-none w-full text-neutral-600 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 ${
-            cityData
-              ? 'hover:border-gray-600 focus:border-green border-gray-400'
-              : 'bg-neutral-100'
-          }`}
-        >
-          <option value="">Select City</option>
-          {cityData?.data.map((value) => (
-            <option key={value._id} value={value._id}>
-              {value.name}
-            </option>
-          ))}
-        </select>
-      </div>
+     <Select
+        name="city"
+        type="text"
+        Label="City"
+        require={true}
+        data={formData}
+        setData={setFormData}
+        value={formData.city}
+        disable={catData ? false : true}
+        options={cityData?.data}
+        select="Select city"
+      />
 
       {/* Address */}
       <div className="mt-1 w-full lg:w-[49%]">
@@ -372,7 +342,18 @@ function AddProduct() {
       >
         Add Product
       </button>
-    </form>
+    </form><ToastContainer
+      position="top-center"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+    /></>
+   
   );
 }
 
