@@ -19,6 +19,20 @@ const userApi = api.injectEndpoints({
       },
       invalidatesTags: ['products'],
     }),
+
+    upload: builder.mutation({
+      query: (file, token) => {
+        const formData = new FormData();
+        formData.append('photo', file);
+        return {
+          url: 'api/user/upload',
+          method: 'POST',
+          headers: { Authorization: `Bearer ${token}` },
+          body: formData,
+        };
+      },
+      invalidatesTags: ['products'],
+    }),
     getUserProducts: builder.query({
       query: (id, token) => ({
         url: `api/product/user/${id}`,
@@ -38,15 +52,15 @@ const userApi = api.injectEndpoints({
       invalidatesTags: ['products'],
     }),
     updateUserInfo: builder.mutation({
-      query: (body, token, id) => ({
-        url: `api/user/${id}`,
+      query: (body, token) => ({
+        url: `api/user/update`,
         method: 'PATCH',
         headers: { Authorization: `Bearer ${token}` },
         body: body,
       }),
     }),
     updatePassword: builder.mutation({
-      query: (body, token, id) => ({
+      query: (body, token) => ({
         url: `api/user/`,
         method: 'PATCH',
         headers: { Authorization: `Bearer ${token}` },
@@ -59,6 +73,7 @@ const userApi = api.injectEndpoints({
 export const {
   useGetUserProductsQuery,
   useUploadsMutation,
+  useUploadMutation,
   useAddProductMutation,
   useUpdateUserInfoMutation,
   useUpdatePasswordMutation,

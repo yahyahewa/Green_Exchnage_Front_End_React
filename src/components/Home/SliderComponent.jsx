@@ -50,21 +50,20 @@ const SliderComponent = () => {
 
             return (
               <SwiperSlide key={_id}>
-                <div className="flex flex-col pb-4 justify-center items-center gap-2 pt-4">
+                <div className="flex flex-col mt-10 justify-center items-center gap-2 pt-4">
                   <img
-                    className="w-20 h-20 lg:w-28  lg:h-28 object-cover rounded-full shadow-sm lg:shadow-md "
+                    className="w-20 h-20 lg:w-28  capitalize lg:h-28 object-cover rounded-full shadow-sm lg:shadow-md "
                     src={`https://green-exchange-8qyw.onrender.com/uploads/users/${image}`}
                     alt={fullname}
-                    // onLoad={() =>
-                    //   console.log(`Image for ${fullname} has loaded`)
-                    // }
                     onError={() =>
                       console.error(`Failed to load image for ${fullname}`)
                     }
                   />
 
-                  <h3 className="font-bold text-gray-700 py-2">{fullname}</h3>
-                  <span className="border-2 border-jade-500 px-4 text-sm py-1 rounded-2xl text-jade-600 capitalize">
+                  <h3 className="font-bold text-gray-700 capitalize py-2">
+                    {fullname}
+                  </h3>
+                  <span className="px-4 py-1 capitalize text-md font-medium border-2 rounded border-jade-600  text-jade-600  ">
                     for donate
                   </span>
                   <img
