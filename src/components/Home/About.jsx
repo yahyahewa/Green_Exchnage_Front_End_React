@@ -8,7 +8,7 @@ const About = () => {
           <h1 className=" pb-4 leading-9 text-3xl sm:text-4xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r  from-neutral-800 to-neutral-400">
             About Us
           </h1>
-          <p className="lg:text-lg text-center font-normal text-md  xl:leading-8    text-neutral-500 ">
+          <p className="lg:text-lg text-center font-normal text-md  xl:leading-8    text-gray-500 ">
             We are a group of four individuals with a shared vision of using our
             skills and expertise to make a positive impact on the planet. At the
             core of our mission is the belief that technology can be a powerful

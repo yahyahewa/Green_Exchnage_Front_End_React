@@ -6,11 +6,14 @@ import { Navigate } from 'react-router';
 
 // eslint-disable-next-line react/prop-types
 function Sidebar({ setComponent }) {
-  const userData=localStorage.getItem('userData');
-  if(!userData) return <Navigate to="/login" replace />;
+  const userData = localStorage.getItem('userData');
+
+  if (!userData) return <Navigate to="/login" replace />;
   const [btnBg, setBtnBg] = useState(1);
   return (
-    <aside className={`w-full text-neutral-600 flex justify-around items-center text-xl`}>
+    <aside
+      className={`w-full text-neutral-600 flex justify-around items-center text-xl`}
+    >
       <h1
         className={`flex justify-center cursor-default border-b-2 font-medium text-sm md:text-base w-1/3 text-center py-2 ${
           btnBg === 1 ? 'bg-jade-50 border-jade-700 text-jade-700' : ``

@@ -2,6 +2,7 @@ import login from '../assets/images/login.svg';
 import LoginForm from '../components/login/LoginForm';
 
 function Login() {
+  window.scrollTo({ top: 0 });
   return (
     <>
       <div className="px-6 sm:px-12 lg:mx-26 md:px-20 pt-10 grid  md:grid-cols-2 items-start gap-20  min-h-screen">

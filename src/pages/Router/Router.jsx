@@ -21,7 +21,7 @@ const Router = () => {
       <Suspense
         fallback={
           <p className="h-screen flex justify-center items-center">
-            <Oval
+            {/* <Oval
               height={100}
               width={100}
               color="#4fa94d"
@@ -32,7 +32,7 @@ const Router = () => {
               secondaryColor="#4fa94d"
               strokeWidth={2}
               strokeWidthSecondary={2}
-            />
+            /> */}
           </p>
         }
       >
