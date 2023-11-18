@@ -63,8 +63,8 @@ const SliderComponent = () => {
                   <h3 className="font-bold text-gray-700 capitalize py-2">
                     {fullname}
                   </h3>
-                  <span className="px-4 py-1 capitalize text-md font-medium border-2 rounded border-jade-600  text-jade-600  ">
-                    for donate
+                  <span className="px-4 py-1 uppercase bg-white text-md font-medium border-b-2  border-jade-700  text-jade-600  ">
+                    Donated
                   </span>
                   <img
                     className="w-54 h-72 pt-4 hover:scale-110 relative hover:duration-500 duration-500 rounded sm:max-w-md object-cover"

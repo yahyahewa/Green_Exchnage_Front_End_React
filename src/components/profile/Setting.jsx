@@ -8,7 +8,7 @@ import {
 import PassowrdModal from './PassowrdModal';
 
 import { AiFillEdit } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 const Setting = () => {
   const userData = JSON.parse(localStorage.getItem('userData'));
   const [
@@ -22,6 +22,7 @@ const Setting = () => {
   const [isInputDisabled, setInputDisabled] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [image, setImage] = useState();
+
   const [userInfo, setUserInfo] = useState({
     id: userData?.data?._id,
     fullname: userData?.data?.fullname || '',
@@ -94,7 +95,7 @@ const Setting = () => {
         onSubmit={handleUserinfoUpdate}
         className="w-full  text-black  flex flex-col justify-center items-center disabled:bg-gray-700 rounded"
       >
-        <div className=" flex xsm:6/12 md:w-5/12  sm:8/12 lg:6/12 xl:8/12 flex-col justify-center items-center ">
+        <div className=" flex xsm:6/12 md:w-7/12  sm:8/12 lg:6/12 xl:8/12 flex-col justify-center items-center ">
           <div className=" flex justify-between w-full ">
             <h2 className="text-xl capitalize font-semibold leading-7 my-8 text-center  text-gray-900">
               My Profile
@@ -199,7 +200,7 @@ const Setting = () => {
           </div>
         </div>
 
-        <div className="flex mb-4 items-center justify-center      ">
+        <div className="flex xsm:6/12 md:w-7/12  px-4   sm:8/12 lg:6/12 xl:8/12  justify-center items-center flex-row  w-full">
           <button
             disabled={isInputDisabled}
             onClick={() => setShowModal(true)}
@@ -236,6 +237,31 @@ const Setting = () => {
           >
             save
           </button>
+          <div className="flex justify-evenly">
+            <Link
+              onClick={() => (
+                localStorage.removeItem('userData'), Navigate('/')
+              )}
+              className={`bg-red-500 text-white capitalize  font-bold  text-sm px-4 py-2 rounded    mr-1  ease-linear transition-all duration-150   ${
+                isInputDisabled ||
+                imageError ||
+                imageLoading ||
+                userError ||
+                userLoading
+                  ? 'opacity-40'
+                  : ''
+              }`}
+              disabled={
+                isInputDisabled ||
+                imageError ||
+                imageLoading ||
+                userError ||
+                userLoading
+              }
+            >
+              LogOut
+            </Link>
+          </div>
         </div>
       </form>
 
