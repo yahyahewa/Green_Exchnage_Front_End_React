@@ -109,11 +109,19 @@ function SignUpForm() {
                 className="focus:outline-none"
               />
               {showPassword ? (
-                <button className="mr-2" onClick={() => setShowPassword(false)}>
+                <button
+                  type="button"
+                  className="mr-2"
+                  onClick={() => setShowPassword(false)}
+                >
                   <AiOutlineEyeInvisible className="w-6 h-6 text-neutral-500" />
                 </button>
               ) : (
-                <button className="mr-2" onClick={() => setShowPassword(true)}>
+                <button
+                  type="button"
+                  className="mr-2"
+                  onClick={() => setShowPassword(true)}
+                >
                   <AiOutlineEye className="w-6 h-6 text-neutral-500" />
                 </button>
               )}
