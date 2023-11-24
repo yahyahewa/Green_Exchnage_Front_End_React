@@ -21,7 +21,20 @@ function AddProduct() {
   const [images, setImages] = useState([]);
   const [imageFile, setImageFile] = useState([]);
   const [canAdd, setCanAdd] = useState(false);
-
+  const [cityState, setCityState] = useState([]);
+  const [lang, setLang] = useState("kurdi");
+  useEffect(() => { setCityState([]);
+    cityData?.data.map((city) => {
+      city.name.map((name) => {
+        if(name.lang==lang){
+          setCityState((prev) => [...prev, {
+            name: name.name,
+            _id: city._id
+          }]);
+        }
+      });
+    })
+  }, [,lang,cityData]);
   // Retrieve user info from localStorage
   const userInfo = JSON.parse(localStorage.getItem('userData')) || {};
 
@@ -78,8 +91,6 @@ const handleImageUpload = (e) => {
       console.log(error)
     }
 };
-
-
   // Handle removing images
   const removeImage = (e) => {
     try {
@@ -117,20 +128,41 @@ const handleImageUpload = (e) => {
   }
 }, [imageData, imageError, imageLoading]);
 
-const [subCat, setSub] = useState([]);
+const [cat, setCat] = useState([]);
 useEffect(() => {
-  try {
-    catData?.data?.map((item) => {
-      if (item._id === formData?.Parentcategory) {
-        setSub(item.subCategory);
-      }
-    });
-  } catch (error) {
-    console.log(error);
-    // You can handle the error in a way that makes sense for your application
-  }
-}, [formData?.Parentcategory]);
-
+  setCat([]);
+    catData?.data.map((category) => {
+      category.name.map((name) => {
+        if(name.lang==lang){
+          setCat((prev) => [...prev, {
+            name: name.name,
+            _id: category._id
+          }]);
+        }
+      });
+    })
+}, [,lang,catData]);
+const [subCat, setSub] = useState([]);
+//handle subcategory
+useEffect(() => {
+  setSub([]);
+  catData?.data.map((category) => {
+    if(category._id==formData?.Parentcategory)
+    {
+      category.subCategory.map((name) => {
+       name.name.map((name) => {
+        if(name.lang==lang){
+          setSub((prev) => [...prev, {
+            name: name.name,
+            _id: name._id
+          }]);
+        }
+       })
+      })
+    }
+  })
+}, [formData?.Parentcategory,lang]);
+// console.log(subCat)
   // Handle adding product after image upload
   useEffect(() => {
    try{ if (
@@ -174,7 +206,15 @@ useEffect(() => {
     }
   };
   return (
-    <> <form
+    <> 
+    <select onChange={(e) => {setLang(e.target.value);
+   }
+    } className='fixed top-10 p-5 left-[50%] bg-red-500'>
+    <option value="kurdi">kurdi</option>
+    <option value="english">english</option>
+    <option value="arabic">arabic</option>
+    </select>
+    <form
       onSubmit={handleSubmit}
       className="w-full max-w-[2000px]
        flex flex-wrap justify-center 
@@ -231,7 +271,7 @@ useEffect(() => {
         setData={setFormData}
         value={formData.Parentcategory}
         disable={catData ? false : true}
-        options={catData?.data}
+        options={cat}
         select="Select category"
       />
 
@@ -259,7 +299,7 @@ useEffect(() => {
         setData={setFormData}
         value={formData.city}
         disable={catData ? false : true}
-        options={cityData?.data}
+        options={cityState}
         select="Select city"
       />
 

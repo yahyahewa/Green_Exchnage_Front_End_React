@@ -27,14 +27,14 @@ const SingleCard = () => {
 
   return (
     <div className="my-10 text-neutral-500 font-english">
-      <Banner
+      {/* <Banner
         search={search}
         setSearch={setSearch}
         category={category}
         setCategory={setCategory}
         setPage={setPage}
         searchHandler={() => searchHandler()}
-      />
+      /> */}
       {memoizedData.length == 0 ? (
         <p className="min-h-screen text-center justify-center w-full flex text-lg mt-10 font-semibold">
           No Product
@@ -65,7 +65,7 @@ const SingleCard = () => {
 
                         <span className=" flex items-center text-xs">
                           <IoLocationSharp className="mr-1 text-green " />
-                          {card?.city?.name}
+                          {/* {card?.city?.name} */}
                         </span>
                       </div>
                     </div>
