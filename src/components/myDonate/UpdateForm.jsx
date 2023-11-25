@@ -33,7 +33,7 @@ function UpdateForm({ userId, data, onClose }) {
       category: data?.category[0],
       city: data?.city,
       address: data.address,
-      images: [],
+      images: data.images,
       description: data.description,
     },
     validationSchema: Yup.object({

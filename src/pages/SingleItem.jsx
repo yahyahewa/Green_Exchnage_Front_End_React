@@ -5,11 +5,14 @@ import SingleItemSlider from '../components/SingleItemSlider/SingleItemSlider';
 import { useGetSingleProductQuery } from '../app/api/products';
 import { format } from 'date-fns';
 import { Oval } from 'react-loader-spinner';
+import { useSelector } from 'react-redux';
+// import { stat } from 'fs';
 
 function SingleItem() {
   const { id } = useParams();
   const { data: singleProduct, isLoading } = useGetSingleProductQuery({ id });
-
+  const language = useSelector((state) => state.language.language);
+  console.log('lan', language);
   if (isLoading) {
     return (
       <div className="h-screen flex justify-center items-center">
@@ -31,7 +34,11 @@ function SingleItem() {
   return (
     <>
       <section className="px-6 sm:px-12 lg:mx-26 md:px-20  text-neutral-500 w-full">
-        <div className="py-32 grid lg:grid-cols-2 gap-5 lg:gap-x-10 ">
+        <div
+          className={`${
+            language === 'en' ? '' : ''
+          }+ py-32 grid lg:grid-cols-2 gap-5 lg:gap-x-10 `}
+        >
           <div className="w-full">
             {singleProduct?.data?.images?.length > 1 ? (
               <SingleItemSlider images={singleProduct?.data?.images} />
@@ -47,9 +54,17 @@ function SingleItem() {
           </div>
 
           <div className="flex flex-col justify-between w-full">
-            <div className="flex flex-col sm:flex-row lg:flex-col justify-between sm:items-end lg:items-start">
-              <div>
-                <h1 className="font-semibold text-xl sm:text-2xl lg:text-3xl text-neutral-600 mt-5 sm:mt-0 whitespace-nowrap">
+            <div
+              className={`${
+                language === 'ku' ? '' : 'items-end'
+              } + flex flex-col sm:flex-row lg:flex-col justify-between sm:items-end lg:items-start`}
+            >
+              <div className="w-full">
+                <h1
+                  className={`${
+                    language === 'ku' ? 'flex-row-reverse' : ''
+                  } + w-full font-semibold text-xl flex  sm:text-2xl lg:text-3xl text-neutral-600 mt-5 sm:mt-0 `}
+                >
                   {singleProduct?.data?.name
                     ? singleProduct?.data?.name
                     : 'product name'}
@@ -57,16 +72,25 @@ function SingleItem() {
                 <p className="lg:text-xl font-semibold mt-2 py-2 px-4 bg-gray-50 w-fit">
                   {/* {singleProduct?.data?.category[0]?.name} */}
                 </p>
-                <h2 className="lg:text-xl font-semibold mt-2">
+                <h2
+                  className={`${
+                    language === 'ku' ? 'flex-row-reverse' : 'flex-row'
+                  }  flex  w-full lg:text-xl font-semibold mt-2`}
+                >
                   {singleProduct?.data?.owner?.fullname}
                 </h2>
               </div>
 
-              <div className=" flex mt-5 sm:mt-0 lg:mt-5">
-                <div className="flex items-center">
-                  <CgCalendarDates className="w-6 h-6" />{' '}
-                  <span className="ml-2">
-                    {' '}
+              <div
+                className={`${
+                  language === 'ku' ? 'flex-row-reverse' : 'flex-row'
+                } flex w-full mt-5 sm:mt-0 lg:mt-5`}
+              >
+                <div className={` flex items-center`}>
+                  <CgCalendarDates
+                    className={`${language === 'ku' ? '' : 'ml-2'} w-6 h-6`}
+                  />
+                  <span className={`${language === 'ku' ? '' : 'ml-2'} `}>
                     {format(
                       new Date(singleProduct?.data?.createdAt),
                       'yyyy-MM-dd',
@@ -74,25 +98,46 @@ function SingleItem() {
                   </span>
                 </div>
 
-                <div className="ml-5 flex sm:flex-col md:flex-row items-center">
-                  {' '}
+                <div
+                  className={`${
+                    language === 'ku' ? 'mr-2' : ''
+                  } ml-5 flex sm:flex-col md:flex-row items-center`}
+                >
                   <IoLocationSharp className="mr-2 w-5 h-5" />
                   {/* <span className="">{singleProduct?.data?.city?.name}</span> */}
-                  <span>-{singleProduct?.data?.address}</span>{' '}
+                  <span>{singleProduct?.data?.address}</span>{' '}
                 </div>
               </div>
             </div>
-            <p className="mt-5 lg:mt-2">
+            <p
+              className={`${
+                language === 'ku' ? 'flex-row-reverse' : ''
+              }  flex w-full mt-5 lg:mt-2`}
+            >
               {singleProduct?.data?.description.slice(0, 1000)}
             </p>
-            <div className="flex flex-col mt-5 lg:mt-0">
-              <div className="flex ">
-                <span>Owner Phone number :</span>
+            <div
+              className={`${
+                language === 'ku' ? 'flex-row-reverse' : ''
+              } w-full flex flex-col mt-5 lg:mt-0`}
+            >
+              <div
+                className={`${
+                  language === 'ku' ? 'flex-row-reverse ' : ''
+                } flex `}
+              >
+                <span>Owner Phone number </span>
+                <span>:</span>
 
                 <span> {singleProduct?.data?.phone}</span>
               </div>
-              <div className="flex ">
-                <span>employee phone number :</span>
+              <div
+                className={`${
+                  language === 'ku' ? 'flex-row-reverse ' : ''
+                } flex `}
+              >
+                <span>employee phone number</span>
+                <span> :</span>
                 <span>0770 111 11 11</span>
               </div>
             </div>

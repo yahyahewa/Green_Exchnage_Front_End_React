@@ -4,6 +4,7 @@ import { LINKS } from '../../assets/Data';
 import Logo from './Logo';
 import DropDownMenu from './DropDownMenu';
 import Account from './Account';
+import LanguageSelector from './LanguageSelector';
 
 // eslint-disable-next-line react/prop-types
 const NavbarComponent = ({ toggleDropDown }) => {
@@ -19,7 +20,7 @@ const NavbarComponent = ({ toggleDropDown }) => {
       </div>
 
       <div className=" hidden md:block">
-        <div className="flex items-center sm:gap-8 md:gap-10 lg:gap-24 2xl:gap-32">
+        <div className="flex items-center justify-start sm:gap-8 md:gap-10 ">
           <div
             className="flex flex-row justify-around gap-5 md:gap-8 lg:gap-12 font-medium
            text-neutral-700 mt-1"
@@ -30,6 +31,7 @@ const NavbarComponent = ({ toggleDropDown }) => {
               </NavItem>
             ))}
           </div>
+          <LanguageSelector />
           <Account />
         </div>
       </div>
