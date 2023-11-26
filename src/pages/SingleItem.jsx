@@ -126,7 +126,11 @@ function SingleItem() {
                   language === 'ku' ? 'flex-row-reverse ' : ''
                 } flex `}
               >
-                <span>Owner Phone number </span>
+                <span>
+                  {language === 'ku'
+                    ? 'ژمارەی مۆبایلی خاوەن'
+                    : 'Owner Phone number'}{' '}
+                </span>
                 <span>:</span>
 
                 <span> {singleProduct?.data?.phone}</span>
@@ -136,7 +140,12 @@ function SingleItem() {
                   language === 'ku' ? 'flex-row-reverse ' : ''
                 } flex `}
               >
-                <span>employee phone number</span>
+                <span>
+                  {language === 'ku'
+                    ? 'ژمارەی مۆبایلی ئەدمین'
+                    : 'employee phone number'}
+                  {/* employee phone number */}
+                </span>
                 <span> :</span>
                 <span>0770 111 11 11</span>
               </div>

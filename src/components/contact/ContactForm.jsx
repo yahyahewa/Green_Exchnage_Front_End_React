@@ -3,9 +3,11 @@ import * as Yup from 'yup';
 import { Formik, Form, useFormik } from 'formik';
 import InputField from '../InputField/InputField';
 import { useContactMutation } from '../../app/api/contact';
+import { useSelector } from 'react-redux';
 function ContactForm() {
   const [waitingSend, setWaitingSend] = useState('Send');
   const [laodingSend, setLoadingSend] = useState(false);
+  const language = useSelector((state) => state.language.language);
   const [send, { data, isLoading, isError }] = useContactMutation();
   const formik = useFormik({
     initialValues: {
@@ -41,13 +43,25 @@ function ContactForm() {
   return (
     <Formik>
       <div className="w-full flex  flex-col items-center justify-center sm:mt-12">
-        <p className="font-semibold text-lg text-gray-800 ">Get In Touch </p>
+        <p className="font-semibold text-lg text-gray-800 ">
+          {language === 'ku' ? 'لە پەییوەندییان ئەبین ' : 'Get In Touch'}{' '}
+        </p>
         <Form
           onSubmit={formik.handleSubmit}
           className="grid grid-cols-1 mb-10 w-full lg:w-fit"
         >
-          <div className="flex flex-col mt-5">
-            <label className="text-gray-800 font-english">Full name</label>
+          <div
+            className={`${
+              language === 'ku' ? '' : ''
+            } + flex flex-col w-full mt-5`}
+          >
+            <label
+              className={`${
+                language === 'ku' ? 'justify-end ' : ''
+              } + flex text-gray-800 w-full font-english`}
+            >
+              {language === 'ku' ? 'ناوی سیانی ' : 'Full name'}
+            </label>
             <InputField
               name="fullname"
               placeholder="your name"
@@ -64,7 +78,13 @@ function ContactForm() {
           </div>
 
           <div className="flex flex-col mt-4">
-            <label className="text-gray-800 font-english">Email</label>
+            <label
+              className={`${
+                language === 'ku' ? 'justify-end' : ''
+              } + text-gray-800 flex font-english`}
+            >
+              {language === 'ku' ? 'ئیمەیل' : 'Email'}
+            </label>
             <InputField
               name="email"
               placeholder="Example@gmail.com"
@@ -80,8 +100,15 @@ function ContactForm() {
             ) : null}
           </div>
 
-          <div className="mt-4 flex flex-col">
-            <label className="text-gray-800 font-english">Message</label>
+          <div className="mt-4 flex w-full  flex-col">
+            <label
+              className={`${
+                language === 'ku' ? 'justify-end' : ''
+              } + text-gray-800 w-full flex font-english`}
+            >
+              {language === 'ku' ? 'نامە' : 'Message'}
+              {/* Message */}
+            </label>
             <InputField
               name="message"
               placeholder="Write your message"
@@ -112,7 +139,7 @@ function ContactForm() {
                   : ''
               } `}
             >
-              {waitingSend}
+              {language === 'ku' ? 'ناردن' : waitingSend}
             </button>
           </div>
         </Form>
