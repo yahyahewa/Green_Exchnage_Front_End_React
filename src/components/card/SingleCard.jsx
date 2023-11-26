@@ -7,17 +7,19 @@ import { useMemo, useState } from 'react';
 import Banner from '../FilterAndSearch/Banner';
 import SkeletonCards from './SkeletonCards';
 import { useCallback } from 'react';
+import { useSelector } from 'react-redux';
 
 const SingleCard = () => {
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('');
   const [page, setPage] = useState(1);
+  const language = useSelector((state) => state.language.language);
   const { data: allProduct, isLoading } = useGetProductsQuery({
     search,
     page,
     category,
   });
-
+  console.log('all product', allProduct);
   const searchHandler = useCallback((searchValue) => {
     setSearch(searchValue);
   }, []);
@@ -37,7 +39,7 @@ const SingleCard = () => {
       /> */}
       {memoizedData.length == 0 ? (
         <p className="min-h-screen text-center justify-center w-full flex text-lg mt-10 font-semibold">
-          No Product
+          {language === 'ku' ? 'هیچ بەرهەمێک نییە' : 'No Product'}
         </p>
       ) : (
         <div className="gap-8 lg:grid px-4 lg:grid-cols-2 xl:grid-cols-3 md:grid xsm:grid-cols-1 min-h-screen">
@@ -65,7 +67,7 @@ const SingleCard = () => {
 
                         <span className=" flex items-center text-xs">
                           <IoLocationSharp className="mr-1 text-green " />
-                          {/* {card?.city?.name} */}
+                          {card?.city?.name?.name}
                         </span>
                       </div>
                     </div>
