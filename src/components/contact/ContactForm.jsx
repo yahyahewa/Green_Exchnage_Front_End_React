@@ -44,7 +44,7 @@ function ContactForm() {
     <Formik>
       <div className="w-full flex  flex-col items-center justify-center sm:mt-12">
         <p className="font-semibold text-lg text-gray-800 ">
-          {language === 'ku' ? 'لە پەییوەندییان ئەبین ' : 'Get In Touch'}
+          {language === 'kurdi' ? 'لە پەییوەندییان ئەبین ' : 'Get In Touch'}
         </p>
         <Form
           onSubmit={formik.handleSubmit}
@@ -52,19 +52,20 @@ function ContactForm() {
         >
           <div
             className={`${
-              language === 'ku' ? '' : ''
+              language === 'kurdi' ? '' : ''
             } + flex flex-col w-full mt-5`}
           >
             <label
               className={`${
-                language === 'ku' ? 'justify-end ' : ''
+                language === 'kurdi' ? 'justify-end ' : ''
               } + flex text-gray-800 w-full font-english`}
             >
-              {language === 'ku' ? 'ناوی سیانی ' : 'Full name'}
+              {language === 'kurdi' ? 'ناوی سیانی ' : 'Full name'}
             </label>
             <InputField
               name="fullname"
-              placeholder="your name"
+              style={language === 'kurdi' ? { textAlign: 'right' } : {}}
+              placeholder={language === 'kurdi' ? ' ناوی سیانی' : 'your name'}
               id="fullname"
               value={formik.values.fullname}
               onBlur={formik.handleBlur}
@@ -80,14 +81,17 @@ function ContactForm() {
           <div className="flex flex-col mt-4">
             <label
               className={`${
-                language === 'ku' ? 'justify-end' : ''
+                language === 'kurdi' ? 'justify-end' : ''
               } + text-gray-800 flex font-english`}
             >
-              {language === 'ku' ? 'ئیمەیل' : 'Email'}
+              {language === 'kurdi' ? 'ئیمەیل' : 'Email'}
             </label>
             <InputField
+              style={language === 'kurdi' ? { textAlign: 'right' } : {}}
               name="email"
-              placeholder="Example@gmail.com"
+              placeholder={
+                language === 'kurdi' ? ' ئیمەیل' : 'Example@gmail.com'
+              }
               id="email"
               value={formik.values.email}
               onBlur={formik.handleBlur}
@@ -103,15 +107,17 @@ function ContactForm() {
           <div className="mt-4 flex w-full  flex-col">
             <label
               className={`${
-                language === 'ku' ? 'justify-end' : ''
+                language === 'kurdi' ? 'justify-end' : ''
               } + text-gray-800 w-full flex font-english`}
             >
-              {language === 'ku' ? 'نامە' : 'Message'}
-              {/* Message */}
+              {language === 'kurdi' ? 'نامە' : 'Message'}
             </label>
             <InputField
+              style={language === 'kurdi' ? { textAlign: 'right' } : {}}
               name="message"
-              placeholder="Write your message"
+              placeholder={
+                language === 'kurdi' ? 'پەیامەکەت بنووسە' : 'Write your message'
+              }
               id="message"
               value={formik.values.message}
               onBlur={formik.handleBlur}
@@ -139,7 +145,7 @@ function ContactForm() {
                   : ''
               } `}
             >
-              {language === 'ku' ? 'ناردن' : waitingSend}
+              {language === 'kurdi' ? 'ناردن' : waitingSend}
             </button>
           </div>
         </Form>

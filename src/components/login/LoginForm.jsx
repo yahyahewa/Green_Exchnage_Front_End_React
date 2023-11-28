@@ -49,7 +49,7 @@ function LoginForm() {
     <Formik>
       <div className="w-full flex  flex-col items-center justify-center md:mt-28 mt-32 sm:mt-0">
         <p className="font-semibold text-lg text-gray-800 ">
-          {language === 'ku' ? 'چوونە ژوورەوە' : 'Login'}
+          {language === 'kurdi' ? 'چوونە ژوورەوە' : 'Login'}
           {/* {language === 'ku' ? '' : 'Log In'}{' '} */}
         </p>
         <Form
@@ -59,21 +59,21 @@ function LoginForm() {
           <div className="flex flex-col ">
             <label
               className={`${
-                language === 'ku' ? 'justify-end' : ''
+                language === 'kurdi' ? 'justify-end' : ''
               } + text-gray-800 flex font-english`}
             >
-              {language === 'ku' ? 'ئیمەیل' : 'Email'}
+              {language === 'kurdi' ? 'ئیمەیل' : 'Email'}
             </label>
             <InputField
               name="email"
               placeholder={`${
-                language === 'ku' ? 'ئیمەیل' : 'Example@gmail.com'
+                language === 'kurdi' ? 'ئیمەیل' : 'Example@gmail.com'
               }`}
               id="email"
               value={formik.values.email}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              style={language === 'ku' ? { textAlign: 'right' } : {}}
+              style={language === 'kurdi' ? { textAlign: 'right' } : {}}
             />
             {formik.touched.email && formik.errors.email ? (
               <span className="text-red-400 text-sm">
@@ -85,14 +85,14 @@ function LoginForm() {
           <div className="mt-4 flex flex-col">
             <label
               className={`${
-                language === 'ku' ? 'justify-end' : ''
+                language === 'kurdi' ? 'justify-end' : ''
               } + text-gray-800 flex w-full font-english`}
             >
-              {language === 'ku' ? 'وشەی تێپەر' : 'Password'}
+              {language === 'kurdi' ? 'وشەی تێپەر' : 'Password'}
             </label>
             <div
               className={`${
-                language === 'ku' ? 'flex-row-reverse' : ''
+                language === 'kurdi' ? 'flex-row-reverse' : ''
               } + w-full lg:w-80 2xl:w-96  pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green 
       mt-2 px-1 py-2 hover:border-gray-600 duration-500 hover:duration-500  focus:duration-500 flex justify-between items-center`}
             >
@@ -100,12 +100,12 @@ function LoginForm() {
               <input
                 type={!showPassword ? 'password' : 'text'}
                 name="password"
-                placeholder={language === 'ku' ? 'وشەی تێپەر' : 'password'}
+                placeholder={language === 'kurdi' ? 'وشەی تێپەر' : 'password'}
                 id="password"
                 value={formik.values.password}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                style={language === 'ku' ? { textAlign: 'right' } : {}}
+                style={language === 'kurdi' ? { textAlign: 'right' } : {}}
                 className="focus:outline-none w-full flex"
               />
               {showPassword ? (
@@ -136,10 +136,10 @@ function LoginForm() {
 
           <p
             className={`${
-              language === 'ku' ? ' flex-row-reverse' : ''
+              language === 'kurdi' ? ' flex-row-reverse' : ''
             } + text-gray-800 flex w-full text-sm mt-2`}
           >
-            {language === 'ku'
+            {language === 'kurdi'
               ? ' هەژمار دروست کردن؟'
               : 'Dont have an account?'}
             <Link to="/signup" className="text-blue-500 ">
@@ -152,7 +152,7 @@ function LoginForm() {
               disabled={isLoading}
               className="text-white bg-green py-2 w-full  rounded hover:bg-opacity-80 hover:duration-500 duration-500"
             >
-              {language === 'ku' ? 'چوونە ژوورەوە' : 'Login'}
+              {language === 'kurdi' ? 'چوونە ژوورەوە' : 'Login'}
             </button>
             <div className="text-red-400 text-sm mt-1">{thereUSer}</div>
           </div>
