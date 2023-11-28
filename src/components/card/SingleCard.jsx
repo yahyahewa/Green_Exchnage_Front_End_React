@@ -29,17 +29,17 @@ const SingleCard = () => {
 
   return (
     <div className="my-10 text-neutral-500 font-english">
-      {/* <Banner
+      <Banner
         search={search}
         setSearch={setSearch}
         category={category}
         setCategory={setCategory}
         setPage={setPage}
         searchHandler={() => searchHandler()}
-      /> */}
+      />
       {memoizedData.length == 0 ? (
         <p className="min-h-screen text-center justify-center w-full flex text-lg mt-10 font-semibold">
-          {language === 'ku' ? 'هیچ بەرهەمێک نییە' : 'No Product'}
+          {language === 'kurdi' ? 'هیچ بەرهەمێک نییە' : 'No Product'}
         </p>
       ) : (
         <div className="gap-8 lg:grid px-4 lg:grid-cols-2 xl:grid-cols-3 md:grid xsm:grid-cols-1 min-h-screen">
@@ -67,7 +67,9 @@ const SingleCard = () => {
 
                         <span className=" flex items-center text-xs">
                           <IoLocationSharp className="mr-1 text-green " />
-                          {card?.city?.name?.name}
+                          {language === 'kurdi'
+                            ? `${card?.city?.name[2]?.name}`
+                            : `${card?.city?.name[0]?.name}`}
                         </span>
                       </div>
                     </div>

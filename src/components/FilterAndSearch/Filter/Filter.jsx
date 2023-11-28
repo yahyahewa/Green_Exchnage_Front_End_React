@@ -1,68 +1,60 @@
 /* eslint-disable react/prop-types */
-
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useGetCategorySubCategoryQuery } from '../../../app/api/category';
 import { useRef } from 'react';
-import { NavLink } from 'react-router-dom';
-import { useCallback } from 'react';
+import { useSelector } from 'react-redux';
 
 const Filter = ({ category, setCategory, setPage }) => {
+  const language = useSelector((state) => state.language.language);
   const { data: allCategory } = useGetCategorySubCategoryQuery();
   const containerRef = useRef(null);
-
-  const [dataToMap, setDataToMap] = useState(allCategory?.data);
   const [activeCategory, setActiveCategory] = useState('');
-  const [showLeftArow, setShowLeftArow] = useState(false);
-  const [subcategoryy, setSubCategoryy] = useState();
+  console.log('active category ', activeCategory);
+  const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [scrollAmount] = useState(500);
-  const handleCategoryClick = useCallback(
-    (categoryId) => {
-      if (categoryId === '') {
-        setCategory('');
-        setActiveCategory('');
-      } else {
-        setActiveCategory(categoryId?._id);
-        if (categoryId?.subCategory) {
-          let id = [];
-          let cat = categoryId?.subCategory;
-          setSubCategoryy(cat);
-          for (let i = 0; i < cat?.length; i++) {
-            id.push(cat[i]._id);
-          }
+  const [currentItems, setCurrentItems] = useState(allCategory?.data);
 
-          setCategory(id);
-          setPage(1);
+  const handleCategoryClick = useCallback(
+    (clickedCategory) => {
+      if (clickedCategory === activeCategory) {
+        setCurrentItems(allCategory?.data);
+        setActiveCategory('');
+        setCategory('');
+      } else {
+        if (clickedCategory?.subCategory) {
+          setActiveCategory(clickedCategory._id);
+          setCurrentItems(clickedCategory?.subCategory);
+          setCategory(clickedCategory.subCategory.map((subCat) => subCat._id));
         } else {
-          setCategory(categoryId._id);
-          setPage(1);
+          setActiveCategory(clickedCategory._id);
+          setCategory([clickedCategory._id]);
         }
+        setPage(1);
       }
     },
-    [setCategory],
+    [setCategory, setPage],
   );
 
   const handleScroll = (direction) => {
     if (containerRef?.current?.scrollLeft >= 500 || direction === 1) {
-      setShowLeftArow(true);
+      setShowLeftArrow(true);
     } else {
-      setShowLeftArow(false);
+      setShowLeftArrow(false);
     }
-    //   const scrollAmount = containerRef.current.offsetWidth;
     containerRef.current.scrollLeft += direction * scrollAmount;
   };
+
   useEffect(() => {
-    if (category !== '') {
-      setDataToMap(subcategoryy);
-    } else {
-      setDataToMap(allCategory?.data);
+    if (category === '') {
+      setCurrentItems(allCategory?.data);
     }
-  }, [dataToMap, setDataToMap, category, subcategoryy, allCategory]);
+  }, [activeCategory, allCategory, currentItems]);
   return (
     <div className="flex items-center relative px-2 lg:px-0">
-      {showLeftArow === true && (
+      {showLeftArrow && (
         <div
           className={`${
-            showLeftArow === true ? 'flex' : 'hidden'
+            showLeftArrow === true ? 'flex' : 'hidden'
           }+ px-2 lg:px-0 justify-end bg-gradient-to-r h-full from-white w-14 absolute left-0  z-20`}
         >
           <button
@@ -80,26 +72,25 @@ const Filter = ({ category, setCategory, setPage }) => {
             style={{ transform: 'translateX(0)' }}
             ref={containerRef}
           >
-            <NavLink
-              key={1}
-              className={`py-2 px-4 mx-2 rounded focus:outline-none whitespace-nowrap h-fit ${
+            <button
+              className={`py-2 px-4 mx-2 rounded focus:outline-none whitespace-nowrap h-fit  ${
                 '' === activeCategory ? 'bg-green text-white' : 'bg-gray-50'
               }`}
               onClick={() => handleCategoryClick('')}
             >
               All
-            </NavLink>
-            {dataToMap?.map((category) => (
+            </button>
+            {currentItems?.map((item) => (
               <button
-                key={category._id}
+                key={item._id}
                 className={`py-2 px-4 mx-2 rounded focus:outline-none whitespace-nowrap h-fit ${
-                  category._id === activeCategory
+                  item._id === activeCategory
                     ? 'bg-green text-white'
                     : 'bg-gray-50'
                 }`}
-                onClick={() => handleCategoryClick(category)}
+                onClick={() => handleCategoryClick(item)}
               >
-                {category.name}
+                {item.name.find((name) => name.lang === language)?.name}
               </button>
             ))}
           </div>

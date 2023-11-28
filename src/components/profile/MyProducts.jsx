@@ -25,6 +25,7 @@ function MyProducts() {
     error,
     isLoading,
   } = useGetUserProductsQuery(id, token);
+  console.log(userProducts);
   const [
     deleteProduct,
     { isLoading: deleteLoading, isSuccess: deleteSuccess },
