@@ -150,10 +150,10 @@ useEffect(() => {
     if(category._id==formData?.Parentcategory)
     {
       category.subCategory.map((name) => {
-       name.name.map((name) => {
-        if(name.lang==lang){
+       name.name.map((value) => {
+        if(value.lang==lang){
           setSub((prev) => [...prev, {
-            name: name.name,
+            name: value.name,
             _id: name._id
           }]);
         }
@@ -162,7 +162,6 @@ useEffect(() => {
     }
   })
 }, [formData?.Parentcategory,lang]);
-// console.log(subCat)
   // Handle adding product after image upload
   useEffect(() => {
    try{ if (
