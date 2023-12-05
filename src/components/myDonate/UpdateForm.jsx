@@ -9,6 +9,7 @@ import { useGetCityQuery } from '../../app/api/city';
 import { useAddProductUpdateMutation } from '../../app/api/products';
 import { ToastContainer, toast } from 'react-toastify';
 import { useUploadsMutation } from '../../app/api/profile';
+import { useSelector } from 'react-redux';
 function UpdateForm({ userId, data, onClose }) {
   console.log(data);
   const [uploadedImage, setUploadedImage] = useState(null);
@@ -17,6 +18,7 @@ function UpdateForm({ userId, data, onClose }) {
   const notify = () => toast('Update product!');
   const { data: category } = useGetCategorySubCategoryQuery();
   const { data: city } = useGetCityQuery();
+  const language = useSelector((state) => state.language.language);
   const [
     uploadImage,
     { data: imageData, isSuccess: imageSuccess, isLoading: imageLoading },
