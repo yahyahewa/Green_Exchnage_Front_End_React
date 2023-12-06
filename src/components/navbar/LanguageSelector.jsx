@@ -20,8 +20,8 @@ function LanguageSelector() {
         value={language}
         onChange={(e) => handleChangeLanguage(e.target.value)}
       >
-        <option value="en">English</option>
-        <option value="ku">Kurdish</option>
+        <option value="english">English</option>
+        <option value="kurdi">Kurdish</option>
       </select>
     </div>
   );

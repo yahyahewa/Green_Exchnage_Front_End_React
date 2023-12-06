@@ -19,12 +19,15 @@ function MyProducts() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const notify = () => toast('Delete product!');
   const modal = useSelector((state) => state.modal.modal);
+  const language = useSelector((state) => state.language.language);
+  console.log(language);
   const dispatch = useDispatch();
   const {
     data: userProducts,
     error,
     isLoading,
   } = useGetUserProductsQuery(id, token);
+  console.log(userProducts);
   const [
     deleteProduct,
     { isLoading: deleteLoading, isSuccess: deleteSuccess },

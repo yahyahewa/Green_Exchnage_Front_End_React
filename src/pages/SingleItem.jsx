@@ -56,13 +56,13 @@ function SingleItem() {
           <div className="flex flex-col justify-between w-full">
             <div
               className={`${
-                language === 'ku' ? '' : 'items-end'
+                language === 'kurdi' ? '' : 'items-end'
               } + flex flex-col sm:flex-row lg:flex-col justify-between sm:items-end lg:items-start`}
             >
               <div className="w-full">
                 <h1
                   className={`${
-                    language === 'ku' ? 'flex-row-reverse' : ''
+                    language === 'kurdi' ? 'flex-row-reverse' : ''
                   } + w-full font-semibold text-xl flex  sm:text-2xl lg:text-3xl text-neutral-600 mt-5 sm:mt-0 `}
                 >
                   {singleProduct?.data?.name
@@ -74,7 +74,7 @@ function SingleItem() {
                 </p>
                 <h2
                   className={`${
-                    language === 'ku' ? 'flex-row-reverse' : 'flex-row'
+                    language === 'kurdi' ? 'flex-row-reverse' : 'flex-row'
                   }  flex  w-full lg:text-xl font-semibold mt-2`}
                 >
                   {singleProduct?.data?.owner?.fullname}
@@ -83,14 +83,14 @@ function SingleItem() {
 
               <div
                 className={`${
-                  language === 'ku' ? 'flex-row-reverse' : 'flex-row'
+                  language === 'kurdi' ? 'flex-row-reverse' : 'flex-row'
                 } flex w-full mt-5 sm:mt-0 lg:mt-5`}
               >
                 <div className={` flex items-center`}>
                   <CgCalendarDates
                     className={`${language === 'ku' ? '' : 'ml-2'} w-6 h-6`}
                   />
-                  <span className={`${language === 'ku' ? '' : 'ml-2'} `}>
+                  <span className={`${language === 'kurdi' ? '' : 'ml-2'} `}>
                     {format(
                       new Date(singleProduct?.data?.createdAt),
                       'yyyy-MM-dd',
@@ -100,7 +100,7 @@ function SingleItem() {
 
                 <div
                   className={`${
-                    language === 'ku' ? 'mr-2' : ''
+                    language === 'kurdi' ? 'mr-2' : ''
                   } ml-5 flex sm:flex-col md:flex-row items-center`}
                 >
                   <IoLocationSharp className="mr-2 w-5 h-5" />
@@ -111,32 +111,41 @@ function SingleItem() {
             </div>
             <p
               className={`${
-                language === 'ku' ? 'flex-row-reverse' : ''
+                language === 'kurdi' ? 'flex-row-reverse' : ''
               }  flex w-full mt-5 lg:mt-2`}
             >
               {singleProduct?.data?.description.slice(0, 1000)}
             </p>
             <div
               className={`${
-                language === 'ku' ? 'flex-row-reverse' : ''
+                language === 'kurdi' ? 'flex-row-reverse' : ''
               } w-full flex flex-col mt-5 lg:mt-0`}
             >
               <div
                 className={`${
-                  language === 'ku' ? 'flex-row-reverse ' : ''
+                  language === 'kurdi' ? 'flex-row-reverse ' : ''
                 } flex `}
               >
-                <span>Owner Phone number </span>
+                <span>
+                  {language === 'kurdi'
+                    ? 'ژمارەی مۆبایلی خاوەن'
+                    : 'Owner Phone number'}{' '}
+                </span>
                 <span>:</span>
 
                 <span> {singleProduct?.data?.phone}</span>
               </div>
               <div
                 className={`${
-                  language === 'ku' ? 'flex-row-reverse ' : ''
+                  language === 'kurdi' ? 'flex-row-reverse ' : ''
                 } flex `}
               >
-                <span>employee phone number</span>
+                <span>
+                  {language === 'kurdi'
+                    ? 'ژمارەی مۆبایلی ئەدمین'
+                    : 'employee phone number'}
+                  {/* employee phone number */}
+                </span>
                 <span> :</span>
                 <span>0770 111 11 11</span>
               </div>

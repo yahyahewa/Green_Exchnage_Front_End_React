@@ -1,8 +1,18 @@
 import { Field } from 'formik';
 // eslint-disable-next-line react/prop-types
-function InputField({ name, placeholder, value, onChange, id, type, accept }) {
+function InputField({
+  name,
+  placeholder,
+  value,
+  onChange,
+  id,
+  type,
+  accept,
+  style,
+}) {
   return (
     <Field
+      style={style}
       placeholder={placeholder}
       name={name}
       value={value}
