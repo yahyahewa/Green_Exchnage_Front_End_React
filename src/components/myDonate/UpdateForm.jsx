@@ -11,10 +11,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useUploadsMutation } from '../../app/api/profile';
 import { useSelector } from 'react-redux';
 function UpdateForm({ userId, data, onClose }) {
-  console.log(data);
   const [uploadedImage, setUploadedImage] = useState(null);
-  console.log('uploaded image', uploadedImage);
-  const [subCategories, setSubCategories] = useState([]);
+  const [activeCategory, setActiveCategory] = useState('');
+  const [cityState, setCityState] = useState([]);
   const notify = () => toast('Update product!');
   const { data: category } = useGetCategorySubCategoryQuery();
   const { data: city } = useGetCityQuery();
@@ -23,7 +22,6 @@ function UpdateForm({ userId, data, onClose }) {
     uploadImage,
     { data: imageData, isSuccess: imageSuccess, isLoading: imageLoading },
   ] = useUploadsMutation();
-  console.log(imageData, imageSuccess, imageLoading, 'image');
   const [updateProduct, { isSuccess: updateSuccess }] =
     useAddProductUpdateMutation();
   const formik = useFormik({
@@ -81,8 +79,8 @@ function UpdateForm({ userId, data, onClose }) {
     const result = await uploadImage(selectedImages);
 
     if (result) {
-      formik.setFieldValue('images', result?.data?.data); // Update formik values with new images
-      setUploadedImage(result?.data?.data[0]); // Set the newly uploaded image for preview
+      formik.setFieldValue('images', result?.data?.data);
+      setUploadedImage(result?.data?.data[0]);
     }
   };
   const subCategoryHandle = (e) => {
@@ -92,12 +90,7 @@ function UpdateForm({ userId, data, onClose }) {
     );
 
     if (selectedCategory) {
-      const subCategoryOptions = selectedCategory.subCategory.map((value) => (
-        <option key={value._id} value={value._id}>
-          {value.name}
-        </option>
-      ));
-      setSubCategories(subCategoryOptions);
+      setActiveCategory(selectedCategory);
     }
   };
   if (updateSuccess) {
@@ -108,8 +101,62 @@ function UpdateForm({ userId, data, onClose }) {
       toast.success('update product successfully!');
     }
   }, [updateSuccess]);
-
+  const [cat, setCat] = useState([]);
+  useEffect(() => {
+    setCat([]);
+    category?.data.map((category) => {
+      category.name.map((name) => {
+        if (name.lang == language) {
+          setCat((prev) => [
+            ...prev,
+            {
+              name: name.name,
+              _id: category._id,
+            },
+          ]);
+        }
+      });
+    });
+  }, [, language, category]);
+  const [subCat, setSub] = useState([]);
+  useEffect(() => {
+    setSub([]);
+    category?.data.map((category) => {
+      if (category._id == activeCategory._id) {
+        category.subCategory.map((name) => {
+          name.name.map((value) => {
+            if (value.lang == language) {
+              setSub((prev) => [
+                ...prev,
+                {
+                  name: value.name,
+                  _id: name._id,
+                },
+              ]);
+            }
+          });
+        });
+      }
+    });
+  }, [cat, language, setSub, activeCategory]);
+  useEffect(() => {
+    setCityState([]);
+    city?.data.map((city) => {
+      city.name.map((name) => {
+        if (name.lang == language) {
+          setCityState((prev) => [
+            ...prev,
+            {
+              name: name.name,
+              _id: city._id,
+            },
+          ]);
+        }
+      });
+    });
+  }, [, language, city]);
   return (
+    // <></>
     <Formik>
       <Form onSubmit={formik.handleSubmit}>
         <ToastContainer
@@ -125,25 +172,35 @@ function UpdateForm({ userId, data, onClose }) {
           theme="light"
         />
         <div
-          className="w-full flex flex-col items-center fixed top-24 left-0 sm:left-1/4 sm:w-2/4 lg:left-1/3 h-2/3  lg:w-1/3 
+          className="w-full flex flex-col items-center fixed top-24 left-0 sm:left-1/4 sm:w-2/4 lg:left-1/3 h-2/3  lg:w-1/3
         overflow-y-auto shadow-lg  pb-10 bg-white px-2"
         >
-          <div className="mt-5 mb-5  w-full flex justify-between px-2">
-            <p className="flex text-neutral-600 font-semibold m-0 p-0">
-              Update Product
+          <div
+            className={`${
+              language === 'kurdi' ? 'flex-row-reverse' : ''
+            } mt-5 mb-5  w-full flex justify-between px-2`}
+          >
+            <p className={`flex text-neutral-600 font-semibold m-0 p-0`}>
+              {language === 'kurdi' ? 'نوێکردنەوە' : 'Update Product'}
             </p>
             <button type="button" onClick={() => onClose(null)}>
               <IoIosCloseCircleOutline className="w-7 h-7 text-neutral-600" />
             </button>
           </div>
 
-          <div className="flex  mt-3 flex-col ">
+          <div className="flex  mt-3 flex-col  w-11/12 ">
             {/* /////////name////// */}
-            <div className="flex flex-col">
-              <label htmlFor="name" className="text-neutral-600 ">
-                Product name:
+            <div className="flex flex-col w-full">
+              <label
+                htmlFor="name"
+                className={`${
+                  language === 'kurdi' ? 'flex-row-reverse' : 'flex'
+                } + text-neutral-600 flex w-full`}
+              >
+                {language === 'kurdi' ? 'ناوی بەرهەم' : 'Product name:'}
               </label>
               <input
+                style={language === 'kurdi' ? { textAlign: 'right' } : {}}
                 className=" text-neutral-500 w-full pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green
                 mt-2 px-1 py-2 hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500"
                 name="name"
@@ -158,12 +215,18 @@ function UpdateForm({ userId, data, onClose }) {
               )}
             </div>
             {/* ///////phone////////// */}
-            <div className="mt-2 flex flex-col">
+            <div className="mt-2 flex flex-col w-full">
               {' '}
-              <label htmlFor="phone" className="text-neutral-600 ">
-                Phone Number:
+              <label
+                htmlFor="phone"
+                className={`${
+                  language === 'kurdi' ? 'flex-row-reverse' : 'flex'
+                } + text-neutral-600 flex w-full`}
+              >
+                {language === 'kurdi' ? 'ژمارەی مۆبایل' : ' Phone Number:'}
               </label>
               <input
+                style={language === 'kurdi' ? { textAlign: 'right' } : {}}
                 className=" text-neutral-500 w-full pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green
                 mt-2 px-1 py-2 hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500"
                 name="phone"
@@ -178,12 +241,18 @@ function UpdateForm({ userId, data, onClose }) {
               )}
             </div>
             {/* ///////al category// */}
-            <div className="mt-3 flex flex-col">
+            <div className="mt-3 flex flex-col w-full">
               {' '}
-              <label htmlFor="allcategory" className="text-neutral-600 ">
-                Category
+              <label
+                htmlFor="allcategory"
+                className={`${
+                  language === 'kurdi' ? 'flex-row-reverse' : 'flex'
+                } + text-neutral-600 flex w-full`}
+              >
+                {language === 'kurdi' ? 'کاتیگۆری' : 'Category'}
               </label>
               <select
+                style={language === 'kurdi' ? { textAlign: 'right' } : {}}
                 id="allcategory"
                 name="allcategory"
                 onChange={(e) => subCategoryHandle(e)}
@@ -191,20 +260,30 @@ function UpdateForm({ userId, data, onClose }) {
                 mt-2 px-1 py-2 hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500"
               >
                 <option value="">Select a category</option>
-                {category?.data?.map((option) => (
-                  <option key={option._id} value={option._id}>
+                {cat?.map((option) => (
+                  <option
+                    key={option._id}
+                    value={option._id}
+                    style={language === 'kurdi' ? { textAlign: 'right' } : {}}
+                  >
                     {option.name}
                   </option>
                 ))}
               </select>
             </div>
             {/* ////////subcategory//////// */}
-            <div className="mt-3 flex flex-col">
+            <div className="mt-3 flex flex-col w-full">
               {' '}
-              <label htmlFor="category" className="text-neutral-600 ">
-                SubCategory
+              <label
+                htmlFor="category"
+                className={`${
+                  language === 'kurdi' ? 'flex-row-reverse' : 'flex'
+                } + text-neutral-600 flex w-full`}
+              >
+                {language === 'kurdi' ? 'سەب کاتیگۆری' : 'SubCategory'}
               </label>{' '}
               <select
+                style={language === 'kurdi' ? { textAlign: 'right' } : {}}
                 id="category"
                 name="category"
                 onChange={formik.handleChange}
@@ -213,9 +292,13 @@ function UpdateForm({ userId, data, onClose }) {
                 mt-2 px-1 py-2 hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500"
               >
                 <option value="">Select a SubCategory</option>
-                {subCategories?.map((option) => (
-                  <option key={option.key} value={option.key}>
-                    {option.props.children}
+                {subCat?.map((option) => (
+                  <option
+                    key={option.key}
+                    value={option.key}
+                    style={language === 'kurdi' ? { textAlign: 'right' } : {}}
+                  >
+                    {option.name}
                   </option>
                 ))}
               </select>
@@ -225,22 +308,32 @@ function UpdateForm({ userId, data, onClose }) {
             </div>
 
             {/* //////////city ////////////////////////////////// */}
-            <div className="mt-3 flex flex-col">
+            <div className="mt-3 flex flex-col w-full">
               {' '}
-              <label htmlFor="city" className="text-neutral-600 ">
-                City
+              <label
+                htmlFor="city"
+                className={`${
+                  language === 'kurdi' ? 'flex-row-reverse' : 'flex'
+                } + text-neutral-600 flex w-full`}
+              >
+                {language === 'kurdi' ? 'شار' : 'City'}
               </label>
               <select
+                style={language === 'kurdi' ? { textAlign: 'right' } : {}}
                 id="city"
                 name="city"
                 onChange={formik.handleChange}
                 value={formik.values.city}
-                className=" text-neutral-500 w-full pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green 
+                className=" text-neutral-500 w-full pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green
                 mt-2 px-1 py-2 hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500"
               >
                 <option value="">Select a City</option>
-                {city?.data?.map((option) => (
-                  <option key={option._id} value={option._id}>
+                {cityState?.map((option) => (
+                  <option
+                    key={option._id}
+                    value={option._id}
+                    style={language === 'kurdi' ? { textAlign: 'right' } : {}}
+                  >
                     {option.name}
                   </option>
                 ))}
@@ -251,13 +344,19 @@ function UpdateForm({ userId, data, onClose }) {
             </div>
 
             {/* ////////address/ */}
-            <div className="mt-3 flex flex-col">
+            <div className="mt-3 flex flex-col w-full">
               {' '}
-              <label htmlFor="address" className="text-neutral-600 ">
-                Address:
+              <label
+                htmlFor="address"
+                className={`${
+                  language === 'kurdi' ? 'flex-row-reverse' : 'flex'
+                } + text-neutral-600 flex w-full`}
+              >
+                {language === 'kurdi' ? 'ناونیشان' : 'Address:'}
               </label>
               <input
-                className=" text-neutral-500 w-full pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green 
+                style={language === 'kurdi' ? { textAlign: 'right' } : {}}
+                className=" text-neutral-500 w-full pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green
                 mt-2 px-1 py-2 hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500"
                 name="address"
                 placeholder="Address"
@@ -272,16 +371,25 @@ function UpdateForm({ userId, data, onClose }) {
             </div>
 
             {/* //////////iamges//////////// */}
-            <div className="mt-3 flex flex-col">
+            <div className="mt-3 flex flex-col w-full">
               {' '}
-              <label htmlFor="images" className="text-neutral-600 ">
-                Upload images:
+              <label
+                htmlFor="images"
+                className={`${
+                  language === 'kurdi' ? 'flex-row-reverse' : 'flex'
+                } + text-neutral-600 flex w-full`}
+              >
+                {language === 'kurdi' ? 'وێنە' : 'Upload images:'}
               </label>
               <div
-                className="w-full pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green
-                 px-1 py-2 hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 h-[200px] "
+                className={`${
+                  language === 'kurdi' ? 'flex-row-reverse' : ''
+                } +  w-full pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green
+                 px-1 py-2 hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 h-[200px] `}
               >
                 <input
+                  className="w-full"
+                  dir={language === 'kurdi' ? 'rtl' : 'ltr'}
                   type="file"
                   id="images"
                   name="images"
@@ -303,11 +411,17 @@ function UpdateForm({ userId, data, onClose }) {
               )}
             </div>
 
-            <div className="mt-3 flex flex-col">
-              <label htmlFor="description" className="text-neutral-600 ">
-                Description:
+            <div className="mt-3 flex flex-col w-full">
+              <label
+                htmlFor="description"
+                className={`${
+                  language === 'kurdi' ? 'flex-row-reverse' : 'flex'
+                } + text-neutral-600 flex w-full`}
+              >
+                {language === 'kurdi' ? 'تایبەتمەندی' : 'Description:'}
               </label>
               <textarea
+                style={language === 'kurdi' ? { textAlign: 'right' } : {}}
                 name="description"
                 placeholder="Description"
                 id="description"
@@ -316,7 +430,6 @@ function UpdateForm({ userId, data, onClose }) {
                 onChange={formik.handleChange}
                 className="w-full  pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green
                  px-1 py-2 hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 h-[200px]"
-                // className="mx-2 hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 rounded-sm border-gray-400 focus:outline-none focus:border-green outline-none p-1 border-2 text-neutral-600 w-full h-[200px]"
               />
               {formik.touched.description && formik.errors.description && (
                 <p className="text-red-500 px-2">{formik.errors.description}</p>
@@ -330,6 +443,8 @@ function UpdateForm({ userId, data, onClose }) {
               >
                 {imageLoading ? (
                   <span className="text-neutral-200">Loading</span>
+                ) : language === 'kurdi' ? (
+                  'نوێکردنەوە'
                 ) : (
                   'submit'
                 )}

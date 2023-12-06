@@ -65,7 +65,11 @@ function MyProducts() {
     );
   }
   return (
-    <div className="w-full text-neutral-500 min-h-screen">
+    <div
+      className={`${
+        language === 'kurdi' ? '' : ''
+      } + w-full  text-neutral-500 min-h-screen`}
+    >
       {deleteSuccess === true && (
         <ToastContainer
           position="bottom-center"
@@ -85,7 +89,12 @@ function MyProducts() {
           <img src={emptyProduct} alt="empty product" className="h-[500px]" />
         </div>
       ) : (
-        <div className="grid lg:grid-cols-2 xl:grid-cols-3 lg:mt-5 gap-5">
+        <div
+          dir={`${language === 'kurdi' ? 'rtl' : 'ltr'}`}
+          className={`${
+            language === 'kurdi' ? ' ' : ''
+          } grid  lg:grid-cols-2 xl:grid-cols-3  lg:mt-5 gap-5`}
+        >
           {userProducts?.data?.map((data) => {
             return (
               <div
