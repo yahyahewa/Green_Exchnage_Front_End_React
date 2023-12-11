@@ -1,8 +1,8 @@
 export const LINKS = [
-  { id: 1, title: "Home", path: "/" },
-  { id: 2, title: "Products", path: "/products" },
-  { id: 3, title: "Contact", path: "/contact" },
-  { id: 4, title: "FAQ", path: "/fq" },
+  { id: 1, english: "Home", arabic: "الرئيسية", kurdi: "سەرەکی", path: "/" },
+  { id: 2, english: "Products", arabic: "منتجات",kurdi: "بەرهەمەکان", path: "/products" },
+  { id: 3, english: "Contact", arabic: "اتصل بنا", kurdi: "پەیوەندی", path: "/contact" },
+  { id: 4, english: "FAQ", arabic: "سوالات متداولة", kurdi: "پرسیارە دوبارەکان", path: "/fq" },
 ];
 
 export const Cards = [

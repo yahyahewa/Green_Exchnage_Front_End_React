@@ -3,16 +3,19 @@ import AddProduct from './AddProduct';
 import MyProducts from './MyProducts';
 import Setting from './Setting';
 import { Navigate } from 'react-router';
-
+import { useSelector } from 'react-redux';
 // eslint-disable-next-line react/prop-types
 function Sidebar({ setComponent }) {
+  const language = useSelector((state) => state.language.language);
   const userData = localStorage.getItem('userData');
 
   if (!userData) return <Navigate to="/login" replace />;
   const [btnBg, setBtnBg] = useState(1);
   return (
     <aside
-      className={`w-full text-neutral-600 flex justify-around items-center text-xl`}
+      className={`w-full text-neutral-600 flex justify-around items-center text-xl ${
+        language!="english"&&"flex-row-reverse"
+      }`}
     >
       <h1
         className={`flex justify-center cursor-default border-b-2 font-medium text-sm md:text-base w-1/3 text-center py-2 ${
@@ -23,7 +26,7 @@ function Sidebar({ setComponent }) {
           setComponent(<AddProduct />);
         }}
       >
-        <span className="hidden sm:block">Add Donate</span>
+        <span className="hidden sm:block">{language=="kurdi"?"ببەخشە":language=="arabic"?"أضف تبرع":"Add Donate"}</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -48,7 +51,7 @@ function Sidebar({ setComponent }) {
           setComponent(<MyProducts />);
         }}
       >
-        <span className="hidden sm:block">My Donate</span>
+        <span className="hidden sm:block">{language=="kurdi"?"بەخشینەکانم":language=="arabic"?"تبرعاتي":"My Donate"}</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -73,7 +76,7 @@ function Sidebar({ setComponent }) {
           setComponent(<Setting />);
         }}
       >
-        <span className="hidden sm:block">Setting</span>
+      <span className="hidden sm:block">{language=="kurdi"?"ڕێکسختن":language=="arabic"?"الاعدادات":"Setting"}</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

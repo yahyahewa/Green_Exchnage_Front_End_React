@@ -1,7 +1,8 @@
 import React from "react";
-
+import { useSelector } from "react-redux";
 function Select
 ({ name, type, Label, require, data, setData, value, disable, options, select }) {
+  const language = useSelector((state) => state.language.language);
   const handleData = (e) => {
     try {
       setData({ ...data, [e.target.name]: e.target.value });
@@ -13,7 +14,7 @@ function Select
     <div className="mt-1 w-full lg:w-[49%]">
       <label
         htmlFor={name}
-        className="block mb-2 text font-medium text-neutral-500"
+        className={`block mb-2 text font-medium text-neutral-500 ${language!="english"&&"text-right"}`}
       >
         {Label}
       </label>
@@ -29,7 +30,7 @@ function Select
             !disable
               ? 'hover:border-gray-600 focus:border-green border-gray-400'
               : 'bg-neutral-100'
-          }`}
+          } ${language!="english"&&"text-right"}` }
         >
           <option value="">{select}</option>
           {options && options.map((option) => (

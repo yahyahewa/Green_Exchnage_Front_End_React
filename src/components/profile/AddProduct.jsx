@@ -8,8 +8,10 @@ import { useGetCategorySubCategoryQuery } from '../../app/api/category';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Select from '../Select';
+import { useSelector } from 'react-redux';
 
 function AddProduct() {
+  const language = useSelector((state) => state.language.language);
   const [addProduct, {data:addData, isError: addError, isLoading: addLoading }] =
     useAddProductMutation();
   const [
@@ -22,11 +24,10 @@ function AddProduct() {
   const [imageFile, setImageFile] = useState([]);
   const [canAdd, setCanAdd] = useState(false);
   const [cityState, setCityState] = useState([]);
-  const [lang, setLang] = useState("kurdi");
   useEffect(() => { setCityState([]);
     cityData?.data.map((city) => {
       city.name.map((name) => {
-        if(name.lang==lang){
+        if(name.lang==language){
           setCityState((prev) => [...prev, {
             name: name.name,
             _id: city._id
@@ -34,7 +35,7 @@ function AddProduct() {
         }
       });
     })
-  }, [,lang,cityData]);
+  }, [,language,cityData]);
   // Retrieve user info from localStorage
   const userInfo = JSON.parse(localStorage.getItem('userData')) || {};
   // check data add or not
@@ -156,7 +157,7 @@ useEffect(() => {
   setCat([]);
     catData?.data.map((category) => {
       category.name.map((name) => {
-        if(name.lang==lang){
+        if(name.lang==language){
           setCat((prev) => [...prev, {
             name: name.name,
             _id: category._id
@@ -164,7 +165,7 @@ useEffect(() => {
         }
       });
     })
-}, [,lang,catData]);
+}, [,language,catData]);
 const [subCat, setSub] = useState([]);
 //handle subcategory
 useEffect(() => {
@@ -184,7 +185,7 @@ useEffect(() => {
       })
     }
   })
-}, [formData?.Parentcategory,lang]);
+}, [formData?.Parentcategory,language]);
   // Handle adding product after image upload
   useEffect(() => {
    try{ if (
@@ -214,28 +215,24 @@ useEffect(() => {
   };
   return (
     <> 
-    <select onChange={(e) => {setLang(e.target.value);
-   }
-    } className='fixed top-10 p-5 left-[50%] bg-red-500'>
-    <option value="kurdi">kurdi</option>
-    <option value="english">english</option>
-    <option value="arabic">arabic</option>
-    </select>
     <form
       onSubmit={handleSubmit}
-      className="w-full max-w-[2000px]
-       flex flex-wrap justify-center 
-       md:justify-between gap-x-2 
-       gap-y-4 my-10 text-neutral-500"
+      className={`w-full max-w-[2000px]
+      flex flex-wrap justify-center 
+      md:justify-between gap-x-2 
+      gap-y-4 my-10 text-neutral-500 
+      ${language!="english"&&"flex-row-reverse"}`}
     >
     
       {/* Product Name */}
       <div className="mt-1 w-full lg:w-[49%]">
         <label
           htmlFor="name"
-          className="block mb-2 text font-medium text-neutral-500"
+          className={`block mb-2 text font-medium text-neutral-500 ${language!="english"&&"text-right"}`}
         >
-          Product Name
+          
+          {language=="kurdi"?"ناوی بەرهەم":language=="arabic"?"اسم المنتج":"Product Name"}
+          
         </label>
         <input
           id="name"
@@ -244,7 +241,8 @@ useEffect(() => {
           name="name"
           onChange={handleFormData}
           type="text"
-          className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green outline-none w-full text-neutral-600 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block px-1 py-2"
+          className={`hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green outline-none w-full text-neutral-600 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block px-1 py-2
+           ${language!="english"&&"text-right"}`}
         />
       </div>
 
@@ -252,9 +250,9 @@ useEffect(() => {
       <div className="mt-1 w-full lg:w-[49%]">
         <label
           htmlFor="phoneNumber"
-          className="block mb-2 text font-medium text-neutral-500"
+          className={`block mb-2 text font-medium text-neutral-500 ${language!="english"&&"text-right"}`}
         >
-          Phone Number
+          {language=="kurdi"?"ژمارەی مۆبایل":language=="arabic"?"رقم الهاتف":"Phone Number"}
         </label>
         <input
           id="phoneNumber"
@@ -263,7 +261,8 @@ useEffect(() => {
           value={formData.phone}
           onChange={handleFormData}
           type="tel"
-          className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green outline-none w-full text-neutral-600 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block px-1 py-2"
+          className={`hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green outline-none w-full text-neutral-600 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block px-1 py-2
+           ${language!="english"&&"text-right"}`}
         />
       </div>
 
@@ -272,14 +271,14 @@ useEffect(() => {
      <Select
         name="Parentcategory"
         type="text"
-        Label="Category"
+        Label={language=="kurdi"?"پۆل":language=="arabic"?"فئة":"Category"}
         require={true}
         data={formData}
         setData={setFormData}
         value={formData.Parentcategory}
         disable={catData ? false : true}
         options={cat}
-        select="Select category"
+        select={language=="kurdi"?"پۆلێک هەڵبژێرە":language=="arabic"?"اختر الفئة":"Select category"}
       />
 
       {/* Subcategory */}
@@ -287,36 +286,37 @@ useEffect(() => {
      <Select
         name="category"
         type="text"
-        Label="Subcategory"
+        Label={language=="kurdi"?"پۆلی لاوەکی":language=="arabic"?"تصنيف فرعي":"Sub-category"}
         require={true}
         data={formData}
         setData={setFormData}
         value={formData.category}
         disable={catData ? false : true}
         options={subCat}
-        select="Select category"
+        select={language=="kurdi"?"پۆلێکی لاوەکی هەڵبژێرە":language=="arabic"?"حدد فئة فرعية":"Select category"}
       />
       {/* City */}
      <Select
         name="city"
         type="text"
-        Label="City"
+        Label={language=="kurdi"?"شار":language=="arabic"?"مدينة":"City"}
         require={true}
         data={formData}
         setData={setFormData}
         value={formData.city}
         disable={catData ? false : true}
         options={cityState}
-        select="Select city"
+        select={language=="kurdi"?"شارێک هەڵبژێرە":language=="arabic"?"اختر مدينة":"Select city"}
       />
 
       {/* Address */}
       <div className="mt-1 w-full lg:w-[49%]">
         <label
           htmlFor="address"
-          className="block mb-2 text font-medium text-neutral-500"
+          className={`block mb-2 text font-medium text-neutral-500 ${language!="english"&&"text-right"}`}
         >
-          Address
+          
+        {language=="kurdi"?"ناونیشان":language=="arabic"?"عنوان":"Address"}
         </label>
         <input
           id="address"
@@ -325,17 +325,18 @@ useEffect(() => {
           name="address"
           onChange={handleFormData}
           type="text"
-          className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green outline-none w-full text-neutral-600 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block px-1 py-2"
-        />
+          className={`hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green outline-none w-full text-neutral-600 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block px-1 py-2
+           ${language!="english"&&"text-right"}`} />
       </div>
 
       {/* Images */}
       <div className="mt-1 w-full lg:w-[49%] h-[200px] overflow-hidden">
         <label
           htmlFor="image"
-          className="block mb-2 text font-medium text-neutral-500"
+          className={`block mb-2 text font-medium text-neutral-500 ${language!="english"&&"text-right"}`}
         >
-          Images
+          
+        {language=="kurdi"?"وێنەکان":language=="arabic"?"صور":"Images"}
         </label>
         <div className="border-2 border-gray-400 w-[100%] h-[165px]">
           {images.length !== 0 && (
@@ -388,9 +389,10 @@ useEffect(() => {
       <div className="mt-1 w-full lg:w-[49%] h-[200px] overflow-hidden">
         <label
           htmlFor="description"
-          className="block mb-2 text font-medium text-neutral-500"
+          className={`block mb-2 text font-medium text-neutral-500 ${language!="english"&&"text-right"}`}
         >
-          Description
+          
+        {language=="kurdi"?"وەسف":language=="arabic"?"وصف":"Description"}
         </label>
         <textarea
           id="description"
@@ -398,7 +400,8 @@ useEffect(() => {
           name="description"
           onChange={handleFormData}
           value={formData.description}
-          className="hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 rounded-sm border-gray-400 focus:outline-none focus:border-green outline-none p-1 border-2 text-neutral-600 w-[100%] h-[165px]"
+          className={`hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 pl-3 rounded-sm border-gray-400 focus:outline-none focus:border-green outline-none p-1 border-2 text-neutral-600 w-[100%] h-[165px]
+           ${language!="english"&&"text-right"}`}
         ></textarea>
       </div>
 
@@ -413,7 +416,8 @@ useEffect(() => {
         }`}
         disabled={imageError || imageLoading || addError || addLoading}
       >
-        Add Product
+      
+      {language=="kurdi"?"زیادکردنی بەخشین":language=="arabic"?"أضف تبرع":"Add Donate"}
       </button>
     </form><ToastContainer
       position="top-center"

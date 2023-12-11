@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import { LINKS } from '../../assets/Data';
 import Logo from '../navbar/Logo';
+import { useSelector } from 'react-redux';
 const Fotter = () => {
+  const language = useSelector((state) => state.language.language);
   return (
     <footer className="px-6 sm:px-12 lg:mx-26 md:px-20  bg-opacity-80 text-gray-900    ">
       <div className=" px-2 md:py-8">
@@ -11,14 +13,15 @@ const Fotter = () => {
           </Link>
 
           <div className="flex flex-wrap mt-2 items-center  text-md font-medium sm:mb-0 ">
-            {LINKS.map((value) => {
+            {LINKS.map((link) => {
               return (
                 <Link
-                  key={value.id}
-                  to={value.title}
+                  key={link.id}
+                  to={link.path}
                   className="mr-4 hover:underline md:mr-6 "
                 >
-                  {value.title}
+                   {language === 'kurdi' ? link.kurdi : language === 'arabic' ? link.arabic : link.english}
+             
                 </Link>
               );
             })}
