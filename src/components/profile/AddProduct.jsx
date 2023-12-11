@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Select from '../Select';
 
 function AddProduct() {
-  const [addProduct, { isError: addError, isLoading: addLoading }] =
+  const [addProduct, {data:addData, isError: addError, isLoading: addLoading }] =
     useAddProductMutation();
   const [
     uploadImage,
@@ -37,7 +37,30 @@ function AddProduct() {
   }, [,lang,cityData]);
   // Retrieve user info from localStorage
   const userInfo = JSON.parse(localStorage.getItem('userData')) || {};
-
+  // check data add or not
+  useEffect(() => {
+    if(!addError&&!addLoading && addData?.status=="success"){
+      setFormData({
+        owner: userInfo?.data._id,
+        name: '',
+        phone: '',
+        Parentcategory: '',
+        category: '',
+        city: '',
+        address: '',
+        images: [],
+        description: '',
+      });
+      setImages([]);
+      setImageFile([]);
+      setCanAdd(false);
+    toast.success('Product added successfully!');
+    return;
+    }
+    else if(addData?.status=="error"){
+      toast.error('Failed to add product!');
+    }
+  },[addData?.data])
   const [formData, setFormData] = useState({
     owner: userInfo?.data._id,
     name: '',
@@ -171,21 +194,6 @@ useEffect(() => {
     canAdd
   ) {
     addProduct(formData);
-    setFormData({
-      owner: userInfo?.data._id,
-      name: '',
-      phone: '',
-      Parentcategory: '',
-      category: '',
-      city: '',
-      address: '',
-      images: [],
-      description: '',
-    });
-    setImages([]);
-    setImageFile([]);
-    setCanAdd(false);
-    toast.success('Product added successfully!');
   }}
   catch(error){
     console.log(error)
