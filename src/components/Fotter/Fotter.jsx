@@ -5,14 +5,15 @@ import { useSelector } from 'react-redux';
 const Fotter = () => {
   const language = useSelector((state) => state.language.language);
   return (
-    <footer className="px-6 sm:px-12 lg:mx-26 md:px-20  bg-opacity-80 text-gray-900    ">
+    <footer className="px-6 sm:px-12 md:px-20  bg-opacity-80 text-gray-900">
       <div className=" px-2 md:py-8">
-        <div className="sm:flex sm:items-center sm:justify-between">
+        <div className="sm:flex sm:items-center sm:justify-between ">
           <Link to="/" className="font-bold  text-md text-neutral-600">
             <Logo />
           </Link>
 
-          <div className="flex flex-wrap mt-2 items-center  text-md font-medium sm:mb-0 ">
+          <div className={`flex flex-wrap mt-2 items-center  text-md font-medium sm:mb-0 
+          ${language !== 'english' && 'flex-row-reverse'}`}>
             {LINKS.map((link) => {
               return (
                 <Link

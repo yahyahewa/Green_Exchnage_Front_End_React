@@ -55,11 +55,11 @@ function AddProduct() {
       setImages([]);
       setImageFile([]);
       setCanAdd(false);
-    toast.success('Product added successfully!');
+    toast.success(language === 'kurdi' ? 'کاڵاکە بە سەرکەوتوویی زیادکرا' : language === 'arabic' ? 'تمت إضافة المنتج بنجاح' : 'Product added successfully');
     return;
     }
     else if(addData?.status=="error"){
-      toast.error('Failed to add product!');
+      toast.error(language === 'kurdi' ? 'کاڵاکە شکستی هێنا لە زیاد کردن!' : language === 'arabic' ? 'فشل في إضافة المنتج!' : 'Failed to add product!');
     }
   },[addData?.data])
   const [formData, setFormData] = useState({
@@ -82,7 +82,7 @@ const handleImageUpload = (e) => {
   
     // Check the number of images
     if (imageFile.length + files.length > maxImages) {
-      toast.error(`You can upload only up to ${maxImages} images.`);
+      toast.error(language === 'kurdi' ? 'تەنها دەتوانیت تا ٥ وێنە باربکەیت' :language === 'arabic' ? 'لا يمكنك تحميل اكثر من 5 صور' : 'You can only upload up to 5 images');
       return;
     }
   
@@ -94,7 +94,7 @@ const handleImageUpload = (e) => {
         fileNameParts[fileNameParts.length - 1].toLowerCase();
   
       if (!allowedExtensions.includes(fileExtension)) {
-        toast.error('Please upload only jpg, jpeg, and png files.');
+        toast.error(language === 'kurdi' ? 'تکایە تەنها فایلەکانی jpg و jpeg و png باربکەن.!' :language === 'arabic' ? 'يُرجى تحميل ملفات jpg وjpeg وpng فقط.!' : 'Please upload only jpg, jpeg, and png files.');
         return; // Stop processing if an invalid file is found
       }
     }
@@ -175,7 +175,7 @@ useEffect(() => {
     {
       category.subCategory.map((name) => {
        name.name.map((value) => {
-        if(value.lang==lang){
+        if(value.lang==language){
           setSub((prev) => [...prev, {
             name: value.name,
             _id: name._id
@@ -204,7 +204,7 @@ useEffect(() => {
   const handleFormData = (e) => {
     try{if(e.target.name === 'description'){
       if(e.target.value.length > 300){
-      toast.error('Description should be less than 300 characters')
+      toast.error(language=="kurdi"?"وەسفکردن لە ٣٠٠ پیت کەمتر بێت":language=="arabic"?"يجب أن يكون الوصف أقل من 300 حرف.":"Please enter a description with at most 300 characters.")
       return
       }
     }
