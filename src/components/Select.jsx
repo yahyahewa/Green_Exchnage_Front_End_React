@@ -33,7 +33,7 @@ function Select
           w-full text-neutral-600 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block px-1 py-2 ${
             !disable
               ? 'hover:border-gray-600 focus:border-green border-gray-400 '
-              : 'bg-neutral-200 animate-pulse'
+              : 'bg-neutral-300 animate-pulse'
           } ${language!="english"&&"text-right"}` }
         >
           <option value="">{select}</option>
