@@ -63,12 +63,12 @@ function SignUpForm() {
               {language === 'kurdi' ? 'ناوی سیانی ' : 'Full name'}
             </label>
             <InputField
-              name="email"
+              name="fullname"
               placeholder={`${
                 language === 'kurdi' ? 'ناوی سیانی' : 'Full name'
               }`}
-              id="email"
-              value={formik.values.email}
+              id="fullname"
+              value={formik.values.fullname}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               style={language === 'kurdi' ? { textAlign: 'right' } : {}}
@@ -98,15 +98,7 @@ function SignUpForm() {
               onChange={formik.handleChange}
               style={language === 'kurdi' ? { textAlign: 'right' } : {}}
             />
-            {/* <label className="text-gray-800 font-english">Email</label>
-            <InputField
-              name="email"
-              placeholder="Example@gmail.com"
-              id="email"
-              value={formik.values.email}
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-            /> */}
+
             {formik.touched.email && formik.errors.email ? (
               <span className="text-red-400 text-sm">
                 {formik.errors.email}
@@ -118,7 +110,7 @@ function SignUpForm() {
               </span>
             ) : null}
           </div>
-          {/* <div className="mt-4 flex flex-col"> */}
+
           <div className="mt-4 flex flex-col">
             <label
               className={`${
@@ -170,57 +162,6 @@ function SignUpForm() {
               </div>
             ) : null}
           </div>
-          {/* <label className="text-gray-800 font-english">Password</label>
-            <div
-              className="w-full lg:w-80 2xl:w-96  pl-3 border-2 rounded-sm border-gray-400 focus:outline-none focus:border-green 
-      mt-2 px-1 py-2 hover:border-gray-600 duration-500 hover:duration-500 focus:duration-500 flex justify-between items-center"
-            >
-              {' '}
-              <input
-                type={!showPassword ? 'password' : 'text'}
-                name="password"
-                placeholder="password"
-                id="password"
-                value={formik.values.password}
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-                className="focus:outline-none"
-              />
-              {showPassword ? (
-                <button
-                  type="button"
-                  className="mr-2"
-                  onClick={() => setShowPassword(false)}
-                >
-                  <AiOutlineEyeInvisible className="w-6 h-6 text-neutral-500" />
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  className="mr-2"
-                  onClick={() => setShowPassword(true)}
-                >
-                  <AiOutlineEye className="w-6 h-6 text-neutral-500" />
-                </button>
-              )}
-            </div>
-
-            {/* <InputField
-              type="password"
-              name="password"
-              placeholder="password"
-              id="password"
-              value={formik.values.password}
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-            /> */}
-          {/* {formik.touched.password && formik.errors.password ? (
-              <div className="text-red-400 text-sm ">
-                {formik.errors.password}
-              </div>
-            ) : null} */}
-          {/* </div>{' '} */}
-          {/* */}
           <div className="mt-5">
             {' '}
             <button

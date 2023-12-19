@@ -69,9 +69,7 @@ function SingleItem() {
                     ? singleProduct?.data?.name
                     : 'product name'}
                 </h1>
-                <p className="lg:text-xl font-semibold mt-2 py-2 px-4 bg-gray-50 w-fit">
-                  {/* {singleProduct?.data?.category[0]?.name} */}
-                </p>
+                <p className="lg:text-xl font-semibold mt-2 py-2 px-4 bg-gray-50 w-fit"></p>
                 <h2
                   className={`${
                     language === 'kurdi' ? 'flex-row-reverse' : 'flex-row'
@@ -104,7 +102,6 @@ function SingleItem() {
                   } ml-5 flex sm:flex-col md:flex-row items-center`}
                 >
                   <IoLocationSharp className="mr-2 w-5 h-5" />
-                  {/* <span className="">{singleProduct?.data?.city?.name}</span> */}
                   <span>{singleProduct?.data?.address}</span>{' '}
                 </div>
               </div>
@@ -144,7 +141,6 @@ function SingleItem() {
                   {language === 'kurdi'
                     ? 'ژمارەی مۆبایلی ئەدمین'
                     : 'employee phone number'}
-                  {/* employee phone number */}
                 </span>
                 <span> :</span>
                 <span>0770 111 11 11</span>

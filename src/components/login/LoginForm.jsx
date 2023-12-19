@@ -50,7 +50,6 @@ function LoginForm() {
       <div className="w-full flex  flex-col items-center justify-center md:mt-28 mt-32 sm:mt-0">
         <p className="font-semibold text-lg text-gray-800 ">
           {language === 'kurdi' ? 'چوونە ژوورەوە' : 'Login'}
-          {/* {language === 'ku' ? '' : 'Log In'}{' '} */}
         </p>
         <Form
           onSubmit={formik.handleSubmit}
