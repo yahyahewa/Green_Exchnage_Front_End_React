@@ -3,6 +3,7 @@ import { BiSolidShow, BiShowAlt } from 'react-icons/bi';
 import React, { useEffect, useState } from 'react';
 import { useUpdatePasswordMutation } from '../../app/api/profile';
 import { ToastContainer, toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 const PassowrdModal = ({ showModal, setShowModal }) => {
   const [isInputDisabled, setInputDisabled] = useState(false);
@@ -15,7 +16,9 @@ const PassowrdModal = ({ showModal, setShowModal }) => {
     newPassword: '',
     confirmNewPassword: '',
   });
-  const handlePassswordData = (e) => {
+  const language = useSelector((state) => state.language.language);
+
+  const handlePasswordData = (e) => {
     setPassword({ ...password, [e.target.name]: e.target.value });
   };
   // *********************password********************
@@ -76,14 +79,24 @@ const PassowrdModal = ({ showModal, setShowModal }) => {
   return (
     <form
       onSubmit={handlePasswordUpdate}
-      className="justify-center items-center jus flex overflow-x-hidden  overflow-y-auto fixed inset-0 z-50 px-2 outline-none focus:outline-none"
+      className="justify-center items-center   flex overflow-x-hidden  overflow-y-auto fixed inset-0 0 px-2 outline-none focus:outline-none"
     >
-      <div className="  relative w-full   mx-auto max-w-3xl z-50">
+      <div className="  relative w-full flex items-center justify-center   z-50">
         {/*content*/}
-        <div className="border-0 rounded   relative flex flex-col w-full bg-white border-jade-500 border-b-4 shadow-sm outline-none focus:outline-none">
+        <div className="border-0 rounded   justify-center w-full sm:w-5/6 md:w-4/6 lg:w-4/6 2xl:w-2/6    relative flex flex-col bg-white border-green border-b-4 shadow-sm outline-none focus:outline-none">
           {/*header*/}
-          <div className="flex   items-start justify-between p-2  border-b  border-solid border-slate-200 rounded-t">
-            <h3 className="text-xl ml-4 font-semibold">Update Password</h3>
+          <div
+            className={`flex flex-row items-start justify-between p-2  border-b  border-solid border-slate-200 rounded-t ${
+              language != 'english' && 'flex-row-reverse'
+            }`}
+          >
+            <h3 className="text-xl ml-4 font-semibold">
+              {language == 'kurdi'
+                ? 'نوێکردنەوەی وشەی نهێنی'
+                : language == 'arabic'
+                ? 'تحديث كلمة المرور'
+                : 'Password Update'}
+            </h3>
             <button
               className="p-1  bg-transparent border-0 text-black  float-right   outline-none focus:outline-none"
               onClick={() => setShowModal(false)}
@@ -94,92 +107,129 @@ const PassowrdModal = ({ showModal, setShowModal }) => {
             </button>
           </div>
           {/*body*/}
-          <div className="relative p-6 flex-auto ">
-            <div className="col-span-full w-3/3 md:w-2/3">
-              <div className=" flex justify-between ">
-                <div className="w-full ">
-                  <input
-                    placeholder="Current Password"
-                    disabled={isInputDisabled}
-                    type={showPassword ? 'text' : 'password'}
-                    name="oldPassword"
-                    value={password.oldPassword}
-                    onChange={handlePassswordData}
-                    minLength={8}
-                    required
-                    className="disabled:bg-gray-200 disabled:text-gray-400 appearance-none border-2 border-gray-200 rounded w-full py-2 px-2 text-gray-900 leading-tight focus:outline-none focus:bg-white focus:border-jade-500"
-                  />
-                </div>
-                <button
-                  type="button"
-                  className="text-2xl ml-2"
-                  onClick={() => {
-                    setShowPassword(!showPassword);
-                  }}
-                >
-                  {showPassword ? <BiShowAlt /> : <BiSolidShow />}
-                </button>
-              </div>
+          <div className="w-full bg-red-900 gap-4 flex flex-wrap flex-row justify-center items-center">
+            <div
+              className={`relative flex  pt-4 py-2 w-5/6 
+              ${language == 'english' ? 'flex-row-reverse' : 'flex-row'} `}
+            >
+              <input
+                placeholder={
+                  language == 'kurdi'
+                    ? 'تێپەڕەوشەی ئێستا'
+                    : language == 'arabic'
+                    ? 'كلمة السر الحالية'
+                    : 'Current Password'
+                }
+                disabled={isInputDisabled}
+                type={showPassword ? 'text' : 'password'}
+                name="oldPassword"
+                value={password.oldPassword}
+                onChange={handlePasswordData}
+                minLength={8}
+                required
+                className={`absolute disabled:bg-gray-200 
+                disabled:text-gray-400 appearance-none 
+                border-2 border-gray-200  w-full py-2 px-2
+                 text-gray-900 leading-tight focus:outline-none
+                  focus:bg-white focus:border-green ${
+                    language != 'english' && 'text-right'
+                  }`}
+              />
+
+              <button
+                type="button"
+                className="text-2xl ml-2 relative top-2 right-1"
+                onClick={() => {
+                  setShowPassword(!showPassword);
+                }}
+              >
+                {showPassword ? <BiShowAlt /> : <BiSolidShow />}
+              </button>
+            </div>
+            <div
+              className={`relative flex  pt-4 py-2 w-5/6 
+              ${language == 'english' ? 'flex-row-reverse' : 'flex-row'} `}
+            >
+              <input
+                placeholder={
+                  language == 'kurdi'
+                    ? 'تێپەڕەوشەی نوێ'
+                    : language == 'arabic'
+                    ? 'كلمة المرور الجديدة'
+                    : 'NewPassword'
+                }
+                disabled={isInputDisabled}
+                type={showNewPassword ? 'text' : 'password'}
+                name="newPassword"
+                minLength={8}
+                required
+                value={password.newPassword}
+                onChange={handlePasswordData}
+                className={`absolute disabled:bg-gray-200 
+                disabled:text-gray-400 appearance-none 
+                border-2 border-gray-200  w-full py-2 px-2
+                 text-gray-900 leading-tight focus:outline-none
+                  focus:bg-white focus:border-green ${
+                    language != 'english' && 'text-right'
+                  }`}
+              />
+
+              <button
+                type="button"
+                className="text-2xl ml-2 relative top-2 right-1"
+                onClick={() => {
+                  setShowNewPassword(!showNewPassword);
+                }}
+              >
+                {showNewPassword ? <BiShowAlt /> : <BiSolidShow />}
+              </button>
+            </div>
+            <div
+              className={`relative flex  pt-4 py-2 w-5/6 
+              ${language == 'english' ? 'flex-row-reverse' : 'flex-row'} `}
+            >
+              <input
+                placeholder={
+                  language == 'kurdi'
+                    ? 'دووبارە کردنەوە ووشەى نهێنى نوێ'
+                    : language == 'arabic'
+                    ? 'تأكيد كلمة المرور الجديدة'
+                    : 'Confirm new Password'
+                }
+                minLength={8}
+                required
+                disabled={isInputDisabled}
+                type={showConfirmNewPassword ? 'text' : 'password'}
+                name="confirmNewPassword"
+                value={password.confirmNewPassword}
+                onChange={handlePasswordData}
+                className={`absolute disabled:bg-gray-200 
+                disabled:text-gray-400 appearance-none 
+                border-2 border-gray-200  w-full py-2 px-2
+                 text-gray-900 leading-tight focus:outline-none
+                  focus:bg-white focus:border-green ${
+                    language != 'english' && 'text-right'
+                  }`}
+              />
+
+              <button
+                type="button"
+                className="text-2xl ml-2 relative top-2 right-1"
+                onClick={() => {
+                  setShowConfirmNewPassword(!showConfirmNewPassword);
+                }}
+              >
+                {showConfirmNewPassword ? <BiShowAlt /> : <BiSolidShow />}
+              </button>
             </div>
           </div>
-          <div className="relative px-6 py-2 flex-auto">
-            <div className="col-span-full w-3/3 md:w-2/3 ">
-              <div className=" flex justify-between ">
-                <div className="w-full ">
-                  <input
-                    placeholder=" New Password"
-                    disabled={isInputDisabled}
-                    type={showNewPassword ? 'text' : 'password'}
-                    name="newPassword"
-                    minLength={8}
-                    required
-                    value={password.newPassword}
-                    onChange={handlePassswordData}
-                    className="disabled:bg-gray-200 disabled:text-gray-400 appearance-none border-2 border-gray-200 rounded w-full py-2 px-2 text-gray-900 leading-tight focus:outline-none focus:bg-white focus:border-jade-500"
-                  />
-                </div>
-                <button
-                  type="button"
-                  className="text-2xl ml-2"
-                  onClick={() => {
-                    setShowNewPassword(!showNewPassword);
-                  }}
-                >
-                  {showNewPassword ? <BiShowAlt /> : <BiSolidShow />}
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="relative px-6  pb-8 flex-auto">
-            <div className="col-span-full w-3/3 md:w-2/3 ">
-              <div className=" flex justify-between ">
-                <div className="w-full ">
-                  <input
-                    placeholder="Confirm Password"
-                    minLength={8}
-                    required
-                    disabled={isInputDisabled}
-                    type={showConfirmNewPassword ? 'text' : 'password'}
-                    name="confirmNewPassword"
-                    value={password.confirmNewPassword}
-                    onChange={handlePassswordData}
-                    className="disabled:bg-gray-200 disabled:text-gray-400 appearance-none border-2 border-gray-200 rounded w-full py-2 px-2 text-gray-900 leading-tight focus:outline-none focus:bg-white focus:border-jade-500"
-                  />
-                </div>
-                <button
-                  type="button"
-                  className="text-2xl ml-2"
-                  onClick={() => {
-                    setShowConfirmNewPassword(!showConfirmNewPassword);
-                  }}
-                >
-                  {showConfirmNewPassword ? <BiShowAlt /> : <BiSolidShow />}
-                </button>
-              </div>
-            </div>
-          </div>
+
           {/*footer*/}
-          <div className="flex mb-2 items-center justify-end pt-4 pr-1 border-t border-solid border-gray-200 rounded-b">
+          <div
+            className={` flex mb-2 items-center justify-end pt-4 pr-1 border-t border-solid border-gray-200 rounded-b  ${
+              language != 'english' && 'flex-row-reverse '
+            }`}
+          >
             <button
               onClick={() => {
                 setShowModal(false);
